@@ -23,6 +23,12 @@ export default defineNuxtConfig({
     configPath: "~~/tailwind.config.ts",
   },
 
+  vite: {
+    optimizeDeps: {
+      include: ["@cui-universal/vue", "@cui-universal/theme", "lucide-vue-next"],
+    },
+  },
+
   app: {
     head: {
       title: "CUI Nuxt 3 Demo - Universal UI from Public npm",

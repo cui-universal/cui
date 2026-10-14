@@ -28,6 +28,8 @@ import {
   Layers,
   ArrowRight,
   ArrowLeft,
+  Edit3,
+  Eye,
 } from "lucide-vue-next";
 import { useCommerce } from "~/composables/useCommerce";
 

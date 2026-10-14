@@ -43,7 +43,8 @@ const toggleSelectOrder = (id: string) => {
 </script>
 
 <template>
-  <Table>
+  <div class="w-full">
+    <Table>
       <TableHeader>
         <TableRow>
           <TableHead class="w-12">
