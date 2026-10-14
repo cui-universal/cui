@@ -15,6 +15,25 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cui-universal/cui.git"
+  },
+  "homepage": "https://github.com/cui-universal/cui#readme",
+  "keywords": [
+    "cui",
+    "react",
+    "nextjs",
+    "ui",
+    "components",
+    "tailwind",
+    "accessible",
+    "shadcn"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

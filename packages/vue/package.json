@@ -20,6 +20,26 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cui-universal/cui.git"
+  },
+  "homepage": "https://github.com/cui-universal/cui#readme",
+  "keywords": [
+    "cui",
+    "vue",
+    "nuxt",
+    "nuxt3",
+    "ui",
+    "components",
+    "tailwind",
+    "accessible",
+    "nuxt-ui"
+  ],
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
