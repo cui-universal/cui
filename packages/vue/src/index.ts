@@ -85,6 +85,10 @@ import BreadcrumbItem from "./BreadcrumbItem.vue";
 import BreadcrumbLink from "./BreadcrumbLink.vue";
 import BreadcrumbSeparator from "./BreadcrumbSeparator.vue";
 import Pagination from "./Pagination.vue";
+import Timeline from "./Timeline.vue";
+import Rating from "./Rating.vue";
+import EmptyState from "./EmptyState.vue";
+import ColorPicker from "./ColorPicker.vue";
 
 export {
   Button,
@@ -172,6 +176,10 @@ export {
   BreadcrumbLink,
   BreadcrumbSeparator,
   Pagination,
+  Timeline,
+  Rating,
+  EmptyState,
+  ColorPicker,
 };
 
 export { cn } from "@cui-universal/theme";
@@ -262,6 +270,10 @@ export const components: Record<string, any> = {
   BreadcrumbLink,
   BreadcrumbSeparator,
   Pagination,
+  Timeline,
+  Rating,
+  EmptyState,
+  ColorPicker,
 };
 
 export const CUIPlugin: Plugin = {
