@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
+import { Primitive } from "./primitives";
 
 interface Props {
   asChild?: boolean;
@@ -17,7 +18,12 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button type="button" @click="handleClick">
+  <Primitive
+    :as="asChild ? undefined : 'button'"
+    :as-child="asChild"
+    :type="asChild ? undefined : 'button'"
+    @click="handleClick"
+  >
     <slot />
-  </button>
+  </Primitive>
 </template>

@@ -19,8 +19,9 @@ export function useDismissable(options: UseDismissableOptions) {
     if (!target) return;
 
     const elements = options.getElements?.() ?? [];
-    for (const el of elements) {
-      if (el && el.contains(target)) {
+    for (const rawEl of elements) {
+      const el = (rawEl as any)?.$el ?? rawEl;
+      if (el && typeof el.contains === "function" && el.contains(target)) {
         return;
       }
     }

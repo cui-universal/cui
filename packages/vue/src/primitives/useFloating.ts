@@ -50,9 +50,13 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
   const update = () => {
     if (!open.value || !anchor.value || !floating.value) return;
 
-    const a = anchor.value.getBoundingClientRect();
-    const w = floating.value.offsetWidth;
-    const h = floating.value.offsetHeight;
+    const anchorEl = (anchor.value as any)?.$el ?? anchor.value;
+    const floatingEl = (floating.value as any)?.$el ?? floating.value;
+    if (!anchorEl || !floatingEl || typeof anchorEl.getBoundingClientRect !== "function") return;
+
+    const a = anchorEl.getBoundingClientRect();
+    const w = floatingEl.offsetWidth || floatingEl.getBoundingClientRect?.().width || 0;
+    const h = floatingEl.offsetHeight || floatingEl.getBoundingClientRect?.().height || 0;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const pad = collisionPadding;

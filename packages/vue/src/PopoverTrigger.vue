@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from "vue";
+import { Primitive } from "./primitives";
 
 interface Props {
   asChild?: boolean;
@@ -7,7 +8,7 @@ interface Props {
 
 defineProps<Props>();
 
-const el = ref<HTMLElement | null>(null);
+const el = ref<any>(null);
 
 const popover = inject<{
   isOpen: Ref<boolean>;
@@ -17,7 +18,7 @@ const popover = inject<{
 
 onMounted(() => {
   if (popover && el.value) {
-    popover.triggerEl.value = el.value;
+    popover.triggerEl.value = el.value?.$el ?? el.value;
   }
 });
 
@@ -27,13 +28,15 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button
+  <Primitive
     ref="el"
-    type="button"
+    :as="asChild ? undefined : 'button'"
+    :as-child="asChild"
+    :type="asChild ? undefined : 'button'"
     :aria-expanded="popover?.isOpen.value"
     :data-state="popover?.isOpen.value ? 'open' : 'closed'"
     @click="handleClick"
   >
     <slot />
-  </button>
+  </Primitive>
 </template>

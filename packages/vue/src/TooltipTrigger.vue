@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from "vue";
+import { Primitive } from "./primitives";
 
 interface Props {
   asChild?: boolean;
@@ -7,7 +8,7 @@ interface Props {
 
 defineProps<Props>();
 
-const el = ref<HTMLElement | null>(null);
+const el = ref<any>(null);
 
 const tooltip = inject<{
   isOpen: Ref<boolean>;
@@ -17,7 +18,7 @@ const tooltip = inject<{
 
 onMounted(() => {
   if (tooltip && el.value) {
-    tooltip.triggerEl.value = el.value;
+    tooltip.triggerEl.value = el.value?.$el ?? el.value;
   }
 });
 
@@ -28,15 +29,17 @@ const onBlur = () => tooltip?.setOpen(false);
 </script>
 
 <template>
-  <span
+  <Primitive
     ref="el"
+    :as="asChild ? undefined : 'span'"
+    :as-child="asChild"
     tabindex="0"
-    class="inline-flex"
+    :class="!asChild && 'inline-flex'"
     @mouseenter="onMouseEnter"
     @mouseleave="onMouseLeave"
     @focus="onFocus"
     @blur="onBlur"
   >
     <slot />
-  </span>
+  </Primitive>
 </template>
