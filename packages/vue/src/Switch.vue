@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   defaultChecked: false,
   disabled: false,
   value: "on",
+  size: "sm",
 });
 
 const emit = defineEmits<{
@@ -33,9 +34,9 @@ const innerChecked = computed(() => {
   return props.defaultChecked;
 });
 
-const { root, thumb } = switchVariants({ size: props.size });
-const rootClasses = computed(() => cn(root(), props.class));
-const thumbClasses = computed(() => thumb());
+const variants = computed(() => switchVariants({ size: props.size }));
+const rootClasses = computed(() => cn(variants.value.root(), props.class));
+const thumbClasses = computed(() => variants.value.thumb());
 
 const toggle = () => {
   if (props.disabled) return;

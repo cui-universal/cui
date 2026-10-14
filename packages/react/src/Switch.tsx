@@ -17,7 +17,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   (
     {
       className,
-      size,
+      size = "sm",
       checked: checkedProp,
       defaultChecked = false,
       onCheckedChange,
