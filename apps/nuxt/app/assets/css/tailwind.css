@@ -22,6 +22,7 @@
 
 /* Card border & radius refinement */
 @layer components {
+
   /* Ensure card borders have crisp definition and respond dynamically to radius */
   .rounded-2xl.border,
   [class*="rounded-2xl"][class*="border"],
@@ -36,8 +37,8 @@
   .border .overflow-auto.rounded-lg.border,
   [class*="border"] .overflow-auto.border,
   [class*="border"] .overflow-auto.rounded-lg.border,
-  [class*="border"] > [class*="overflow-auto"],
-  [class*="border"] > div > [class*="overflow-auto"] {
+  [class*="border"]>[class*="overflow-auto"],
+  [class*="border"]>div>[class*="overflow-auto"] {
     border: 0 !important;
     border-radius: 0 !important;
   }

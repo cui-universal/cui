@@ -23,6 +23,14 @@ import {
   MessageSquare,
   MoreHorizontal,
   Share2,
+  Calendar,
+  Edit3,
+  Star,
+  Pipette,
+  ListOrdered,
+  Navigation,
+  Clock,
+  Inbox,
 } from "lucide-react";
 import type { ThemeColor, NavGroup } from "../types";
 
@@ -54,6 +62,10 @@ export const NAV_GROUPS: NavGroup[] = [
       { id: "switch", label: "Switch", icon: RefreshCw },
       { id: "select", label: "Select", icon: ChevronsUpDown, badge: "New" },
       { id: "radio", label: "Radio Group", icon: Radio, badge: "New" },
+      { id: "datepicker", label: "DatePicker", icon: Calendar, badge: "New" },
+      { id: "texteditor", label: "TextEditor", icon: Edit3, badge: "New" },
+      { id: "rating", label: "Rating", icon: Star, badge: "New" },
+      { id: "color-picker", label: "ColorPicker", icon: Pipette, badge: "New" },
     ],
   },
   {
@@ -62,6 +74,10 @@ export const NAV_GROUPS: NavGroup[] = [
       { id: "card", label: "Card", icon: Boxes },
       { id: "tabs", label: "Tabs", icon: Layers, badge: "New" },
       { id: "accordion", label: "Accordion", icon: ChevronRight, badge: "New" },
+      { id: "steps", label: "Steps (Stepper)", icon: ListOrdered, badge: "New" },
+      { id: "breadcrumb", label: "Breadcrumb", icon: Navigation, badge: "New" },
+      { id: "pagination", label: "Pagination", icon: MoreHorizontal, badge: "New" },
+      { id: "timeline", label: "Timeline", icon: Clock, badge: "New" },
       { id: "separator", label: "Separator", icon: Minus },
       { id: "table", label: "Table", icon: Table2, badge: "New" },
     ],
@@ -71,6 +87,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: "alert", label: "Alert", icon: AlertCircle },
       { id: "badge", label: "Badge", icon: Sparkles },
+      { id: "empty-state", label: "EmptyState", icon: Inbox, badge: "New" },
       { id: "progress", label: "Progress", icon: BarChart3, badge: "New" },
       { id: "skeleton", label: "Skeleton", icon: Bookmark, badge: "New" },
       { id: "tooltip", label: "Tooltip", icon: HelpCircle, badge: "New" },

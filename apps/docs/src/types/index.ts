@@ -28,7 +28,16 @@ export type Section =
   | "dropdown"
   | "radio"
   | "table"
-  | "kbd";
+  | "kbd"
+  | "steps"
+  | "datepicker"
+  | "texteditor"
+  | "breadcrumb"
+  | "pagination"
+  | "timeline"
+  | "empty-state"
+  | "rating"
+  | "color-picker";
 
 export interface ThemeColor {
   name: string;
