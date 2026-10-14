@@ -46,7 +46,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-background text-foreground transition-colors duration-200 flex flex-col antialiased">
+  <div class="min-h-screen md:h-screen md:overflow-hidden bg-background text-foreground transition-colors duration-200 flex flex-col antialiased">
     <!-- Top Global Notification Banner -->
     <div
       v-if="isToastVisible"
@@ -57,11 +57,11 @@ onMounted(() => {
     </div>
 
     <!-- Main Layout Shell -->
-    <div class="flex-1 flex flex-col md:flex-row">
-      <!-- Sidebar Navigation -->
-      <aside class="w-full md:w-64 border-b md:border-b-0 md:border-r border-border/70 bg-card/40 backdrop-blur-xl flex flex-col shrink-0">
+    <div class="flex-1 flex flex-col md:flex-row md:overflow-hidden min-h-0">
+      <!-- Sidebar Navigation: Fixed to viewport height, does not scroll with content -->
+      <aside class="w-full md:w-64 md:h-full md:sticky md:top-0 border-b md:border-b-0 md:border-r border-border/70 bg-card/40 backdrop-blur-xl flex flex-col shrink-0 z-20">
         <!-- Brand Header -->
-        <div class="h-16 px-5 border-b border-border/60 flex items-center justify-between">
+        <div class="h-16 px-5 border-b border-border/60 flex items-center justify-between shrink-0">
           <NuxtLink to="/" class="flex items-center gap-3">
             <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-md shadow-indigo-500/20 text-white font-black text-sm tracking-tighter">
               CUI
@@ -203,10 +203,10 @@ onMounted(() => {
         </div>
       </aside>
 
-      <!-- Main Content Area -->
-      <div class="flex-1 flex flex-col min-w-0">
-        <!-- Top App Bar -->
-        <header class="h-16 px-6 border-b border-border/70 bg-background/80 backdrop-blur-xl flex items-center justify-between sticky top-0 z-30">
+      <!-- Main Content Column: Fixed header + independent scrollable content area -->
+      <div class="flex-1 flex flex-col min-w-0 md:h-full md:overflow-hidden">
+        <!-- Top App Bar: Pinned at top of content area -->
+        <header class="h-16 px-6 border-b border-border/70 bg-background/80 backdrop-blur-xl flex items-center justify-between shrink-0 z-10">
           <div class="flex items-center gap-4 flex-1 max-w-md">
             <div class="relative w-full">
               <Search class="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
@@ -262,10 +262,12 @@ onMounted(() => {
           </div>
         </header>
 
-        <!-- Dynamic Page View -->
-        <main class="flex-1 p-6 sm:p-8 space-y-8 max-w-7xl w-full mx-auto">
-          <slot />
-        </main>
+        <!-- Independent Scroll Container for Page View -->
+        <div class="flex-1 overflow-y-auto min-h-0">
+          <main class="p-6 sm:p-8 space-y-8 max-w-7xl w-full mx-auto">
+            <slot />
+          </main>
+        </div>
       </div>
     </div>
   </div>
