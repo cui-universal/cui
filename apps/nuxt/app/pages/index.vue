@@ -84,7 +84,7 @@ useHead({
 
     <!-- Recent Orders Table Section -->
     <Card>
-      <CardHeader>
+      <!-- <CardHeader>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <CardTitle>Recent Orders</CardTitle>
@@ -98,7 +98,7 @@ useHead({
             </NuxtLink>
           </div>
         </div>
-      </CardHeader>
+      </CardHeader> -->
       <CardContent class="p-0">
         <OrdersTable />
       </CardContent>

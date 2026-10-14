@@ -11,6 +11,7 @@ export default <Partial<Config>>{
   presets: [cuiTailwindPreset],
   darkMode: ["class"],
   content: [
+    "./app/**/*.{vue,js,ts}",
     "./components/**/*.{vue,js,ts}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
