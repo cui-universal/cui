@@ -10,7 +10,7 @@ export const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRe
   const { children, ...slotProps } = props;
 
   if (React.isValidElement(children)) {
-    const childRef = (children as any).ref;
+    const childRef = (children as any).props?.ref ?? (children as any).ref;
     return React.cloneElement<any>(children, {
       ...mergeProps(slotProps, children.props as Record<string, any>),
       ref: forwardedRef ? composeRefs(forwardedRef, childRef) : childRef,

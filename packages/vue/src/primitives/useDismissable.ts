@@ -1,4 +1,5 @@
 import { onMounted, onUnmounted, type Ref } from "vue";
+import { resolveElement } from "./useFloating";
 
 export interface UseDismissableOptions {
   enabled?: Ref<boolean> | boolean;
@@ -20,7 +21,7 @@ export function useDismissable(options: UseDismissableOptions) {
 
     const elements = options.getElements?.() ?? [];
     for (const rawEl of elements) {
-      const el = (rawEl as any)?.$el ?? rawEl;
+      const el = resolveElement(rawEl);
       if (el && typeof el.contains === "function" && el.contains(target)) {
         return;
       }

@@ -32,15 +32,22 @@ export function useFloatingPosition({
   alignOffset = 0,
   collisionPadding = 8,
 }: FloatingPositionOptions) {
-  const [state, setState] = React.useState({ x: 0, y: 0, side, anchorWidth: 0, anchorHeight: 0 });
+  const [state, setState] = React.useState({
+    x: 0,
+    y: 0,
+    side,
+    anchorWidth: 0,
+    anchorHeight: 0,
+    positioned: false,
+  });
 
   const update = React.useCallback(() => {
     if (!open || !anchor || !floating) return;
 
     const a = anchor.getBoundingClientRect();
     // offsetWidth/Height ignore transforms from enter animations.
-    const w = floating.offsetWidth;
-    const h = floating.offsetHeight;
+    const w = floating.offsetWidth || floating.getBoundingClientRect?.().width || 0;
+    const h = floating.offsetHeight || floating.getBoundingClientRect?.().height || 0;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const pad = collisionPadding;
@@ -75,14 +82,17 @@ export function useFloatingPosition({
 
     setState((prev) =>
       prev.x === x && prev.y === y && prev.side === actual &&
-      prev.anchorWidth === a.width && prev.anchorHeight === a.height
+      prev.anchorWidth === a.width && prev.anchorHeight === a.height && prev.positioned
         ? prev
-        : { x, y, side: actual, anchorWidth: a.width, anchorHeight: a.height }
+        : { x, y, side: actual, anchorWidth: a.width, anchorHeight: a.height, positioned: true }
     );
   }, [open, anchor, floating, side, align, sideOffset, alignOffset, collisionPadding]);
 
   React.useLayoutEffect(() => {
-    if (!open || !anchor || !floating) return;
+    if (!open || !anchor || !floating) {
+      setState((prev) => (prev.positioned ? { ...prev, positioned: false } : prev));
+      return;
+    }
     update();
 
     window.addEventListener("resize", update);
@@ -101,10 +111,9 @@ export function useFloatingPosition({
   return {
     floatingStyles: {
       position: "fixed" as const,
-      left: 0,
-      top: 0,
-      transform: undefined,
-      translate: `${Math.round(state.x)}px ${Math.round(state.y)}px`,
+      left: `${Math.round(state.x)}px`,
+      top: `${Math.round(state.y)}px`,
+      visibility: state.positioned ? undefined : ("hidden" as const),
       "--cui-anchor-width": `${state.anchorWidth}px`,
       "--cui-anchor-height": `${state.anchorHeight}px`,
     } as React.CSSProperties,

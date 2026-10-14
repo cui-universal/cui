@@ -68,7 +68,12 @@ export const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTrigger
         aria-expanded={ctx.open}
         aria-controls={ctx.open ? ctx.contentId : undefined}
         data-state={ctx.open ? "open" : "closed"}
-        onClick={composeEventHandlers(onClick, () => ctx.setOpen((prev) => !prev))}
+        onClick={composeEventHandlers(onClick, (e: React.MouseEvent<HTMLButtonElement>) => {
+          if (!ctx.trigger && e.currentTarget) {
+            ctx.setTrigger(e.currentTarget);
+          }
+          ctx.setOpen((prev) => !prev);
+        })}
         {...props}
       />
     );

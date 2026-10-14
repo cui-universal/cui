@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from "vue";
-import { Primitive } from "./primitives";
+import { Primitive, resolveElement } from "./primitives";
 
 interface Props {
   asChild?: boolean;
@@ -18,12 +18,17 @@ const popover = inject<{
 
 onMounted(() => {
   if (popover && el.value) {
-    popover.triggerEl.value = el.value?.$el ?? el.value;
+    popover.triggerEl.value = resolveElement(el.value);
   }
 });
 
-const handleClick = () => {
-  popover?.toggleOpen();
+const handleClick = (e: MouseEvent) => {
+  if (popover) {
+    if (!popover.triggerEl.value) {
+      popover.triggerEl.value = (e.currentTarget as HTMLElement) || resolveElement(el.value);
+    }
+    popover.toggleOpen();
+  }
 };
 </script>
 

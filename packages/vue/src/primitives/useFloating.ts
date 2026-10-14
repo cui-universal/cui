@@ -27,6 +27,13 @@ export interface UseFloatingReturn {
   update: () => void;
 }
 
+export function resolveElement(target: any): HTMLElement | null {
+  if (!target) return null;
+  if (typeof HTMLElement !== "undefined" && target instanceof HTMLElement) return target;
+  if (target.$el) return resolveElement(target.$el);
+  return null;
+}
+
 export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
   const {
     anchor,
@@ -39,19 +46,22 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
     collisionPadding = 8,
   } = options;
 
+  const isPositioned = ref(false);
+
   const floatingStyles = ref<CSSProperties>({
     position: "fixed",
     left: "0px",
     top: "0px",
     zIndex: 50,
+    visibility: "hidden",
   });
   const currentSide = ref<Side>(side);
 
   const update = () => {
     if (!open.value || !anchor.value || !floating.value) return;
 
-    const anchorEl = (anchor.value as any)?.$el ?? anchor.value;
-    const floatingEl = (floating.value as any)?.$el ?? floating.value;
+    const anchorEl = resolveElement(anchor.value);
+    const floatingEl = resolveElement(floating.value);
     if (!anchorEl || !floatingEl || typeof anchorEl.getBoundingClientRect !== "function") return;
 
     const a = anchorEl.getBoundingClientRect();
@@ -95,14 +105,32 @@ export function useFloating(options: UseFloatingOptions): UseFloatingReturn {
       left: `${Math.round(x)}px`,
       top: `${Math.round(y)}px`,
       zIndex: 50,
+      visibility: "visible",
     };
+    isPositioned.value = true;
   };
 
-  watch([open, anchor, floating], () => {
-    if (open.value) {
-      setTimeout(update, 0);
-    }
-  });
+  watch(
+    [open, anchor, floating],
+    () => {
+      if (open.value) {
+        update();
+        if (typeof requestAnimationFrame !== "undefined") {
+          requestAnimationFrame(update);
+        }
+      } else {
+        isPositioned.value = false;
+        floatingStyles.value = {
+          position: "fixed",
+          left: "0px",
+          top: "0px",
+          zIndex: 50,
+          visibility: "hidden",
+        };
+      }
+    },
+    { flush: "post" }
+  );
 
   onMounted(() => {
     window.addEventListener("resize", update);

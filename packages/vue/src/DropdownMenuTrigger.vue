@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from "vue";
-import { Primitive } from "./primitives";
+import { Primitive, resolveElement } from "./primitives";
 
 interface Props {
   asChild?: boolean;
@@ -18,12 +18,17 @@ const menu = inject<{
 
 onMounted(() => {
   if (menu && el.value) {
-    menu.triggerEl.value = el.value?.$el ?? el.value;
+    menu.triggerEl.value = resolveElement(el.value);
   }
 });
 
-const handleClick = () => {
-  menu?.toggleOpen();
+const handleClick = (e: MouseEvent) => {
+  if (menu) {
+    if (!menu.triggerEl.value) {
+      menu.triggerEl.value = (e.currentTarget as HTMLElement) || resolveElement(el.value);
+    }
+    menu.toggleOpen();
+  }
 };
 </script>
 

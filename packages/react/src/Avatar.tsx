@@ -67,6 +67,16 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
         onLoadingStatusChange?.("error");
       };
 
+      if (img.complete) {
+        if (img.naturalWidth > 0) {
+          context?.setStatus("loaded");
+          onLoadingStatusChange?.("loaded");
+        } else {
+          context?.setStatus("error");
+          onLoadingStatusChange?.("error");
+        }
+      }
+
       return () => {
         isMounted = false;
       };

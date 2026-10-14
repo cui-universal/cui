@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from "vue";
+import { computed, inject, ref, onMounted, watch } from "vue";
 import { avatarVariants, cn } from "@cui-universal/theme";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const imgRef = ref<HTMLImageElement | null>(null);
 
 const avatar = inject<{
   imageLoaded: { value: boolean };
@@ -16,6 +17,24 @@ const avatar = inject<{
   setImageLoaded: (v: boolean) => void;
   setImageFailed: (v: boolean) => void;
 } | null>("cui-avatar", null);
+
+const checkStatus = () => {
+  if (!props.src) {
+    avatar?.setImageLoaded(false);
+    avatar?.setImageFailed(true);
+    return;
+  }
+  const el = imgRef.value;
+  if (el && el.complete) {
+    if (el.naturalWidth > 0) {
+      avatar?.setImageLoaded(true);
+      avatar?.setImageFailed(false);
+    } else {
+      avatar?.setImageLoaded(false);
+      avatar?.setImageFailed(true);
+    }
+  }
+};
 
 const onLoad = () => {
   avatar?.setImageLoaded(true);
@@ -27,6 +46,23 @@ const onError = () => {
   avatar?.setImageFailed(true);
 };
 
+onMounted(() => {
+  checkStatus();
+});
+
+watch(
+  () => props.src,
+  (newSrc) => {
+    if (!newSrc) {
+      onError();
+    } else {
+      avatar?.setImageLoaded(false);
+      avatar?.setImageFailed(false);
+      setTimeout(checkStatus, 0);
+    }
+  }
+);
+
 const classes = computed(() => {
   const { image } = avatarVariants();
   return cn(image(), props.class);
@@ -36,6 +72,8 @@ const classes = computed(() => {
 <template>
   <img
     v-if="!avatar?.imageFailed?.value"
+    v-show="avatar?.imageLoaded?.value"
+    ref="imgRef"
     :src="src"
     :alt="alt"
     :class="classes"
