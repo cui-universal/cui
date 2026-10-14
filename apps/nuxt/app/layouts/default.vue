@@ -30,6 +30,7 @@ import {
   Download,
   CheckCircle2,
   Store,
+  Layers,
 } from "lucide-vue-next";
 
 import { useCommerce } from "~/composables/useCommerce";
@@ -147,6 +148,22 @@ onMounted(() => {
               <Users class="h-4 w-4" />
               <span>Customers</span>
             </div>
+          </NuxtLink>
+
+          <NuxtLink
+            to="/components"
+            :class="[
+              'w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer',
+              route.path === '/components'
+                ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/25'
+                : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60',
+            ]"
+          >
+            <div class="flex items-center gap-3">
+              <Layers class="h-4 w-4" />
+              <span>UI Components</span>
+            </div>
+            <Badge variant="default" class="text-[9px] px-1.5 py-0 h-4 font-mono font-bold">NEW</Badge>
           </NuxtLink>
 
           <NuxtLink

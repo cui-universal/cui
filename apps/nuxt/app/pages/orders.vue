@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { Button, Card, CardContent } from "@cui-universal/vue";
+import { ref } from "vue";
+import { Button, Card, CardContent, DatePicker } from "@cui-universal/vue";
 import { Filter, Truck } from "lucide-vue-next";
 import OrdersTable from "~/components/orders/OrdersTable.vue";
 import { useCommerce } from "~/composables/useCommerce";
 
 const { showToast } = useCommerce();
+const selectedDate = ref("");
 
 useHead({
   title: "Orders Fulfillment - CUI Commerce Admin",
@@ -20,10 +22,17 @@ useHead({
           Manage order verification, packaging, and dispatch tracking.
         </p>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="w-40 sm:w-44">
+          <DatePicker
+            v-model="selectedDate"
+            placeholder="Filter by date"
+            @change="(d) => d && showToast(`Showing orders for ${d}`)"
+          />
+        </div>
         <Button variant="outline" size="sm" class="gap-1.5" @click="showToast('Filtering options applied!')">
           <Filter class="h-3.5 w-3.5" />
-          <span>Filter Status</span>
+          <span>Filter</span>
         </Button>
         <Button size="sm" class="gap-1.5" @click="showToast('Batch shipping queued for selected orders!')">
           <Truck class="h-3.5 w-3.5" />

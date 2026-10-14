@@ -77,6 +77,14 @@ import TableRow from "./TableRow.vue";
 import TableHead from "./TableHead.vue";
 import TableCell from "./TableCell.vue";
 import TableCaption from "./TableCaption.vue";
+import Steps from "./Steps.vue";
+import DatePicker from "./DatePicker.vue";
+import TextEditor from "./TextEditor.vue";
+import Breadcrumb from "./Breadcrumb.vue";
+import BreadcrumbItem from "./BreadcrumbItem.vue";
+import BreadcrumbLink from "./BreadcrumbLink.vue";
+import BreadcrumbSeparator from "./BreadcrumbSeparator.vue";
+import Pagination from "./Pagination.vue";
 
 export {
   Button,
@@ -156,6 +164,14 @@ export {
   TableHead,
   TableCell,
   TableCaption,
+  Steps,
+  DatePicker,
+  TextEditor,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  Pagination,
 };
 
 export { cn } from "@cui-universal/theme";
@@ -238,6 +254,14 @@ export const components: Record<string, any> = {
   TableHead,
   TableCell,
   TableCaption,
+  Steps,
+  DatePicker,
+  TextEditor,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  Pagination,
 };
 
 export const CUIPlugin: Plugin = {

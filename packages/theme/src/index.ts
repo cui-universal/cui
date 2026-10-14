@@ -22,3 +22,8 @@ export * from "./components/kbd";
 export * from "./components/popover";
 export * from "./components/select";
 export * from "./components/dropdown-menu";
+export * from "./components/steps";
+export * from "./components/datepicker";
+export * from "./components/texteditor";
+export * from "./components/breadcrumb";
+export * from "./components/pagination";

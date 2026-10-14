@@ -3,7 +3,7 @@ import { ref } from "vue";
 import {
   Button,
   Input,
-  Textarea,
+  TextEditor,
   Switch,
   Dialog,
   DialogTrigger,
@@ -105,8 +105,8 @@ const handleSave = () => {
         </div>
 
         <div class="space-y-1.5">
-          <label class="text-xs font-semibold text-muted-foreground">Description</label>
-          <Textarea v-model="form.description" placeholder="Brief technical summary..." rows="2" />
+          <label class="text-xs font-semibold text-muted-foreground">Product Description</label>
+          <TextEditor v-model="form.description" placeholder="Write markdown overview, key specs, materials..." :rows="3" />
         </div>
 
         <div class="flex items-center justify-between p-3 rounded-xl border border-border/80 bg-secondary/30">

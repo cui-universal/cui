@@ -17,11 +17,13 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
+  Pagination,
 } from "@cui-universal/vue";
 import { MoreVertical, Eye, Truck, Download } from "lucide-vue-next";
 import { useCommerce } from "~/composables/useCommerce";
 
 const { filteredOrders, selectedOrders, showToast, updateOrderStatus } = useCommerce();
+const currentPage = ref(1);
 
 const toggleSelectAll = (checked: boolean) => {
   if (checked) {
@@ -115,4 +117,15 @@ const toggleSelectOrder = (id: string) => {
         </TableRow>
       </TableBody>
     </Table>
+
+    <!-- Table Pagination Footer -->
+    <div class="flex flex-col sm:flex-row items-center justify-between p-3.5 border-t border-border/60 gap-3">
+      <span class="text-xs text-muted-foreground">
+        Showing 1 to {{ filteredOrders.length }} of 24 recorded orders
+      </span>
+      <div class="w-auto">
+        <Pagination v-model="currentPage" :total-pages="4" @change="(p) => showToast(`Loaded orders page ${p}`)" />
+      </div>
+    </div>
+  </div>
 </template>
