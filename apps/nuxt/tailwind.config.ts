@@ -25,6 +25,14 @@ export default <Partial<Config>>{
         sans: ["Plus Jakarta Sans", "system-ui", "-apple-system", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
+      borderRadius: {
+        "3xl": "calc(var(--radius) * 1.5)",
+        "2xl": "var(--radius)",
+        xl: "var(--radius)",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) * 0.75)",
+        sm: "calc(var(--radius) * 0.5)",
+      },
     },
   },
 };
