@@ -1,0 +1,89 @@
+import {
+  Compass,
+  Terminal,
+  Palette,
+  Play,
+  Sliders,
+  FileText,
+  CheckSquare,
+  RefreshCw,
+  ChevronsUpDown,
+  Radio,
+  Boxes,
+  Layers,
+  ChevronRight,
+  Minus,
+  Table2,
+  AlertCircle,
+  Sparkles,
+  BarChart3,
+  Bookmark,
+  HelpCircle,
+  Command,
+  MessageSquare,
+  MoreHorizontal,
+  Share2,
+} from "lucide-react";
+import type { ThemeColor, NavGroup } from "../types";
+
+export const THEME_COLORS: ThemeColor[] = [
+  { name: "Violet", primary: "262.1 83.3% 57.8%", ring: "262.1 83.3% 57.8%" },
+  { name: "Indigo", primary: "239 84% 67%", ring: "239 84% 67%" },
+  { name: "Emerald", primary: "158 64% 45%", ring: "158 64% 45%" },
+  { name: "Rose", primary: "346.8 77.2% 49.8%", ring: "346.8 77.2% 49.8%" },
+  { name: "Amber", primary: "38 92% 50%", ring: "38 92% 50%" },
+  { name: "Sky", primary: "199 89% 48%", ring: "199 89% 48%" },
+];
+
+export const NAV_GROUPS: NavGroup[] = [
+  {
+    category: "Getting Started",
+    items: [
+      { id: "intro", label: "Introduction", icon: Compass },
+      { id: "installation", label: "Installation", icon: Terminal },
+      { id: "theming", label: "Theming & Tokens", icon: Palette },
+    ],
+  },
+  {
+    category: "Form Controls",
+    items: [
+      { id: "button", label: "Button", icon: Play, count: "7 styles" },
+      { id: "input", label: "Input", icon: Sliders },
+      { id: "textarea", label: "Textarea", icon: FileText },
+      { id: "checkbox", label: "Checkbox", icon: CheckSquare },
+      { id: "switch", label: "Switch", icon: RefreshCw },
+      { id: "select", label: "Select", icon: ChevronsUpDown, badge: "New" },
+      { id: "radio", label: "Radio Group", icon: Radio, badge: "New" },
+    ],
+  },
+  {
+    category: "Layout & Disclosure",
+    items: [
+      { id: "card", label: "Card", icon: Boxes },
+      { id: "tabs", label: "Tabs", icon: Layers, badge: "New" },
+      { id: "accordion", label: "Accordion", icon: ChevronRight, badge: "New" },
+      { id: "separator", label: "Separator", icon: Minus },
+      { id: "table", label: "Table", icon: Table2, badge: "New" },
+    ],
+  },
+  {
+    category: "Feedback & Status",
+    items: [
+      { id: "alert", label: "Alert", icon: AlertCircle },
+      { id: "badge", label: "Badge", icon: Sparkles },
+      { id: "progress", label: "Progress", icon: BarChart3, badge: "New" },
+      { id: "skeleton", label: "Skeleton", icon: Bookmark, badge: "New" },
+      { id: "tooltip", label: "Tooltip", icon: HelpCircle, badge: "New" },
+      { id: "kbd", label: "Kbd", icon: Command, badge: "New" },
+    ],
+  },
+  {
+    category: "Overlays & Identity",
+    items: [
+      { id: "dialog", label: "Dialog (Modal)", icon: Layers, badge: "Modal" },
+      { id: "popover", label: "Popover", icon: MessageSquare, badge: "New" },
+      { id: "dropdown", label: "Dropdown Menu", icon: MoreHorizontal, badge: "New" },
+      { id: "avatar", label: "Avatar", icon: Share2 },
+    ],
+  },
+];
