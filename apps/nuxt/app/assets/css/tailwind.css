@@ -30,6 +30,17 @@
     border-radius: var(--radius);
     border-color: hsl(var(--border));
   }
+
+  /* Prevent double border when Table is inside Card or any bordered container */
+  .border .overflow-auto.border,
+  .border .overflow-auto.rounded-lg.border,
+  [class*="border"] .overflow-auto.border,
+  [class*="border"] .overflow-auto.rounded-lg.border,
+  [class*="border"] > [class*="overflow-auto"],
+  [class*="border"] > div > [class*="overflow-auto"] {
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
 }
 
 body {

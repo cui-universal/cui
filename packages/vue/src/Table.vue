@@ -4,7 +4,7 @@ const props = defineProps<{ class?: string }>();
 </script>
 
 <template>
-  <div class="relative w-full overflow-auto rounded-lg border border-border">
+  <div class="relative w-full overflow-auto">
     <table :class="cn(tableVariants(), props.class)">
       <slot />
     </table>

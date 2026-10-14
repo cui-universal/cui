@@ -15,7 +15,7 @@ export const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto rounded-lg border border-border">
+  <div className="relative w-full overflow-auto">
     <table
       ref={ref}
       className={cn(tableVariants(), className)}

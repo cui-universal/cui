@@ -41,8 +41,7 @@ const toggleSelectOrder = (id: string) => {
 </script>
 
 <template>
-  <div class="overflow-x-auto">
-    <Table>
+  <Table>
       <TableHeader>
         <TableRow>
           <TableHead class="w-12">
@@ -116,5 +115,4 @@ const toggleSelectOrder = (id: string) => {
         </TableRow>
       </TableBody>
     </Table>
-  </div>
 </template>

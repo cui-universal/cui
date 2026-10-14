@@ -45,8 +45,7 @@ const getStockBadgeVariant = (stock: number) => {
 </script>
 
 <template>
-  <div class="overflow-x-auto">
-    <Table>
+  <Table>
       <TableHeader>
         <TableRow>
           <TableHead class="w-12">
@@ -160,5 +159,4 @@ const getStockBadgeVariant = (stock: number) => {
         </TableRow>
       </TableBody>
     </Table>
-  </div>
 </template>

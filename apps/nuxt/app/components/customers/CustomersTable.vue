@@ -57,8 +57,7 @@ const getCustomerBadgeVariant = (status: Customer["status"]) => {
 </script>
 
 <template>
-  <div class="overflow-x-auto">
-    <Table>
+  <Table>
       <TableHeader>
         <TableRow>
           <TableHead class="w-12">
@@ -164,5 +163,4 @@ const getCustomerBadgeVariant = (status: Customer["status"]) => {
         </TableRow>
       </TableBody>
     </Table>
-  </div>
 </template>
