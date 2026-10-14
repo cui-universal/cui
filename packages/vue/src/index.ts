@@ -158,7 +158,7 @@ export {
   TableCaption,
 };
 
-export { cn } from "@cui/theme";
+export { cn } from "@cui-universal/theme";
 
 export const components: Record<string, any> = {
   Button,

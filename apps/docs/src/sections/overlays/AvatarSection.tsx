@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, AvatarImage, AvatarFallback } from "@cui/react";
+import { Avatar, AvatarImage, AvatarFallback } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -61,14 +61,14 @@ export function AvatarSection() {
 
       <CodeBlock
         id="code-avatar"
-        reactCode={`import { Avatar, AvatarImage, AvatarFallback } from "@cui/react";
+        reactCode={`import { Avatar, AvatarImage, AvatarFallback } from "@cui-universal/react";
 
 <Avatar size="${avatarSize}">
   <AvatarImage src="/avatar.jpg" alt="User" />
   <AvatarFallback>CU</AvatarFallback>
 </Avatar>`}
         vueCode={`<script setup lang="ts">
-import { Avatar, AvatarImage, AvatarFallback } from "@cui/vue";
+import { Avatar, AvatarImage, AvatarFallback } from "@cui-universal/vue";
 </script>
 
 <template>

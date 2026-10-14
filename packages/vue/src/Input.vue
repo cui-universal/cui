@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { inputVariants, type InputVariants, cn } from "@cui/theme";
+import { inputVariants, type InputVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   modelValue?: string | number;

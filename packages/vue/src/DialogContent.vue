@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from "vue";
-import { dialogVariants, cn } from "@cui/theme";
+import { dialogVariants, cn } from "@cui-universal/theme";
 import { X } from "lucide-vue-next";
 import { useDismissable } from "./primitives";
 

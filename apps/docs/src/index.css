@@ -1,4 +1,4 @@
-@import "@cui/theme/styles.css";
+@import "@cui-universal/theme/styles.css";
 
 @tailwind base;
 @tailwind components;

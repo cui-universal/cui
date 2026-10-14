@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, type Ref } from "vue";
 import { Check } from "lucide-vue-next";
-import { selectItemVariants, cn } from "@cui/theme";
+import { selectItemVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   value: string;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@cui/react";
+import { Button } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -121,7 +121,7 @@ export function ButtonSection() {
       {/* Code Snippet */}
       <CodeBlock
         id="code-btn"
-        reactCode={`import { Button } from "@cui/react";
+        reactCode={`import { Button } from "@cui-universal/react";
 
 <Button
   variant="${btnVariant}"
@@ -130,7 +130,7 @@ export function ButtonSection() {
   ${btnText}
 </Button>`}
         vueCode={`<script setup lang="ts">
-import { Button } from "@cui/vue";
+import { Button } from "@cui-universal/vue";
 </script>
 
 <template>

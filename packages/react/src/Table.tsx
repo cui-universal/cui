@@ -9,7 +9,7 @@ import {
   tableFooterVariants,
   tableCaptionVariants,
   cn,
-} from "@cui/theme";
+} from "@cui-universal/theme";
 
 export const Table = React.forwardRef<
   HTMLTableElement,

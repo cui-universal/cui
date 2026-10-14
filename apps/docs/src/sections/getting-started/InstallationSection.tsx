@@ -9,7 +9,7 @@ import {
   Boxes,
   Zap,
 } from "lucide-react";
-import { Button, Badge, Card, CardHeader, CardTitle, CardDescription, CardContent } from "@cui/react";
+import { Button, Badge, Card, CardHeader, CardTitle, CardDescription, CardContent } from "@cui-universal/react";
 import { useDocs } from "../../context/DocsContext";
 import { CodeBlock } from "../../components/CodeBlock";
 import type { PackageManager } from "../../types";
@@ -106,10 +106,10 @@ export function InstallationSection() {
             <CodeBlock
               id="next-install"
               commands={{
-                pnpm: "pnpm add @cui/react @cui/theme",
-                npm: "npm install @cui/react @cui/theme",
-                yarn: "yarn add @cui/react @cui/theme",
-                bun: "bun add @cui/react @cui/theme",
+                pnpm: "pnpm add @cui-universal/react @cui-universal/theme",
+                npm: "npm install @cui-universal/react @cui-universal/theme",
+                yarn: "yarn add @cui-universal/react @cui-universal/theme",
+                bun: "bun add @cui-universal/react @cui-universal/theme",
               }}
             />
           </div>
@@ -131,7 +131,7 @@ export function InstallationSection() {
               id="next-tailwind"
               filename="tailwind.config.ts"
               code={`import type { Config } from "tailwindcss";
-import { cuiTailwindPreset } from "@cui/theme";
+import { cuiTailwindPreset } from "@cui-universal/theme";
 
 const config: Config = {
   // 1. Inherit all CUI color tokens, dark mode classes & keyframe animations
@@ -140,8 +140,8 @@ const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    // 2. Scan @cui/react bundle for all utility classes
-    "./node_modules/@cui/react/dist/**/*.{js,mjs}",
+    // 2. Scan @cui-universal/react bundle for all utility classes
+    "./node_modules/@cui-universal/react/dist/**/*.{js,mjs}",
   ],
   theme: {
     extend: {},
@@ -170,7 +170,7 @@ export default config;`}
               id="next-css"
               filename="app/layout.tsx"
               code={`// 1. Import base theme variables and utilities
-import "@cui/theme/styles.css";
+import "@cui-universal/theme/styles.css";
 import "./globals.css";
 
 export const metadata = {
@@ -210,7 +210,7 @@ export default function RootLayout({
             <CodeBlock
               id="next-usage"
               filename="app/page.tsx"
-              code={`import { Button, Badge, Card, CardHeader, CardTitle, CardContent } from "@cui/react";
+              code={`import { Button, Badge, Card, CardHeader, CardTitle, CardContent } from "@cui-universal/react";
 import { Sparkles, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
@@ -259,10 +259,10 @@ export default function HomePage() {
             <CodeBlock
               id="nuxt-install"
               commands={{
-                pnpm: "pnpm add @cui/vue @cui/theme",
-                npm: "npm install @cui/vue @cui/theme",
-                yarn: "yarn add @cui/vue @cui/theme",
-                bun: "bun add @cui/vue @cui/theme",
+                pnpm: "pnpm add @cui-universal/vue @cui-universal/theme",
+                npm: "npm install @cui-universal/vue @cui-universal/theme",
+                yarn: "yarn add @cui-universal/vue @cui-universal/theme",
+                bun: "bun add @cui-universal/vue @cui-universal/theme",
               }}
             />
           </div>
@@ -276,7 +276,7 @@ export default function HomePage() {
               <div>
                 <h2 className="text-base font-bold text-foreground">Configure Nuxt 3 (<code className="font-mono text-primary font-semibold">nuxt.config.ts</code>)</h2>
                 <p className="text-xs text-muted-foreground">
-                  Register the built-in <code className="font-mono text-primary font-semibold">@cui/vue/nuxt</code> module and Tailwind CSS.
+                  Register the built-in <code className="font-mono text-primary font-semibold">@cui-universal/vue/nuxt</code> module and Tailwind CSS.
                 </p>
               </div>
             </div>
@@ -285,14 +285,14 @@ export default function HomePage() {
               filename="nuxt.config.ts"
               code={`// nuxt.config.ts
 export default defineNuxtConfig({
-  // 1. Auto-injects @cui/theme styles and configuration into Nuxt
+  // 1. Auto-injects @cui-universal/theme styles and configuration into Nuxt
   modules: [
-    "@cui/vue/nuxt",
+    "@cui-universal/vue/nuxt",
     "@nuxtjs/tailwindcss",
   ],
   css: [
     // Alternatively specify directly:
-    // "@cui/theme/styles.css",
+    // "@cui-universal/theme/styles.css",
   ],
   devtools: { enabled: true },
 });`}
@@ -316,7 +316,7 @@ export default defineNuxtConfig({
               id="nuxt-tailwind"
               filename="tailwind.config.ts"
               code={`import type { Config } from "tailwindcss";
-import { cuiTailwindPreset } from "@cui/theme";
+import { cuiTailwindPreset } from "@cui-universal/theme";
 
 export default <Partial<Config>>{
   // 1. Inherit all CUI color tokens, dark mode classes & keyframe animations
@@ -327,8 +327,8 @@ export default <Partial<Config>>{
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
     "./app.vue",
-    // 2. Scan @cui/vue distribution files
-    "./node_modules/@cui/vue/dist/**/*.{js,cjs}",
+    // 2. Scan @cui-universal/vue distribution files
+    "./node_modules/@cui-universal/vue/dist/**/*.{js,cjs}",
   ],
 };`}
             />
@@ -351,7 +351,7 @@ export default <Partial<Config>>{
               id="nuxt-usage"
               filename="app.vue"
               vueCode={`<script setup lang="ts">
-import { Button, Badge, Card, CardHeader, CardTitle, CardContent } from "@cui/vue";
+import { Button, Badge, Card, CardHeader, CardTitle, CardContent } from "@cui-universal/vue";
 import { ArrowRight } from "lucide-vue-next";
 </script>
 

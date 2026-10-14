@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from "vue";
-import { tooltipVariants, cn } from "@cui/theme";
+import { tooltipVariants, cn } from "@cui-universal/theme";
 import { useFloating, type Side, type Align } from "./primitives";
 
 interface Props {

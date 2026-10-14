@@ -20,4 +20,4 @@ export * from "./DropdownMenu";
 export * from "./RadioGroup";
 export * from "./Table";
 export * from "./Kbd";
-export { cn } from "@cui/theme";
+export { cn } from "@cui-universal/theme";

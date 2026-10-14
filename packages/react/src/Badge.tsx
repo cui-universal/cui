@@ -1,5 +1,5 @@
 import * as React from "react";
-import { badgeVariants, type BadgeVariants, cn } from "@cui/theme";
+import { badgeVariants, type BadgeVariants, cn } from "@cui-universal/theme";
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,

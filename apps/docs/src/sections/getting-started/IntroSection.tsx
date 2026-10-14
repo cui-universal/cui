@@ -21,7 +21,7 @@ import {
   Progress,
   Avatar,
   AvatarFallback,
-} from "@cui/react";
+} from "@cui-universal/react";
 import { useDocs } from "../../context/DocsContext";
 import type { Section } from "../../types";
 
@@ -33,7 +33,7 @@ export function IntroSection() {
   const [heroActiveTab, setHeroActiveTab] = useState("player");
   const [categoryFilter, setCategoryFilter] = useState("all");
 
-  const pkgName = framework === "react" ? "@cui/react @cui/theme" : "@cui/vue @cui/theme";
+  const pkgName = framework === "react" ? "@cui-universal/react @cui-universal/theme" : "@cui-universal/vue @cui-universal/theme";
   const installCmd =
     packageManager === "npm"
       ? `npm install ${pkgName}`

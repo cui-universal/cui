@@ -1,6 +1,6 @@
 import React from "react";
 import { Info, CheckCircle2, AlertCircle } from "lucide-react";
-import { Alert, AlertTitle, AlertDescription } from "@cui/react";
+import { Alert, AlertTitle, AlertDescription } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -34,7 +34,7 @@ export function AlertSection() {
 
       <CodeBlock
         id="code-alert"
-        reactCode={`import { Alert, AlertTitle, AlertDescription } from "@cui/react";
+        reactCode={`import { Alert, AlertTitle, AlertDescription } from "@cui-universal/react";
 import { CheckCircle2 } from "lucide-react";
 
 <Alert variant="success">
@@ -43,7 +43,7 @@ import { CheckCircle2 } from "lucide-react";
   <AlertDescription>Changes saved.</AlertDescription>
 </Alert>`}
         vueCode={`<script setup lang="ts">
-import { Alert, AlertTitle, AlertDescription } from "@cui/vue";
+import { Alert, AlertTitle, AlertDescription } from "@cui-universal/vue";
 import { CheckCircle2 } from "lucide-vue-next";
 </script>
 

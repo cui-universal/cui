@@ -16,7 +16,7 @@ Traditionally, you would need two separate design systems (e.g. `shadcn/ui` for 
 
 ```
                         ┌────────────────────────┐
-                        │      @cui/theme        │
+                        │      @cui-universal/theme        │
                         │  Design Tokens (HSL)   │
                         │  Tailwind CSS Preset   │
                         │  Shared Variants (tv)  │
@@ -25,7 +25,7 @@ Traditionally, you would need two separate design systems (e.g. `shadcn/ui` for 
                  ┌──────────────────┴──────────────────┐
                  ▼                                     ▼
       ┌─────────────────────┐               ┌─────────────────────┐
-      │     @cui/react      │               │      @cui/vue       │
+      │     @cui-universal/react      │               │      @cui-universal/vue       │
       │  React 18 / 19      │               │  Vue 3 / Nuxt 3     │
       │  Next.js (App / SSR)│               │  SSR & Auto-imports │
       │  Custom Primitives  │               │  Custom Primitives  │
@@ -38,9 +38,9 @@ Traditionally, you would need two separate design systems (e.g. `shadcn/ui` for 
 
 | Package | Framework | Purpose | Primitive Engine |
 | :--- | :--- | :--- | :--- |
-| [`@cui/theme`](./packages/theme) | Universal | Single source of truth for CSS variables, Tailwind preset, and `tailwind-variants` (`tv`) | Tailwind CSS + TV |
-| [`@cui/react`](./packages/react) | React & Next.js | Fully typed React components with `asChild` slot polymorphism | Custom CUI Primitives (Zero External UI Dependencies) |
-| [`@cui/vue`](./packages/vue) | Vue 3 & Nuxt 3 | Fully typed Vue components with SFC templates and auto-imports | Custom CUI Primitives (Zero External UI Dependencies) |
+| [`@cui-universal/theme`](./packages/theme) | Universal | Single source of truth for CSS variables, Tailwind preset, and `tailwind-variants` (`tv`) | Tailwind CSS + TV |
+| [`@cui-universal/react`](./packages/react) | React & Next.js | Fully typed React components with `asChild` slot polymorphism | Custom CUI Primitives (Zero External UI Dependencies) |
+| [`@cui-universal/vue`](./packages/vue) | Vue 3 & Nuxt 3 | Fully typed Vue components with SFC templates and auto-imports | Custom CUI Primitives (Zero External UI Dependencies) |
 | [`docs`](./apps/docs) | Vite / React | Interactive playground & side-by-side framework comparison showcase | CUI Components |
 
 ---
@@ -49,22 +49,22 @@ Traditionally, you would need two separate design systems (e.g. `shadcn/ui` for 
 
 ### 1. Install dependencies
 ```bash
-npm install @cui/react @cui/theme
+npm install @cui-universal/react @cui-universal/theme
 # or
-pnpm add @cui/react @cui/theme
+pnpm add @cui-universal/react @cui-universal/theme
 ```
 
 ### 2. Configure Tailwind CSS
 In `tailwind.config.ts`:
 ```ts
-import { cuiTailwindPreset } from "@cui/theme";
+import { cuiTailwindPreset } from "@cui-universal/theme";
 
 export default {
   presets: [cuiTailwindPreset],
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@cui/react/dist/**/*.{js,mjs}",
+    "./node_modules/@cui-universal/react/dist/**/*.{js,mjs}",
   ],
 };
 ```
@@ -72,12 +72,12 @@ export default {
 ### 3. Import Styles
 In `app/layout.tsx`:
 ```tsx
-import "@cui/theme/styles.css";
+import "@cui-universal/theme/styles.css";
 ```
 
 ### 4. Use Components
 ```tsx
-import { Button, Dialog, DialogTrigger, DialogContent } from "@cui/react";
+import { Button, Dialog, DialogTrigger, DialogContent } from "@cui-universal/react";
 
 export default function Page() {
   return (
@@ -99,23 +99,23 @@ export default function Page() {
 
 ### 1. Install dependencies
 ```bash
-npm install @cui/vue @cui/theme
+npm install @cui-universal/vue @cui-universal/theme
 # or
-pnpm add @cui/vue @cui/theme
+pnpm add @cui-universal/vue @cui-universal/theme
 ```
 
 ### 2. Configure Nuxt 3
 In `nuxt.config.ts`:
 ```ts
 export default defineNuxtConfig({
-  css: ["@cui/theme/styles.css"],
+  css: ["@cui-universal/theme/styles.css"],
   modules: ["@nuxtjs/tailwindcss"],
 });
 ```
 
 In `tailwind.config.ts`:
 ```ts
-import { cuiTailwindPreset } from "@cui/theme";
+import { cuiTailwindPreset } from "@cui-universal/theme";
 
 export default {
   presets: [cuiTailwindPreset],
@@ -123,7 +123,7 @@ export default {
     "./components/**/*.{vue,js,ts}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
-    "./node_modules/@cui/vue/dist/**/*.{js,cjs}",
+    "./node_modules/@cui-universal/vue/dist/**/*.{js,cjs}",
   ],
 };
 ```
@@ -131,7 +131,7 @@ export default {
 ### 3. Use Components in Vue / Nuxt
 ```vue
 <script setup lang="ts">
-import { Button, Dialog, DialogTrigger, DialogContent } from "@cui/vue";
+import { Button, Dialog, DialogTrigger, DialogContent } from "@cui-universal/vue";
 </script>
 
 <template>

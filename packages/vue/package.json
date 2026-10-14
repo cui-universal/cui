@@ -1,5 +1,5 @@
 {
-  "name": "@cui/vue",
+  "name": "@cui-universal/vue",
   "version": "0.1.0",
   "description": "Cross-framework CUI components for Vue 3 and Nuxt",
   "main": "./dist/index.cjs",
@@ -49,7 +49,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@cui/theme": "workspace:*",
+    "@cui-universal/theme": "workspace:*",
     "lucide-vue-next": "^0.473.0"
   },
   "devDependencies": {

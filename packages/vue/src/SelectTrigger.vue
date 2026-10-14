@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, type Ref } from "vue";
 import { ChevronDown } from "lucide-vue-next";
-import { selectTriggerVariants, type SelectTriggerVariants, cn } from "@cui/theme";
+import { selectTriggerVariants, type SelectTriggerVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   size?: SelectTriggerVariants["size"];

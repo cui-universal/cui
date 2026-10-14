@@ -1,5 +1,5 @@
 {
-  "name": "@cui/theme",
+  "name": "@cui-universal/theme",
   "version": "0.1.0",
   "description": "Cross-framework design system tokens, Tailwind plugin, and variants for CUI",
   "main": "./dist/index.js",

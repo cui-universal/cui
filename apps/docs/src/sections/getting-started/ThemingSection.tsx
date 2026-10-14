@@ -26,7 +26,7 @@ import {
   Alert,
   AlertTitle,
   AlertDescription,
-} from "@cui/react";
+} from "@cui-universal/react";
 import { useDocs } from "../../context/DocsContext";
 import { CodeBlock } from "../../components/CodeBlock";
 
@@ -330,7 +330,7 @@ export function ThemingSection() {
             id="guide-nextjs"
             reactCode={`// tailwind.config.ts
 import type { Config } from "tailwindcss";
-import { cuiTailwindPreset } from "@cui/theme";
+import { cuiTailwindPreset } from "@cui-universal/theme";
 
 const config: Config = {
   // 1. Inherit all CUI color tokens, animations & borders
@@ -339,7 +339,7 @@ const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@cui/react/dist/**/*.{js,mjs}",
+    "./node_modules/@cui-universal/react/dist/**/*.{js,mjs}",
   ],
   theme: {
     extend: {
@@ -350,7 +350,7 @@ const config: Config = {
 export default config;
 
 // app/layout.tsx
-import "@cui/theme/styles.css"; // Imports base CSS tokens & obsidian dark mode`}
+import "@cui-universal/theme/styles.css"; // Imports base CSS tokens & obsidian dark mode`}
             vueCode={""}
           />
         </div>
@@ -367,11 +367,11 @@ import "@cui/theme/styles.css"; // Imports base CSS tokens & obsidian dark mode`
             vueCode={`// nuxt.config.ts
 export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss"],
-  css: ["@cui/theme/styles.css"], // Imports CSS tokens & base styles
+  css: ["@cui-universal/theme/styles.css"], // Imports CSS tokens & base styles
 });
 
 // tailwind.config.ts
-import { cuiTailwindPreset } from "@cui/theme";
+import { cuiTailwindPreset } from "@cui-universal/theme";
 
 export default {
   presets: [cuiTailwindPreset],
@@ -380,7 +380,7 @@ export default {
     "./components/**/*.{vue,js,ts}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
-    "./node_modules/@cui/vue/dist/**/*.{js,cjs}",
+    "./node_modules/@cui-universal/vue/dist/**/*.{js,cjs}",
   ],
 };`}
           />

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject } from "vue";
-import { avatarVariants, cn } from "@cui/theme";
+import { avatarVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   class?: string;

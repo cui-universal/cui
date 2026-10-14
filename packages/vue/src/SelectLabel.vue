@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { selectLabelVariants, cn } from "@cui/theme";
+import { selectLabelVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   class?: string;

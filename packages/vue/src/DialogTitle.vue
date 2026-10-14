@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { dialogVariants, cn } from "@cui/theme";
+import { dialogVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   class?: string;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { cardVariants, cn } from "@cui/theme";
+import { cardVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   interactive?: boolean;

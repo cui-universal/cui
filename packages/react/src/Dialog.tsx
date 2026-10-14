@@ -1,5 +1,5 @@
 import * as React from "react";
-import { dialogVariants, cn } from "@cui/theme";
+import { dialogVariants, cn } from "@cui-universal/theme";
 import { X } from "lucide-react";
 import {
   Portal,

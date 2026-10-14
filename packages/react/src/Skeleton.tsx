@@ -1,5 +1,5 @@
 import * as React from "react";
-import { skeletonVariants, cn } from "@cui/theme";
+import { skeletonVariants, cn } from "@cui-universal/theme";
 
 export function Skeleton({
   className,

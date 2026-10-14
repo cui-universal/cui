@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slot } from "./primitives";
-import { buttonVariants, type ButtonVariants, cn } from "@cui/theme";
+import { buttonVariants, type ButtonVariants, cn } from "@cui-universal/theme";
 import { Loader2 } from "lucide-react";
 
 export interface ButtonProps

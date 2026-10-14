@@ -1,5 +1,5 @@
 import React from "react";
-import { TooltipProvider } from "@cui/react";
+import { TooltipProvider } from "@cui-universal/react";
 import { DocsProvider, useDocs } from "./context/DocsContext";
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";

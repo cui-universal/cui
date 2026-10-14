@@ -1,5 +1,5 @@
 import * as React from "react";
-import { accordionVariants, cn } from "@cui/theme";
+import { accordionVariants, cn } from "@cui-universal/theme";
 import { ChevronDown } from "lucide-react";
 import {
   composeEventHandlers,

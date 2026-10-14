@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from "vue";
 import { ChevronRight } from "lucide-vue-next";
-import { dropdownMenuItemVariants, cn } from "@cui/theme";
+import { dropdownMenuItemVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   inset?: boolean;

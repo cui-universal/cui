@@ -1,5 +1,5 @@
 import * as React from "react";
-import { textareaVariants, type TextareaVariants, cn } from "@cui/theme";
+import { textareaVariants, type TextareaVariants, cn } from "@cui-universal/theme";
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,

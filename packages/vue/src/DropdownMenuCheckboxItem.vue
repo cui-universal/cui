@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import { Check } from "lucide-vue-next";
-import { dropdownMenuIndicatorItemVariants, cn } from "@cui/theme";
+import { dropdownMenuIndicatorItemVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   checked?: boolean;

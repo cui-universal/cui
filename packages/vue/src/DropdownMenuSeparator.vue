@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dropdownMenuSeparatorVariants, cn } from "@cui/theme";
+import { dropdownMenuSeparatorVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   class?: string;

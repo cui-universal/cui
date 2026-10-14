@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { badgeVariants, type BadgeVariants, cn } from "@cui/theme";
+import { badgeVariants, type BadgeVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   variant?: BadgeVariants["variant"];

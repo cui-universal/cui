@@ -1,5 +1,5 @@
 import * as React from "react";
-import { tabsVariants, type TabsVariants, cn } from "@cui/theme";
+import { tabsVariants, type TabsVariants, cn } from "@cui-universal/theme";
 import {
   composeEventHandlers,
   getCollectionItems,

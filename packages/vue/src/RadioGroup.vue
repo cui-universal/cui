@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, ref, watch } from "vue";
-import { cn } from "@cui/theme";
+import { cn } from "@cui-universal/theme";
 
 interface Props {
   modelValue?: string;

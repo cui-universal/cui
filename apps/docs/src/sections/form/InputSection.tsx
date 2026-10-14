@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "@cui/react";
+import { Input } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -103,7 +103,7 @@ export function InputSection() {
 
       <CodeBlock
         id="code-input"
-        reactCode={`import { Input } from "@cui/react";
+        reactCode={`import { Input } from "@cui-universal/react";
 
 <Input
   variant="${inputVariant}"
@@ -111,7 +111,7 @@ export function InputSection() {
   placeholder="${inputPlaceholder}"
 />`}
         vueCode={`<script setup lang="ts">
-import { Input } from "@cui/vue";
+import { Input } from "@cui-universal/vue";
 import { ref } from "vue";
 
 const text = ref("");

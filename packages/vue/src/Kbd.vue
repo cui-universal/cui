@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { kbdVariants, type KbdVariants, cn } from "@cui/theme";
+import { kbdVariants, type KbdVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   size?: KbdVariants["size"];

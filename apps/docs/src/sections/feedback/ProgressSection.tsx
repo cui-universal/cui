@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Progress, Button } from "@cui/react";
+import { Progress, Button } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -33,11 +33,11 @@ export function ProgressSection() {
 
       <CodeBlock
         id="code-progress"
-        reactCode={`import { Progress } from "@cui/react";
+        reactCode={`import { Progress } from "@cui-universal/react";
 
 <Progress value={${progressVal}} />`}
         vueCode={`<script setup lang="ts">
-import { Progress } from "@cui/vue";
+import { Progress } from "@cui-universal/vue";
 </script>
 
 <template>

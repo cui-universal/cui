@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { textareaVariants, type TextareaVariants, cn } from "@cui/theme";
+import { textareaVariants, type TextareaVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   modelValue?: string;

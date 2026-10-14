@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { tableHeaderVariants, cn } from "@cui/theme";
+import { tableHeaderVariants, cn } from "@cui-universal/theme";
 const props = defineProps<{ class?: string }>();
 </script>
 

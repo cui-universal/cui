@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, type Ref } from "vue";
-import { accordionVariants, cn } from "@cui/theme";
+import { accordionVariants, cn } from "@cui-universal/theme";
 import { ChevronDown } from "lucide-vue-next";
 
 interface Props {

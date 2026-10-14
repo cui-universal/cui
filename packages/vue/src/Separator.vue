@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { separatorVariants, type SeparatorVariants, cn } from "@cui/theme";
+import { separatorVariants, type SeparatorVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   orientation?: SeparatorVariants["orientation"];

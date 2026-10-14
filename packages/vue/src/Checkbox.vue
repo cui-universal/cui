@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { checkboxVariants, type CheckboxVariants, cn } from "@cui/theme";
+import { checkboxVariants, type CheckboxVariants, cn } from "@cui-universal/theme";
 import { Check, Minus } from "lucide-vue-next";
 
 export type CheckedState = boolean | "indeterminate";

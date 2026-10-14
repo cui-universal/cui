@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, inject } from "vue";
-import { accordionVariants, cn } from "@cui/theme";
+import { accordionVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   value: string;

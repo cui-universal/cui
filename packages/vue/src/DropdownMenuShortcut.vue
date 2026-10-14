@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dropdownMenuShortcutVariants, cn } from "@cui/theme";
+import { dropdownMenuShortcutVariants, cn } from "@cui-universal/theme";
 
 const props = defineProps<{ class?: string }>();
 </script>

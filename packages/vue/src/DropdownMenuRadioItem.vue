@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, type Ref } from "vue";
 import { Circle } from "lucide-vue-next";
-import { dropdownMenuIndicatorItemVariants, cn } from "@cui/theme";
+import { dropdownMenuIndicatorItemVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   value: string;

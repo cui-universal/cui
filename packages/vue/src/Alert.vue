@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { alertVariants, type AlertVariants, cn } from "@cui/theme";
+import { alertVariants, type AlertVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   variant?: AlertVariants["variant"];

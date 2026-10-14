@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { selectSeparatorVariants, cn } from "@cui/theme";
+import { selectSeparatorVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   class?: string;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from "vue";
-import { popoverVariants, cn } from "@cui/theme";
+import { popoverVariants, cn } from "@cui-universal/theme";
 import { useFloating, useDismissable, type Side, type Align } from "./primitives";
 
 interface Props {

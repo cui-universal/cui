@@ -118,10 +118,10 @@ importers:
 
   apps/docs:
     dependencies:
-      '@cui/react':
+      '@cui-universal/react':
         specifier: workspace:*
         version: link:../../packages/react
-      '@cui/theme':
+      '@cui-universal/theme':
         specifier: workspace:*
         version: link:../../packages/theme
       clsx:
@@ -164,7 +164,7 @@ importers:
 
   packages/react:
     dependencies:
-      '@cui/theme':
+      '@cui-universal/theme':
         specifier: workspace:*
         version: link:../theme
       lucide-react:
@@ -214,7 +214,7 @@ importers:
 
   packages/vue:
     dependencies:
-      '@cui/theme':
+      '@cui-universal/theme':
         specifier: workspace:*
         version: link:../theme
       lucide-vue-next:

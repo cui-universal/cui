@@ -1,5 +1,5 @@
 import * as React from "react";
-import { switchVariants, type SwitchVariants, cn } from "@cui/theme";
+import { switchVariants, type SwitchVariants, cn } from "@cui-universal/theme";
 import { useControllableState } from "./primitives";
 
 export interface SwitchProps

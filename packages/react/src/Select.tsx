@@ -8,7 +8,7 @@ import {
   selectSeparatorVariants,
   type SelectTriggerVariants,
   cn,
-} from "@cui/theme";
+} from "@cui-universal/theme";
 import {
   PopperContent,
   Slot,

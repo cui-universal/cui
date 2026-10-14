@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Circle } from "lucide-react";
-import { radioVariants, type RadioVariants, cn } from "@cui/theme";
+import { radioVariants, type RadioVariants, cn } from "@cui-universal/theme";
 import {
   composeEventHandlers,
   getCollectionItems,

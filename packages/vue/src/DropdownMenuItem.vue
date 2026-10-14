@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, type Ref } from "vue";
-import { dropdownMenuItemVariants, type DropdownMenuItemVariants, cn } from "@cui/theme";
+import { dropdownMenuItemVariants, type DropdownMenuItemVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   variant?: DropdownMenuItemVariants["variant"];

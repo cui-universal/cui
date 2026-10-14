@@ -9,7 +9,7 @@ import {
   TableCell,
   TableCaption,
   Badge,
-} from "@cui/react";
+} from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -88,7 +88,7 @@ export function TableSection() {
   TableHead,
   TableCell,
   TableCaption,
-} from "@cui/react";
+} from "@cui-universal/react";
 
 export function TableDemo() {
   return (
@@ -120,7 +120,7 @@ import {
   TableHead,
   TableCell,
   TableCaption,
-} from "@cui/vue";
+} from "@cui-universal/vue";
 </script>
 
 <template>

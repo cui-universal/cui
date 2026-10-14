@@ -1,5 +1,5 @@
 import React from "react";
-import { Separator } from "@cui/react";
+import { Separator } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -32,12 +32,12 @@ export function SeparatorSection() {
 
       <CodeBlock
         id="code-separator"
-        reactCode={`import { Separator } from "@cui/react";
+        reactCode={`import { Separator } from "@cui-universal/react";
 
 <Separator />
 <Separator orientation="vertical" />`}
         vueCode={`<script setup lang="ts">
-import { Separator } from "@cui/vue";
+import { Separator } from "@cui-universal/vue";
 </script>
 
 <template>

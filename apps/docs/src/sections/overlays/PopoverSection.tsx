@@ -1,6 +1,6 @@
 import React from "react";
 import { SlidersHorizontal, Mail } from "lucide-react";
-import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui/react";
+import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -63,7 +63,7 @@ export function PopoverSection() {
 
       <CodeBlock
         id="code-popover"
-        reactCode={`import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui/react";
+        reactCode={`import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui-universal/react";
 
 <Popover>
   <PopoverTrigger asChild>
@@ -75,7 +75,7 @@ export function PopoverSection() {
   </PopoverContent>
 </Popover>`}
         vueCode={`<script setup lang="ts">
-import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui/vue";
+import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui-universal/vue";
 </script>
 
 <template>

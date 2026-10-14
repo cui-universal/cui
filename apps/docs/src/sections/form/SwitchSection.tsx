@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch } from "@cui/react";
+import { Switch } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -65,7 +65,7 @@ export function SwitchSection() {
 
       <CodeBlock
         id="code-switch"
-        reactCode={`import { Switch } from "@cui/react";
+        reactCode={`import { Switch } from "@cui-universal/react";
 
 <Switch
   checked={isEnabled}
@@ -73,7 +73,7 @@ export function SwitchSection() {
   size="md"
 />`}
         vueCode={`<script setup lang="ts">
-import { Switch } from "@cui/vue";
+import { Switch } from "@cui-universal/vue";
 import { ref } from "vue";
 
 const enabled = ref(true);

@@ -1,6 +1,6 @@
 import React from "react";
 import { Search } from "lucide-react";
-import { Kbd, Separator } from "@cui/react";
+import { Kbd, Separator } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -84,7 +84,7 @@ export function KbdSection() {
       {/* Code Block */}
       <CodeBlock
         id="code-kbd"
-        reactCode={`import { Kbd } from "@cui/react";
+        reactCode={`import { Kbd } from "@cui-universal/react";
 
 export function KbdDemo() {
   return (
@@ -95,7 +95,7 @@ export function KbdDemo() {
   );
 }`}
         vueCode={`<script setup>
-import { Kbd } from "@cui/vue";
+import { Kbd } from "@cui-universal/vue";
 </script>
 
 <template>

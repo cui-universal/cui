@@ -9,7 +9,7 @@ import {
   Button,
   Badge,
   Progress,
-} from "@cui/react";
+} from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -45,7 +45,7 @@ export function CardSection() {
 
       <CodeBlock
         id="code-card"
-        reactCode={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from "@cui/react";
+        reactCode={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from "@cui-universal/react";
 
 <Card interactive>
   <CardHeader>
@@ -56,7 +56,7 @@ export function CardSection() {
   <CardFooter><Button size="sm">Action</Button></CardFooter>
 </Card>`}
         vueCode={`<script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from "@cui/vue";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from "@cui-universal/vue";
 </script>
 
 <template>

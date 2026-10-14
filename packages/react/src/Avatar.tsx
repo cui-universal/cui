@@ -1,5 +1,5 @@
 import * as React from "react";
-import { avatarVariants, type AvatarVariants, cn } from "@cui/theme";
+import { avatarVariants, type AvatarVariants, cn } from "@cui-universal/theme";
 
 type ImageLoadingStatus = "idle" | "loading" | "loaded" | "error";
 

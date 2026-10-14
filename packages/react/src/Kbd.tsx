@@ -1,5 +1,5 @@
 import * as React from "react";
-import { kbdVariants, type KbdVariants, cn } from "@cui/theme";
+import { kbdVariants, type KbdVariants, cn } from "@cui-universal/theme";
 
 export interface KbdProps
   extends React.HTMLAttributes<HTMLElement>,

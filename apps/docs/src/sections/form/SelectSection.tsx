@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectLabel,
   SelectSeparator,
-} from "@cui/react";
+} from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -110,7 +110,7 @@ export function SelectSection() {
         reactCode={`import {
   Select, SelectTrigger, SelectValue, SelectContent,
   SelectGroup, SelectLabel, SelectItem, SelectSeparator,
-} from "@cui/react";
+} from "@cui-universal/react";
 
 const [value, setValue] = useState("");
 
@@ -137,7 +137,7 @@ import { ref } from "vue";
 import {
   Select, SelectTrigger, SelectValue, SelectContent,
   SelectGroup, SelectLabel, SelectItem, SelectSeparator,
-} from "@cui/vue";
+} from "@cui-universal/vue";
 
 const value = ref("");
 </script>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton } from "@cui/react";
+import { Skeleton } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -23,7 +23,7 @@ export function SkeletonSection() {
 
       <CodeBlock
         id="code-skeleton"
-        reactCode={`import { Skeleton } from "@cui/react";
+        reactCode={`import { Skeleton } from "@cui-universal/react";
 
 <div className="flex items-center space-x-4">
   <Skeleton className="h-12 w-12 rounded-full" />
@@ -33,7 +33,7 @@ export function SkeletonSection() {
   </div>
 </div>`}
         vueCode={`<script setup lang="ts">
-import { Skeleton } from "@cui/vue";
+import { Skeleton } from "@cui-universal/vue";
 </script>
 
 <template>

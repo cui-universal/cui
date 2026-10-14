@@ -1,4 +1,4 @@
-import { cuiTailwindPreset } from "@cui/theme";
+import { cuiTailwindPreset } from "@cui-universal/theme";
 
 /** @type {import('tailwindcss').Config} */
 export default {

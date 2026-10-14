@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Checkbox } from "@cui/react";
+import { Checkbox } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -65,7 +65,7 @@ export function CheckboxSection() {
 
       <CodeBlock
         id="code-checkbox"
-        reactCode={`import { Checkbox } from "@cui/react";
+        reactCode={`import { Checkbox } from "@cui-universal/react";
 import { useState } from "react";
 
 export default function CheckboxDemo() {
@@ -83,7 +83,7 @@ export default function CheckboxDemo() {
   );
 }`}
         vueCode={`<script setup lang="ts">
-import { Checkbox } from "@cui/vue";
+import { Checkbox } from "@cui-universal/vue";
 import { ref } from "vue";
 
 const isChecked = ref(true);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Textarea } from "@cui/react";
+import { Textarea } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -70,14 +70,14 @@ export function TextareaSection() {
 
       <CodeBlock
         id="code-textarea"
-        reactCode={`import { Textarea } from "@cui/react";
+        reactCode={`import { Textarea } from "@cui-universal/react";
 
 <Textarea
   variant="${textareaVariant}"
   placeholder="${textareaPlaceholder}"
 />`}
         vueCode={`<script setup lang="ts">
-import { Textarea } from "@cui/vue";
+import { Textarea } from "@cui-universal/vue";
 import { ref } from "vue";
 
 const bio = ref("");

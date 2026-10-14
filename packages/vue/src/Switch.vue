@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { switchVariants, type SwitchVariants, cn } from "@cui/theme";
+import { switchVariants, type SwitchVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   checked?: boolean;

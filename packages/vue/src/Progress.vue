@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { progressVariants, type ProgressVariants, cn } from "@cui/theme";
+import { progressVariants, type ProgressVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   class?: string;

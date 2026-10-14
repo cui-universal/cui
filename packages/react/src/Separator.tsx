@@ -1,5 +1,5 @@
 import * as React from "react";
-import { separatorVariants, type SeparatorVariants, cn } from "@cui/theme";
+import { separatorVariants, type SeparatorVariants, cn } from "@cui-universal/theme";
 
 export interface SeparatorProps
   extends React.HTMLAttributes<HTMLDivElement>,

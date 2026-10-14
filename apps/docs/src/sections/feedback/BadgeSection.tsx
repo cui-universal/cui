@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge } from "@cui/react";
+import { Badge } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -74,13 +74,13 @@ export function BadgeSection() {
 
       <CodeBlock
         id="code-badge"
-        reactCode={`import { Badge } from "@cui/react";
+        reactCode={`import { Badge } from "@cui-universal/react";
 
 <Badge variant="${badgeVariant}" size="${badgeSize}">
   ${badgeText}
 </Badge>`}
         vueCode={`<script setup lang="ts">
-import { Badge } from "@cui/vue";
+import { Badge } from "@cui-universal/vue";
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cardVariants, cn } from "@cui/theme";
+import { cardVariants, cn } from "@cui-universal/theme";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;

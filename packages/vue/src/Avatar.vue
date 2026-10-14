@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, ref } from "vue";
-import { avatarVariants, type AvatarVariants, cn } from "@cui/theme";
+import { avatarVariants, type AvatarVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   size?: AvatarVariants["size"];

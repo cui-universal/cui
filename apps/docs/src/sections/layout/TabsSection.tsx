@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent, Input, Button } from "@cui/react";
+import { Tabs, TabsList, TabsTrigger, TabsContent, Input, Button } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -34,7 +34,7 @@ export function TabsSection() {
 
       <CodeBlock
         id="code-tabs"
-        reactCode={`import { Tabs, TabsList, TabsTrigger, TabsContent } from "@cui/react";
+        reactCode={`import { Tabs, TabsList, TabsTrigger, TabsContent } from "@cui-universal/react";
 
 <Tabs defaultValue="account">
   <TabsList>
@@ -45,7 +45,7 @@ export function TabsSection() {
   <TabsContent value="password">Password Settings</TabsContent>
 </Tabs>`}
         vueCode={`<script setup lang="ts">
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@cui/vue";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@cui-universal/vue";
 </script>
 
 <template>

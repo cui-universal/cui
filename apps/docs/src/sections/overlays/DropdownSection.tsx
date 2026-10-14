@@ -26,7 +26,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   Button,
-} from "@cui/react";
+} from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -126,7 +126,7 @@ export function DropdownSection() {
   DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut,
   DropdownMenuCheckboxItem, DropdownMenuRadioGroup, DropdownMenuRadioItem,
   DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, Button,
-} from "@cui/react";
+} from "@cui-universal/react";
 
 <DropdownMenu>
   <DropdownMenuTrigger asChild>
@@ -162,7 +162,7 @@ import {
   DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut,
   DropdownMenuCheckboxItem, DropdownMenuRadioGroup, DropdownMenuRadioItem,
   DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, Button,
-} from "@cui/vue";
+} from "@cui-universal/vue";
 
 const status = ref(true);
 const position = ref("bottom");

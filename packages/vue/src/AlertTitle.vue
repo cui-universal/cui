@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { alertVariants, cn } from "@cui/theme";
+import { alertVariants, cn } from "@cui-universal/theme";
 
 const props = defineProps<{ class?: string }>();
 const classes = computed(() => {

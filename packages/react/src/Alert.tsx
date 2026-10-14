@@ -1,5 +1,5 @@
 import * as React from "react";
-import { alertVariants, type AlertVariants, cn } from "@cui/theme";
+import { alertVariants, type AlertVariants, cn } from "@cui-universal/theme";
 
 export interface AlertProps
   extends React.HTMLAttributes<HTMLDivElement>,

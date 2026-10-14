@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { tableCellVariants, cn } from "@cui/theme";
+import { tableCellVariants, cn } from "@cui-universal/theme";
 const props = defineProps<{ class?: string }>();
 </script>
 

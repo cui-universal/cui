@@ -21,7 +21,7 @@ export default defineConfig({
       fileName: (format, entryName) => `${entryName}.${format === "es" ? "js" : "cjs"}`,
     },
     rollupOptions: {
-      external: ["vue", "lucide-vue-next", "@cui/theme"],
+      external: ["vue", "lucide-vue-next", "@cui-universal/theme"],
       output: {
         exports: "named",
       },

@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip, TooltipTrigger, TooltipContent, Button } from "@cui/react";
+import { Tooltip, TooltipTrigger, TooltipContent, Button } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -26,7 +26,7 @@ export function TooltipSection() {
 
       <CodeBlock
         id="code-tooltip"
-        reactCode={`import { Tooltip, TooltipTrigger, TooltipContent, Button } from "@cui/react";
+        reactCode={`import { Tooltip, TooltipTrigger, TooltipContent, Button } from "@cui-universal/react";
 
 <Tooltip>
   <TooltipTrigger asChild>
@@ -35,7 +35,7 @@ export function TooltipSection() {
   <TooltipContent>Tooltip text</TooltipContent>
 </Tooltip>`}
         vueCode={`<script setup lang="ts">
-import { Tooltip, TooltipTrigger, TooltipContent, Button } from "@cui/vue";
+import { Tooltip, TooltipTrigger, TooltipContent, Button } from "@cui-universal/vue";
 </script>
 
 <template>

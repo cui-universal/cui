@@ -9,7 +9,7 @@ import {
   dropdownMenuShortcutVariants,
   type DropdownMenuItemVariants,
   cn,
-} from "@cui/theme";
+} from "@cui-universal/theme";
 import {
   PopperContent,
   Slot,

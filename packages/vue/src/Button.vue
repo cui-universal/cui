@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { Primitive } from "./primitives";
-import { buttonVariants, type ButtonVariants, cn } from "@cui/theme";
+import { buttonVariants, type ButtonVariants, cn } from "@cui-universal/theme";
 import { Loader2 } from "lucide-vue-next";
 
 interface Props {

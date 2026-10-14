@@ -9,7 +9,7 @@ import {
   DialogFooter,
   Button,
   Input,
-} from "@cui/react";
+} from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -65,7 +65,7 @@ export function DialogSection() {
 
       <CodeBlock
         id="code-dialog"
-        reactCode={`import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, Button } from "@cui/react";
+        reactCode={`import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, Button } from "@cui-universal/react";
 
 <Dialog>
   <DialogTrigger asChild>
@@ -82,7 +82,7 @@ export function DialogSection() {
   </DialogContent>
 </Dialog>`}
         vueCode={`<script setup lang="ts">
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, Button } from "@cui/vue";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, Button } from "@cui-universal/vue";
 </script>
 
 <template>

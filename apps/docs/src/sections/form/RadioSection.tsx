@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Sliders } from "lucide-react";
-import { RadioGroup, RadioGroupItem, Badge } from "@cui/react";
+import { RadioGroup, RadioGroupItem, Badge } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -108,7 +108,7 @@ export function RadioSection() {
       {/* Code Block */}
       <CodeBlock
         id="code-radio"
-        reactCode={`import { RadioGroup, RadioGroupItem } from "@cui/react";
+        reactCode={`import { RadioGroup, RadioGroupItem } from "@cui-universal/react";
 import { useState } from "react";
 
 export function RadioDemo() {
@@ -129,7 +129,7 @@ export function RadioDemo() {
 }`}
         vueCode={`<script setup>
 import { ref } from "vue";
-import { RadioGroup, RadioGroupItem } from "@cui/vue";
+import { RadioGroup, RadioGroupItem } from "@cui-universal/vue";
 
 const plan = ref("${radioPlan}");
 </script>

@@ -37,7 +37,7 @@ jobs:
       - name: Build packages
         run: pnpm build
 
-      - name: Publish @cui/theme, @cui/react, and @cui/vue
+      - name: Publish @cui-universal/theme, @cui-universal/react, and @cui-universal/vue
         run: pnpm -r publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@cui/react";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
@@ -32,7 +32,7 @@ export function AccordionSection() {
 
       <CodeBlock
         id="code-accordion"
-        reactCode={`import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@cui/react";
+        reactCode={`import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@cui-universal/react";
 
 <Accordion type="single" collapsible>
   <AccordionItem value="item-1">
@@ -41,7 +41,7 @@ export function AccordionSection() {
   </AccordionItem>
 </Accordion>`}
         vueCode={`<script setup lang="ts">
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@cui/vue";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@cui-universal/vue";
 </script>
 
 <template>

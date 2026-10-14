@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from "@cui/theme";
+import { cn } from "@cui-universal/theme";
 
 interface Props {
   class?: string;

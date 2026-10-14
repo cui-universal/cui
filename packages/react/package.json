@@ -1,5 +1,5 @@
 {
-  "name": "@cui/react",
+  "name": "@cui-universal/react",
   "version": "0.1.0",
   "description": "Cross-framework CUI components for React and Next.js",
   "main": "./dist/index.js",
@@ -44,7 +44,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "@cui/theme": "workspace:*",
+    "@cui-universal/theme": "workspace:*",
     "lucide-react": "^0.473.0"
   },
   "devDependencies": {

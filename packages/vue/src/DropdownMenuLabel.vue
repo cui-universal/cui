@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dropdownMenuLabelVariants, cn } from "@cui/theme";
+import { dropdownMenuLabelVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   inset?: boolean;

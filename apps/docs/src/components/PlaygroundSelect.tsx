@@ -5,7 +5,7 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@cui/react";
+} from "@cui-universal/react";
 
 interface PlaygroundSelectProps {
   id?: string;

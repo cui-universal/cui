@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, type Ref } from "vue";
-import { tabsVariants, cn } from "@cui/theme";
+import { tabsVariants, cn } from "@cui-universal/theme";
 
 interface Props {
   value: string;

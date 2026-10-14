@@ -1,5 +1,5 @@
 import * as React from "react";
-import { inputVariants, type InputVariants, cn } from "@cui/theme";
+import { inputVariants, type InputVariants, cn } from "@cui-universal/theme";
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
