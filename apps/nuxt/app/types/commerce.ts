@@ -36,3 +36,21 @@ export interface MetricCardData {
   subtext: string;
   trend: "up" | "down";
 }
+
+export type CustomerStatus = "Active" | "VIP" | "New" | "Inactive";
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  initials: string;
+  ordersCount: number;
+  totalSpent: string;
+  status: CustomerStatus;
+  badgeVariant: "success" | "default" | "secondary" | "warning" | "destructive";
+  lastOrderDate: string;
+  paymentMethod: string;
+  location: string;
+  phone?: string;
+}
