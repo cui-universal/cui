@@ -177,7 +177,7 @@ export function Header() {
 
             {/* GitHub Link */}
             <a
-              href="https://github.com"
+              href="https://github.com/cui-universal/cui"
               target="_blank"
               rel="noreferrer"
               className="hidden lg:flex p-2 rounded-xl border border-border/80 bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all duration-200 shadow-xs active:scale-95"
