@@ -63,7 +63,7 @@ onMounted(() => {
         <!-- Brand Header -->
         <div class="h-16 px-5 border-b border-border/60 flex items-center justify-between shrink-0">
           <NuxtLink to="/" class="flex items-center gap-3">
-            <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-md shadow-indigo-500/20 text-white font-black text-sm tracking-tighter">
+            <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center shadow-md shadow-orange-500/25 text-white font-black text-sm tracking-tighter">
               CUI
             </div>
             <div>
