@@ -18,6 +18,8 @@ export default <Partial<Config>>{
     "./app.vue",
     `${cuiThemeDir}/**/*.{js,mjs,cjs}`,
     `${cuiVueDir}/**/*.{js,mjs,cjs}`,
+    path.resolve(process.cwd(), "../../packages/vue/src/**/*.{vue,js,ts}"),
+    path.resolve(process.cwd(), "../../packages/theme/src/**/*.{vue,js,ts}"),
   ],
   theme: {
     extend: {
