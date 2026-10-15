@@ -17,6 +17,8 @@ interface DocsContextValue {
   setSearchQuery: (query: string) => void;
   copiedId: string | null;
   copyToClipboard: (text: string, id: string) => void;
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DocsContext = createContext<DocsContextValue | null>(null);
@@ -99,9 +101,11 @@ export function DocsProvider({ children }: { children: ReactNode }) {
   const [currentSection, setCurrentSectionState] = useState<Section>(() => parseSectionFromUrl());
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const setCurrentSection = (section: Section, updateHistory = true) => {
     setCurrentSectionState(section);
+    setMobileMenuOpen(false);
     if (updateHistory && typeof window !== "undefined") {
       const targetPath = section === "intro" ? "/" : `/${section}`;
       if (window.location.pathname !== targetPath) {
@@ -193,6 +197,8 @@ export function DocsProvider({ children }: { children: ReactNode }) {
         setSearchQuery,
         copiedId,
         copyToClipboard,
+        mobileMenuOpen,
+        setMobileMenuOpen,
       }}
     >
       {children}

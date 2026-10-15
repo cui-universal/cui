@@ -4,8 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 code, pre {

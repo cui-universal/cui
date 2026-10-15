@@ -8,6 +8,8 @@ import {
   Github,
   Sparkles,
   Command,
+  Menu,
+  X,
 } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, Tabs, TabsList, TabsTrigger } from "@cui-universal/react";
 import { useDocs } from "../context/DocsContext";
@@ -23,6 +25,8 @@ export function Header() {
     isDark,
     setIsDark,
     setCurrentSection,
+    mobileMenuOpen,
+    setMobileMenuOpen,
   } = useDocs();
 
   const [searchOpen, setSearchOpen] = useState(false);
@@ -62,7 +66,7 @@ export function Header() {
                       <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
                       Beta
                     </span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 shadow-xs flex items-center gap-1">
+                    <span className="hidden sm:inline-flex text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 shadow-xs items-center gap-1">
                       <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                       32 Primitives
                     </span>
@@ -103,14 +107,14 @@ export function Header() {
           </div>
 
           {/* Header Controls */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center space-x-1.5 sm:space-x-3">
             {/* Mobile Search Button */}
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
                   type="button"
                   onClick={() => setSearchOpen(true)}
-                  className="md:hidden p-2 rounded-xl border border-border/80 bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all"
+                  className="md:hidden h-8 w-8 rounded-xl border border-border/80 bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all flex items-center justify-center"
                   aria-label="Open search"
                 >
                   <Search className="h-4 w-4" />
@@ -133,7 +137,7 @@ export function Header() {
                 <TabsTrigger
                   id="select-react-framework"
                   value="react"
-                  className="px-3 py-1 font-semibold text-xs gap-1.5"
+                  className="px-2 sm:px-3 py-1 font-semibold text-xs gap-1 sm:gap-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
                   <span>React</span>
@@ -141,7 +145,7 @@ export function Header() {
                 <TabsTrigger
                   id="select-vue-framework"
                   value="vue"
-                  className="px-3 py-1 font-semibold text-xs gap-1.5"
+                  className="px-2 sm:px-3 py-1 font-semibold text-xs gap-1 sm:gap-1.5"
                 >
                   <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                   <span>Vue 3</span>
@@ -226,6 +230,17 @@ export function Header() {
                 <p>View on GitHub</p>
               </TooltipContent>
             </Tooltip>
+
+            {/* Mobile Navigation Toggle Button */}
+            <button
+              type="button"
+              id="mobile-menu-toggle"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="md:hidden h-8 w-8 rounded-xl border border-border/80 bg-secondary/50 hover:bg-secondary text-foreground transition-all duration-200 shadow-xs active:scale-95 flex items-center justify-center"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            >
+              {mobileMenuOpen ? <X className="h-4 w-4 text-primary" /> : <Menu className="h-4 w-4" />}
+            </button>
           </div>
         </div>
       </header>
