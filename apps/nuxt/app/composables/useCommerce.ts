@@ -313,20 +313,59 @@ export const useCommerce = () => {
   });
 
   const addProduct = (productData: Partial<Product>) => {
+    const rawPrice = productData.price ?? "99.00";
+    const numPrice = typeof rawPrice === "number"
+      ? rawPrice
+      : parseFloat(String(rawPrice).replace(/[^0-9.]/g, "") || "0");
+    const formattedPrice = isNaN(numPrice) ? "$99.00" : `$${numPrice.toFixed(2)}`;
+    const stockVal = Number(productData.stock ?? 25);
+
     const newProd: Product = {
-      id: `PRD-0${products.value.length + 1}`,
-      name: productData.name || "Untitled Product",
-      category: productData.category || "General",
-      price: `$${parseFloat(productData.price || "99.00").toFixed(2)}`,
-      stock: Number(productData.stock ?? 25),
+      id: `PRD-${String(products.value.length + 1).padStart(2, "0")}`,
+      name: productData.name?.trim() || "Untitled Product",
+      category: productData.category?.trim() || "General",
+      price: formattedPrice,
+      stock: stockVal,
       sales: 0,
-      status: Number(productData.stock ?? 25) > 10 ? "In Stock" : "Low Stock",
+      status: !productData.inStock ? "Out of Stock" : stockVal > 10 ? "In Stock" : stockVal > 0 ? "Low Stock" : "Out of Stock",
       inStock: productData.inStock ?? true,
-      sku: productData.sku || `SKU-${Date.now().toString().slice(-4)}`,
-      description: productData.description || "",
+      sku: productData.sku?.trim() || `SKU-${Date.now().toString().slice(-4)}`,
+      description: productData.description?.trim() || "",
     };
     products.value.unshift(newProd);
     showToast(`Product "${newProd.name}" added to catalog!`);
+    return newProd;
+  };
+
+  const addCustomer = (customerData: Partial<Customer>) => {
+    const name = customerData.name?.trim() || "New Customer";
+    const nameParts = name.split(" ").filter(Boolean);
+    const initials = nameParts.length > 1
+      ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`.toUpperCase()
+      : name.slice(0, 2).toUpperCase() || "NC";
+
+    const status: CustomerStatus = customerData.status || "Active";
+    const badgeVariant: Customer["badgeVariant"] =
+      status === "VIP" ? "default" : status === "Active" ? "success" : status === "New" ? "secondary" : "warning";
+
+    const newCust: Customer = {
+      id: `CUST-${String(customers.value.length + 1).padStart(3, "0")}`,
+      name,
+      email: customerData.email?.trim() || `user${customers.value.length + 1}@example.com`,
+      avatar: customerData.avatar?.trim() || "",
+      initials,
+      ordersCount: Number(customerData.ordersCount ?? 0),
+      totalSpent: customerData.totalSpent ? (customerData.totalSpent.startsWith("$") ? customerData.totalSpent : `$${customerData.totalSpent}`) : "$0.00",
+      status,
+      badgeVariant,
+      lastOrderDate: "Just now",
+      paymentMethod: customerData.paymentMethod?.trim() || "Visa •••• 4242",
+      location: customerData.location?.trim() || "San Francisco, CA",
+      phone: customerData.phone?.trim() || "+1 (555) 012-3456",
+    };
+    customers.value.unshift(newCust);
+    showToast(`Customer "${newCust.name}" registered!`);
+    return newCust;
   };
 
   const toggleProductStock = (id: string, inStock: boolean) => {
@@ -375,6 +414,7 @@ export const useCommerce = () => {
     filteredProducts,
     filteredCustomers,
     addProduct,
+    addCustomer,
     toggleProductStock,
     deleteProduct,
     deleteCustomer,

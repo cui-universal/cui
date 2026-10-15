@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import { Users, Crown, UserCheck, DollarSign, Search, Download, UserPlus, Trash2 } from "lucide-vue-next";
 import CustomersTable from "~/components/customers/CustomersTable.vue";
+import AddCustomerDialog from "~/components/customers/AddCustomerDialog.vue";
 import { useCommerce } from "~/composables/useCommerce";
 
 const { customers, filteredCustomers, selectedCustomers, showToast, searchQuery, deleteCustomer } = useCommerce();
@@ -44,10 +45,7 @@ useHead({
           <Download class="h-3.5 w-3.5" />
           <span>Export CSV</span>
         </Button>
-        <Button size="sm" class="gap-1.5" @click="showToast('Add customer drawer/modal opened!')">
-          <UserPlus class="h-3.5 w-3.5" />
-          <span>Add Customer</span>
-        </Button>
+        <AddCustomerDialog />
       </div>
     </div>
 
