@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Pagination } from "@cui-universal/react";
+import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
 export function PaginationSection() {
   const [currentPage, setCurrentPage] = useState(3);
+  const [totalPages, setTotalPages] = useState(12);
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-5xl">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight">Pagination</h1>
         <p className="text-muted-foreground text-sm mt-1">
@@ -15,16 +17,52 @@ export function PaginationSection() {
         </p>
       </div>
 
-      <div className="p-8 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm space-y-6 shadow-sm">
-        <div className="text-center space-y-4">
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex flex-col items-center justify-center bg-secondary/15 gap-4">
           <Pagination
             currentPage={currentPage}
-            totalPages={12}
+            totalPages={totalPages}
             onPageChange={setCurrentPage}
           />
           <p className="text-xs text-muted-foreground font-mono">
-            Active: <span className="font-bold text-primary">Page {currentPage}</span> of 12
+            Active: <span className="font-bold text-primary">Page {currentPage}</span> of {totalPages}
           </p>
+        </div>
+
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label htmlFor="ctl-pgTotal" className="font-semibold text-muted-foreground block mb-1">Total Pages</label>
+            <PlaygroundSelect
+              id="ctl-pgTotal"
+              value={String(totalPages)}
+              onValueChange={(p) => {
+                const num = Number(p);
+                setTotalPages(num);
+                if (currentPage > num) setCurrentPage(num);
+              }}
+              options={[
+                { value: "5", label: "5 Pages" },
+                { value: "10", label: "10 Pages" },
+                { value: "12", label: "12 Pages (Default)" },
+                { value: "20", label: "20 Pages" },
+              ]}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="ctl-pgJump" className="font-semibold text-muted-foreground block mb-1">Jump to Page</label>
+            <PlaygroundSelect
+              id="ctl-pgJump"
+              value={String(currentPage)}
+              onValueChange={(p) => setCurrentPage(Number(p))}
+              options={Array.from({ length: Math.min(totalPages, 10) }, (_, i) => ({
+                value: String(i + 1),
+                label: `Page ${i + 1}`,
+              }))}
+            />
+          </div>
         </div>
       </div>
 
@@ -34,12 +72,12 @@ export function PaginationSection() {
 import { Pagination } from "@cui-universal/react";
 
 export function PaginationDemo() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(${currentPage});
 
   return (
     <Pagination
       currentPage={page}
-      totalPages={10}
+      totalPages={${totalPages}}
       onPageChange={setPage}
     />
   );
@@ -48,13 +86,13 @@ export function PaginationDemo() {
 import { ref } from "vue";
 import { Pagination } from "@cui-universal/vue";
 
-const page = ref(1);
+const page = ref(${currentPage});
 </script>
 
 <template>
   <Pagination
     v-model="page"
-    :total-pages="10"
+    :total-pages="${totalPages}"
   />
 </template>`}
       />

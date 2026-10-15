@@ -33,6 +33,7 @@ import {
   TextEditorSection,
   RatingSection,
   ColorPickerSection,
+  InputNumberSection,
   StepsSection,
   BreadcrumbSection,
   PaginationSection,
@@ -57,6 +58,8 @@ const SECTION_COMPONENTS: Record<Section, React.ComponentType> = {
   rating: RatingSection,
   colorpicker: ColorPickerSection as any,
   "color-picker": ColorPickerSection,
+  inputnumber: InputNumberSection as any,
+  "input-number": InputNumberSection,
   card: CardSection,
   tabs: TabsSection,
   accordion: AccordionSection,
@@ -99,7 +102,7 @@ function DocsLayout() {
 export default function App() {
   return (
     <DocsProvider>
-      <TooltipProvider>
+      <TooltipProvider delayDuration={200}>
         <DocsLayout />
       </TooltipProvider>
     </DocsProvider>

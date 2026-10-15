@@ -1,10 +1,14 @@
-import React from "react";
-import { SlidersHorizontal, Mail } from "lucide-react";
+import React, { useState } from "react";
+import { SlidersHorizontal } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui-universal/react";
+import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
 export function PopoverSection() {
+  const [side, setSide] = useState<"top" | "right" | "bottom" | "left">("bottom");
+  const [align, setAlign] = useState<"start" | "center" | "end">("center");
+
   return (
     <div className="space-y-8 max-w-5xl">
       <div>
@@ -14,51 +18,70 @@ export function PopoverSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-12 flex flex-wrap items-center justify-center gap-4 shadow-sm">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button id="demo-popover-trigger" variant="outline">
-              <SlidersHorizontal className="h-3.5 w-3.5 mr-1.5" />
-              Dimensions
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-72">
-            <div className="space-y-3">
-              <div className="space-y-1">
-                <h4 className="text-sm font-semibold leading-none">Dimensions</h4>
-                <p className="text-xs text-muted-foreground">Set the dimensions for the layer.</p>
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[220px] flex items-center justify-center bg-secondary/15">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button id="demo-popover-trigger" variant="outline" size="sm">
+                <SlidersHorizontal className="h-3.5 w-3.5 mr-1.5" />
+                Dimensions ({side} / {align})
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent side={side} align={align} className="w-72">
+              <div className="space-y-3">
+                <div className="space-y-1">
+                  <h4 className="text-sm font-semibold leading-none">Dimensions</h4>
+                  <p className="text-xs text-muted-foreground">Set the dimensions for the layer.</p>
+                </div>
+                <div className="grid gap-2">
+                  {[
+                    ["Width", "100%"],
+                    ["Max width", "300px"],
+                    ["Height", "25px"],
+                  ].map(([label, val]) => (
+                    <div key={label} className="grid grid-cols-3 items-center gap-3">
+                      <label className="text-xs text-muted-foreground">{label}</label>
+                      <Input defaultValue={val} size="xs" className="col-span-2" />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="grid gap-2">
-                {[
-                  ["Width", "100%"],
-                  ["Max width", "300px"],
-                  ["Height", "25px"],
-                ].map(([label, val]) => (
-                  <div key={label} className="grid grid-cols-3 items-center gap-3">
-                    <label className="text-xs text-muted-foreground">{label}</label>
-                    <Input defaultValue={val} size="xs" className="col-span-2" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </PopoverContent>
-        </Popover>
+            </PopoverContent>
+          </Popover>
+        </div>
 
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="secondary">
-              <Mail className="h-3.5 w-3.5 mr-1.5" />
-              Invite
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent side="top" className="w-64">
-            <div className="space-y-2">
-              <h4 className="text-sm font-semibold">Invite teammate</h4>
-              <Input placeholder="name@company.com" size="xs" />
-              <Button size="xs" className="w-full">Send invite</Button>
-            </div>
-          </PopoverContent>
-        </Popover>
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label htmlFor="ctl-popoverSide" className="font-semibold text-muted-foreground block mb-1">Placement Side</label>
+            <PlaygroundSelect
+              id="ctl-popoverSide"
+              value={side}
+              onValueChange={(s) => setSide(s as any)}
+              options={[
+                { value: "bottom", label: "bottom (Default)" },
+                { value: "top", label: "top" },
+                { value: "left", label: "left" },
+                { value: "right", label: "right" },
+              ]}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="ctl-popoverAlign" className="font-semibold text-muted-foreground block mb-1">Alignment</label>
+            <PlaygroundSelect
+              id="ctl-popoverAlign"
+              value={align}
+              onValueChange={(a) => setAlign(a as any)}
+              options={[
+                { value: "start", label: "start" },
+                { value: "center", label: "center (Default)" },
+                { value: "end", label: "end" },
+              ]}
+            />
+          </div>
+        </div>
       </div>
 
       <CodeBlock
@@ -69,7 +92,7 @@ export function PopoverSection() {
   <PopoverTrigger asChild>
     <Button variant="outline">Dimensions</Button>
   </PopoverTrigger>
-  <PopoverContent side="bottom" align="center" className="w-72">
+  <PopoverContent side="${side}" align="${align}" className="w-72">
     <h4 className="text-sm font-semibold">Dimensions</h4>
     <Input defaultValue="100%" size="xs" />
   </PopoverContent>
@@ -83,7 +106,7 @@ import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui-uni
     <PopoverTrigger as-child>
       <Button variant="outline">Dimensions</Button>
     </PopoverTrigger>
-    <PopoverContent side="bottom" align="center" class="w-72">
+    <PopoverContent side="${side}" align="${align}" class="w-72">
       <h4 class="text-sm font-semibold">Dimensions</h4>
       <Input model-value="100%" size="xs" />
     </PopoverContent>
@@ -137,12 +160,6 @@ import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui-uni
             default: "4",
             description: "Distance in pixels between the popover and its anchor target.",
           },
-          {
-            name: "asChild",
-            type: "boolean",
-            default: "false",
-            description: "Merges trigger and action behavior directly into child element without rendering additional wrappers.",
-          },
         ]}
         accessibility={{
           keyboard: [
@@ -161,4 +178,3 @@ import { Popover, PopoverTrigger, PopoverContent, Button, Input } from "@cui-uni
     </div>
   );
 }
-

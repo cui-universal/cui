@@ -21,6 +21,10 @@ import {
   Progress,
   Avatar,
   AvatarFallback,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
 } from "@cui-universal/react";
 import { useDocs } from "../../context/DocsContext";
 import type { Section } from "../../types";
@@ -33,7 +37,7 @@ export function IntroSection() {
   const [heroActiveTab, setHeroActiveTab] = useState("player");
   const [categoryFilter, setCategoryFilter] = useState("all");
 
-  const pkgName = framework === "react" ? "@cui-universal/react @cui-universal/theme" : "@cui-universal/vue @cui-universal/theme";
+  const pkgName = framework === "react" ? "@cui-universal/react@beta @cui-universal/theme@beta" : "@cui-universal/vue@beta @cui-universal/theme@beta";
   const installCmd =
     packageManager === "npm"
       ? `npm install ${pkgName}`
@@ -84,27 +88,29 @@ export function IntroSection() {
                 <Terminal className="h-4 w-4 text-primary shrink-0" />
                 <span className="truncate">{installCmd}</span>
               </div>
-              <div className="flex items-center gap-1 shrink-0 self-end sm:self-auto">
-                <div className="flex items-center p-0.5 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/70 border border-zinc-300/40 dark:border-zinc-700/40 text-[10px] font-sans">
-                  {(["pnpm", "npm", "yarn", "bun"] as const).map((pm) => (
-                    <button
-                      key={pm}
-                      type="button"
-                      onClick={() => setPackageManager(pm)}
-                      className={`px-1.5 py-0.5 rounded transition-all font-mono ${
-                        packageManager === pm
-                          ? "bg-white dark:bg-zinc-900 text-foreground font-bold shadow-xs"
-                          : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
-                      }`}
-                    >
-                      {pm}
-                    </button>
-                  ))}
-                </div>
+              <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-auto">
+                <Tabs
+                  value={packageManager}
+                  onValueChange={(val) => setPackageManager(val as any)}
+                  size="xs"
+                  radius="full"
+                >
+                  <TabsList className="bg-zinc-200/80 dark:bg-zinc-800/80 border border-zinc-300/50 dark:border-zinc-700/50 h-7 p-0.5 gap-0.5">
+                    {(["pnpm", "npm", "yarn", "bun"] as const).map((pm) => (
+                      <TabsTrigger
+                        key={pm}
+                        value={pm}
+                        className="px-2 font-mono text-[10px] font-semibold"
+                      >
+                        {pm}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </Tabs>
                 <button
                   type="button"
                   onClick={() => copyToClipboard(installCmd, "hero-install")}
-                  className={`px-2.5 py-1 rounded-lg transition-all flex items-center gap-1 shrink-0 font-sans text-[11px] font-medium border shadow-xs ${
+                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1 shrink-0 font-sans text-[11px] font-semibold border shadow-xs ${
                     copiedId === "hero-install"
                       ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800"
                       : "bg-white hover:bg-zinc-50 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 hover:text-zinc-900 dark:text-zinc-200 dark:hover:text-white border-zinc-200 dark:border-zinc-700"
@@ -134,7 +140,7 @@ export function IntroSection() {
                 onClick={() => setCurrentSection("button")}
                 rightIcon={<ArrowRight className="h-4 w-4" />}
               >
-                Explore 22 Primitives
+                Explore 32 Primitives
               </Button>
               <Button
                 variant="outline"
@@ -149,7 +155,7 @@ export function IntroSection() {
             {/* Metric Badges */}
             <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border/50 max-w-lg">
               <div>
-                <p className="text-2xl font-black text-foreground">22</p>
+                <p className="text-2xl font-black text-foreground">32</p>
                 <p className="text-[11px] text-muted-foreground font-medium">Accessible Primitives</p>
               </div>
               <div>
@@ -183,33 +189,27 @@ export function IntroSection() {
                 <Badge variant="success" size="xs">Live Demo</Badge>
               </div>
 
-              {/* Studio Tabs */}
-              <div className="flex rounded-xl bg-secondary/60 p-1 border border-border/60">
-                {[
-                  { id: "player", label: "Media Player", icon: Music },
-                  { id: "settings", label: "Settings", icon: SlidersHorizontal },
-                ].map((t) => {
-                  const Icon = t.icon;
-                  return (
-                    <button
-                      key={t.id}
-                      onClick={() => setHeroActiveTab(t.id)}
-                      className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                        heroActiveTab === t.id
-                          ? "bg-background text-foreground shadow-sm font-semibold"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <Icon className="h-3 w-3" />
-                      <span>{t.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
+              {/* Studio Tabs using CUI Tabs */}
+              <Tabs
+                value={heroActiveTab}
+                onValueChange={setHeroActiveTab}
+                size="sm"
+                radius="md"
+                className="w-full space-y-3"
+              >
+                <TabsList className="grid grid-cols-2 w-full">
+                  <TabsTrigger value="player" className="gap-1.5 font-semibold">
+                    <Music className="h-3.5 w-3.5" />
+                    <span>Media Player</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="settings" className="gap-1.5 font-semibold">
+                    <SlidersHorizontal className="h-3.5 w-3.5" />
+                    <span>Settings</span>
+                  </TabsTrigger>
+                </TabsList>
 
-              {/* Tab Content: Player */}
-              {heroActiveTab === "player" && (
-                <div className="space-y-4 pt-1">
+                {/* Tab Content: Player */}
+                <TabsContent value="player" className="space-y-4 pt-1 mt-0">
                   <div className="rounded-xl bg-secondary/40 border border-border/50 p-3.5 space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="space-y-0.5">
@@ -255,12 +255,10 @@ export function IntroSection() {
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                </TabsContent>
 
-              {/* Tab Content: Settings */}
-              {heroActiveTab === "settings" && (
-                <div className="space-y-3 pt-1">
+                {/* Tab Content: Settings */}
+                <TabsContent value="settings" className="space-y-3 pt-1 mt-0">
                   <div className="flex items-center justify-between p-2.5 rounded-xl bg-secondary/40 border border-border/50">
                     <div className="space-y-0.5">
                       <p className="text-xs font-medium">Turbo Acceleration</p>
@@ -280,8 +278,8 @@ export function IntroSection() {
                     </div>
                     <Checkbox size="sm" defaultChecked />
                   </div>
-                </div>
-              )}
+                </TabsContent>
+              </Tabs>
 
               {/* Studio Footer Quick Actions */}
               <div className="pt-2 flex items-center justify-between border-t border-border/50 text-[11px] text-muted-foreground">
@@ -289,67 +287,87 @@ export function IntroSection() {
                   <Zap className="h-3.5 w-3.5 text-amber-500" />
                   Hardware accelerated
                 </span>
-                <span className="font-mono text-[10px]">CUI v1.0.0</span>
+                <span className="font-mono text-[10px]">CUI v0.1.0-beta.1</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Filterable 22 Primitives Directory Grid */}
+      {/* Filterable 32 Primitives Directory Grid */}
       <div className="space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h2 className="text-xl font-bold tracking-tight">Included UI Primitives</h2>
             <p className="text-xs text-muted-foreground mt-0.5">
-              22 zero-dependency components ready for modern React & Vue applications
+              32 zero-dependency components ready for modern React & Vue applications
             </p>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-secondary/40 border border-border/60">
-            {[
-              { id: "all", label: "All (22)" },
-              { id: "Form", label: "Form (7)" },
-              { id: "Layout", label: "Layout (5)" },
-              { id: "Feedback", label: "Feedback (6)" },
-              { id: "Overlays", label: "Overlays (4)" },
-            ].map((f) => (
-              <button
-                key={f.id}
-                onClick={() => setCategoryFilter(f.id)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
-                  categoryFilter === f.id
-                    ? "bg-primary text-primary-foreground shadow-sm font-semibold"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
-                }`}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
+          {/* Category Filter using CUI Tabs */}
+          <Tabs
+            value={categoryFilter}
+            onValueChange={setCategoryFilter}
+            size="sm"
+            radius="full"
+          >
+            <TabsList className="bg-secondary/40 border border-border/60 p-0.5">
+              {[
+                { id: "all", label: "All (32)" },
+                { id: "Form", label: "Form (12)" },
+                { id: "Layout", label: "Layout (9)" },
+                { id: "Feedback", label: "Feedback (7)" },
+                { id: "Overlays", label: "Overlays (4)" },
+              ].map((f) => (
+                <TabsTrigger
+                  key={f.id}
+                  value={f.id}
+                  className="px-3 py-1 text-xs font-semibold"
+                >
+                  {f.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
           {[
+            // Form Controls (12)
             { name: "Button", cat: "Form", id: "button", desc: "7 variants & 6 sizes" },
             { name: "Input", cat: "Form", id: "input", desc: "Icons & validation" },
+            { name: "InputNumber", cat: "Form", id: "input-number", desc: "Numeric limits & stepper" },
             { name: "Textarea", cat: "Form", id: "textarea", desc: "Multiline input" },
             { name: "Checkbox", cat: "Form", id: "checkbox", desc: "Native styled box" },
             { name: "Switch", cat: "Form", id: "switch", desc: "Smooth toggle" },
             { name: "Select", cat: "Form", id: "select", desc: "Custom floating dropdown" },
             { name: "Radio Group", cat: "Form", id: "radio", desc: "Single selection group" },
+            { name: "DatePicker", cat: "Form", id: "datepicker", desc: "Calendar & date range" },
+            { name: "TextEditor", cat: "Form", id: "texteditor", desc: "Rich text formatting" },
+            { name: "Rating", cat: "Form", id: "rating", desc: "Interactive star rating" },
+            { name: "ColorPicker", cat: "Form", id: "color-picker", desc: "Color canvas & presets" },
+
+            // Layout & Disclosure (9)
             { name: "Card", cat: "Layout", id: "card", desc: "Container with slots" },
             { name: "Tabs", cat: "Layout", id: "tabs", desc: "Animated tab switch" },
             { name: "Accordion", cat: "Layout", id: "accordion", desc: "Collapsible panels" },
+            { name: "Steps (Stepper)", cat: "Layout", id: "steps", desc: "Multi-step workflows" },
+            { name: "Breadcrumb", cat: "Layout", id: "breadcrumb", desc: "Hierarchy navigation" },
+            { name: "Pagination", cat: "Layout", id: "pagination", desc: "Page navigation controls" },
+            { name: "Timeline", cat: "Layout", id: "timeline", desc: "Activity & event timeline" },
             { name: "Separator", cat: "Layout", id: "separator", desc: "Dividers & rules" },
             { name: "Table", cat: "Layout", id: "table", desc: "Rich tabular data" },
+
+            // Feedback & Status (7)
             { name: "Alert", cat: "Feedback", id: "alert", desc: "Status callouts" },
             { name: "Badge", cat: "Feedback", id: "badge", desc: "Compact labels" },
+            { name: "EmptyState", cat: "Feedback", id: "empty-state", desc: "Empty & zero data views" },
             { name: "Progress", cat: "Feedback", id: "progress", desc: "Dynamic gauge bar" },
             { name: "Skeleton", cat: "Feedback", id: "skeleton", desc: "Shimmer loader" },
             { name: "Tooltip", cat: "Feedback", id: "tooltip", desc: "Hover hints" },
             { name: "Kbd", cat: "Feedback", id: "kbd", desc: "Keyboard shortcuts" },
+
+            // Overlays & Identity (4)
             { name: "Dialog (Modal)", cat: "Overlays", id: "dialog", desc: "Accessible modal" },
             { name: "Popover", cat: "Overlays", id: "popover", desc: "Floating bubble" },
             { name: "Dropdown Menu", cat: "Overlays", id: "dropdown", desc: "Nested menu" },

@@ -31,3 +31,4 @@ export * from "./components/timeline";
 export * from "./components/empty-state";
 export * from "./components/rating";
 export * from "./components/color-picker";
+export * from "./components/input-number";

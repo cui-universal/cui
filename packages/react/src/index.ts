@@ -29,4 +29,5 @@ export * from "./Timeline";
 export * from "./EmptyState";
 export * from "./Rating";
 export * from "./ColorPicker";
+export * from "./InputNumber";
 export { cn } from "@cui-universal/theme";

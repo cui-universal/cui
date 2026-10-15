@@ -6,7 +6,7 @@ import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
 export function EmptyStateSection() {
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-5xl">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight">EmptyState</h1>
         <p className="text-muted-foreground text-sm mt-1">
@@ -14,17 +14,20 @@ export function EmptyStateSection() {
         </p>
       </div>
 
-      <div className="p-8 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm space-y-6 shadow-sm">
-        <EmptyState
-          title="No Products Cataloged Yet"
-          description="Your store catalog is currently empty. Add your first physical or digital product to begin receiving customer orders."
-          icon={<FolderPlus className="h-6 w-6 stroke-[1.5]" />}
-          action={
-            <Button size="sm">
-              Create First Product
-            </Button>
-          }
-        />
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[220px] flex items-center justify-center bg-secondary/15">
+          <EmptyState
+            title="No Products Cataloged Yet"
+            description="Your store catalog is currently empty. Add your first physical or digital product to begin receiving customer orders."
+            icon={<FolderPlus className="h-6 w-6 stroke-[1.5]" />}
+            action={
+              <Button size="sm">
+                Create First Product
+              </Button>
+            }
+          />
+        </div>
       </div>
 
       <CodeBlock

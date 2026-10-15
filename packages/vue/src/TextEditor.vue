@@ -1,278 +1,505 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, onMounted, watch } from "vue";
 import {
   textEditorVariants,
   textEditorToolbarVariants,
   textEditorButtonVariants,
   textEditorContentVariants,
+  textEditorFooterVariants,
   cn,
 } from "@cui-universal/theme";
 import {
   Bold,
   Italic,
+  Underline,
   Strikethrough,
-  Code,
   Heading1,
   Heading2,
+  Heading3,
   List,
   ListOrdered,
   Quote,
+  Code,
   Link as LinkIcon,
-  Eye,
-  Edit3,
-  RotateCcw,
+  Minus,
+  Undo2,
+  Redo2,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  RemoveFormatting,
+  Trash2,
+  Copy,
+  Check,
 } from "lucide-vue-next";
 
 interface Props {
   modelValue?: string;
   placeholder?: string;
-  rows?: number;
   class?: string;
+  disabled?: boolean;
   showWordCount?: boolean;
+  minHeight?: string | number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: "",
-  placeholder: "Write something here... (Markdown supported)",
-  rows: 6,
+  placeholder: "Start typing your rich content here...",
+  disabled: false,
   showWordCount: true,
+  minHeight: "220px",
 });
 
 const emit = defineEmits<{
-  (e: "update:modelValue", val: string): void;
+  (e: "update:modelValue", html: string): void;
 }>();
 
-const mode = ref<"write" | "preview">("write");
-const textareaRef = ref<HTMLTextAreaElement | null>(null);
+const editorRef = ref<HTMLDivElement | null>(null);
+const wordCount = ref(0);
+const charCount = ref(0);
+const copied = ref(false);
 
-const content = computed({
-  get: () => props.modelValue,
-  set: (val: string) => emit("update:modelValue", val),
+const activeFormats = ref({
+  bold: false,
+  italic: false,
+  underline: false,
+  strikeThrough: false,
+  h1: false,
+  h2: false,
+  h3: false,
+  ul: false,
+  ol: false,
+  blockquote: false,
+  alignLeft: false,
+  alignCenter: false,
+  alignRight: false,
 });
 
-const wordCount = computed(() => {
-  const text = props.modelValue.trim();
-  return text ? text.split(/\s+/).length : 0;
-});
-
-const charCount = computed(() => props.modelValue.length);
-
-// Wrap or insert markdown tags around selection
-const insertFormat = (prefix: string, suffix = "") => {
-  const el = textareaRef.value;
-  if (!el) return;
-
-  const start = el.selectionStart;
-  const end = el.selectionEnd;
-  const currentText = props.modelValue;
-  const selectedText = currentText.substring(start, end);
-
-  const replacement = prefix + (selectedText || "text") + suffix;
-  const newText =
-    currentText.substring(0, start) + replacement + currentText.substring(end);
-
-  emit("update:modelValue", newText);
-
-  // Restore cursor inside formatted text
-  setTimeout(() => {
-    el.focus();
-    const newPos = start + prefix.length + (selectedText ? selectedText.length : 4);
-    el.setSelectionRange(newPos, newPos);
-  }, 0);
+const updateCounts = () => {
+  if (!editorRef.value) return;
+  const text = editorRef.value.innerText || "";
+  const trimmed = text.trim();
+  wordCount.value = trimmed ? trimmed.split(/\s+/).length : 0;
+  charCount.value = text.replace(/\n$/, "").length;
 };
 
-const insertLinePrefix = (prefix: string) => {
-  const el = textareaRef.value;
-  if (!el) return;
+const updateActiveFormats = () => {
+  if (typeof document === "undefined" || !editorRef.value) return;
 
-  const start = el.selectionStart;
-  const currentText = props.modelValue;
-  const lineStart = currentText.lastIndexOf("\n", start - 1) + 1;
+  const sel = window.getSelection();
+  if (!sel || !sel.anchorNode || !editorRef.value.contains(sel.anchorNode)) {
+    return;
+  }
 
-  const newText =
-    currentText.substring(0, lineStart) +
-    prefix +
-    currentText.substring(lineStart);
+  const isBold = document.queryCommandState("bold");
+  const isItalic = document.queryCommandState("italic");
+  const isUnderline = document.queryCommandState("underline");
+  const isStrike = document.queryCommandState("strikeThrough");
+  const isUl = document.queryCommandState("insertUnorderedList");
+  const isOl = document.queryCommandState("insertOrderedList");
 
-  emit("update:modelValue", newText);
+  let currentEl: HTMLElement | null =
+    sel.anchorNode instanceof HTMLElement
+      ? sel.anchorNode
+      : sel.anchorNode.parentElement;
 
-  setTimeout(() => {
-    el.focus();
-    const newPos = start + prefix.length;
-    el.setSelectionRange(newPos, newPos);
-  }, 0);
+  let isH1 = false;
+  let isH2 = false;
+  let isH3 = false;
+  let isQuote = false;
+
+  while (currentEl && currentEl !== editorRef.value) {
+    const tag = currentEl.tagName.toUpperCase();
+    if (tag === "H1") isH1 = true;
+    if (tag === "H2") isH2 = true;
+    if (tag === "H3") isH3 = true;
+    if (tag === "BLOCKQUOTE") isQuote = true;
+    currentEl = currentEl.parentElement;
+  }
+
+  activeFormats.value = {
+    bold: isBold,
+    italic: isItalic,
+    underline: isUnderline,
+    strikeThrough: isStrike,
+    h1: isH1,
+    h2: isH2,
+    h3: isH3,
+    ul: isUl,
+    ol: isOl,
+    blockquote: isQuote,
+    alignLeft: document.queryCommandState("justifyLeft"),
+    alignCenter: document.queryCommandState("justifyCenter"),
+    alignRight: document.queryCommandState("justifyRight"),
+  };
 };
 
-// Simple markdown preview parser for bold, italic, headings, lists, links
-const parsedPreview = computed(() => {
-  if (!props.modelValue) return "<p class='text-muted-foreground italic'>Nothing to preview</p>";
+const handleInput = () => {
+  if (!editorRef.value) return;
+  const html = editorRef.value.innerHTML;
+  emit("update:modelValue", html);
+  updateCounts();
+  updateActiveFormats();
+};
 
-  const lines = props.modelValue.split("\n");
-  const html = lines
-    .map((line) => {
-      let l = line;
-      if (l.startsWith("### ")) return `<h3 class="text-sm font-bold mt-2 mb-1">${l.slice(4)}</h3>`;
-      if (l.startsWith("## ")) return `<h2 class="text-base font-bold mt-3 mb-1">${l.slice(3)}</h2>`;
-      if (l.startsWith("# ")) return `<h1 class="text-lg font-black mt-3 mb-1">${l.slice(2)}</h1>`;
-      if (l.startsWith("> ")) return `<blockquote class="border-l-2 border-primary pl-3 italic text-muted-foreground my-1">${l.slice(2)}</blockquote>`;
-      if (l.startsWith("- ")) return `<li class="ml-4 list-disc text-xs my-0.5">${l.slice(2)}</li>`;
-      if (/^\d+\.\s/.test(l)) return `<li class="ml-4 list-decimal text-xs my-0.5">${l.replace(/^\d+\.\s/, "")}</li>`;
+const executeCommand = (command: string, arg?: string) => {
+  if (props.disabled || !editorRef.value) return;
+  editorRef.value.focus();
+  document.execCommand(command, false, arg);
+  handleInput();
+};
 
-      // Inline styles
-      l = l.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-      l = l.replace(/\*(.*?)\*/g, "<em>$1</em>");
-      l = l.replace(/~~(.*?)~~/g, "<del>$1</del>");
-      l = l.replace(/`(.*?)`/g, "<code class='bg-muted px-1 rounded font-mono text-xs'>$1</code>");
-      l = l.replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2' target='_blank' class='text-primary underline'>$1</a>");
+const toggleBlock = (tag: string) => {
+  if (props.disabled || !editorRef.value) return;
+  editorRef.value.focus();
 
-      return l.trim() ? `<p class="my-1 text-xs sm:text-sm">${l}</p>` : "<br />";
-    })
-    .join("");
+  const sel = window.getSelection();
+  let parentTag = "";
+  if (sel && sel.anchorNode) {
+    let el: HTMLElement | null =
+      sel.anchorNode instanceof HTMLElement
+        ? sel.anchorNode
+        : sel.anchorNode.parentElement;
+    while (el && el !== editorRef.value) {
+      if (el.tagName.toLowerCase() === tag.toLowerCase()) {
+        parentTag = el.tagName.toLowerCase();
+        break;
+      }
+      el = el.parentElement;
+    }
+  }
 
-  return html;
+  if (parentTag === tag.toLowerCase()) {
+    document.execCommand("formatBlock", false, "<p>");
+  } else {
+    document.execCommand("formatBlock", false, `<${tag}>`);
+  }
+  handleInput();
+};
+
+const handleLink = () => {
+  if (props.disabled || !editorRef.value) return;
+  const url = window.prompt("Enter web link URL (https://...):", "https://");
+  if (url) {
+    executeCommand("createLink", url);
+  }
+};
+
+const handleClear = () => {
+  if (props.disabled || !editorRef.value) return;
+  editorRef.value.innerHTML = "";
+  handleInput();
+};
+
+const handleCopy = () => {
+  if (!editorRef.value) return;
+  navigator.clipboard.writeText(editorRef.value.innerHTML);
+  copied.value = true;
+  setTimeout(() => {
+    copied.value = false;
+  }, 1800);
+};
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  const isMac = typeof navigator !== "undefined" && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+  const modKey = isMac ? e.metaKey : e.ctrlKey;
+
+  if (modKey && !e.altKey) {
+    if (e.key.toLowerCase() === "b") {
+      e.preventDefault();
+      executeCommand("bold");
+      return;
+    }
+    if (e.key.toLowerCase() === "i") {
+      e.preventDefault();
+      executeCommand("italic");
+      return;
+    }
+    if (e.key.toLowerCase() === "u") {
+      e.preventDefault();
+      executeCommand("underline");
+      return;
+    }
+    if (e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      handleLink();
+      return;
+    }
+  }
+
+  if (e.key === "Tab") {
+    e.preventDefault();
+    if (e.shiftKey) {
+      executeCommand("outdent");
+    } else {
+      executeCommand("indent");
+    }
+  }
+};
+
+onMounted(() => {
+  if (editorRef.value) {
+    editorRef.value.innerHTML = props.modelValue || "";
+    updateCounts();
+  }
 });
+
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    if (editorRef.value && editorRef.value.innerHTML !== newVal) {
+      editorRef.value.innerHTML = newVal || "";
+      updateCounts();
+    }
+  }
+);
 </script>
 
 <template>
   <div :class="cn(textEditorVariants(), props.class)">
-    <!-- Toolbar -->
+    <!-- Real WYSIWYG Toolbar -->
     <div :class="cn(textEditorToolbarVariants())">
-      <div class="flex items-center gap-0.5 flex-1">
+      <div class="flex flex-wrap items-center gap-0.5">
+        <!-- Undo / Redo -->
         <button
           type="button"
-          title="Bold"
+          title="Undo (Ctrl+Z)"
+          :disabled="props.disabled"
           :class="cn(textEditorButtonVariants())"
-          @click="insertFormat('**', '**')"
+          @mousedown.prevent="executeCommand('undo')"
         >
-          <Bold class="h-3.5 w-3.5" />
+          <Undo2 class="h-3.5 w-3.5" />
         </button>
         <button
           type="button"
-          title="Italic"
+          title="Redo (Ctrl+Y / Ctrl+Shift+Z)"
+          :disabled="props.disabled"
           :class="cn(textEditorButtonVariants())"
-          @click="insertFormat('*', '*')"
+          @mousedown.prevent="executeCommand('redo')"
         >
-          <Italic class="h-3.5 w-3.5" />
-        </button>
-        <button
-          type="button"
-          title="Strikethrough"
-          :class="cn(textEditorButtonVariants())"
-          @click="insertFormat('~~', '~~')"
-        >
-          <Strikethrough class="h-3.5 w-3.5" />
-        </button>
-        <button
-          type="button"
-          title="Inline Code"
-          :class="cn(textEditorButtonVariants())"
-          @click="insertFormat('`', '`')"
-        >
-          <Code class="h-3.5 w-3.5" />
+          <Redo2 class="h-3.5 w-3.5" />
         </button>
 
-        <span class="h-4 w-px bg-border mx-1" />
+        <span class="w-px h-4 bg-border/80 mx-1" />
 
+        <!-- Block formats -->
         <button
           type="button"
           title="Heading 1"
-          :class="cn(textEditorButtonVariants())"
-          @click="insertLinePrefix('# ')"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.h1 }))"
+          @mousedown.prevent="toggleBlock('h1')"
         >
           <Heading1 class="h-3.5 w-3.5" />
         </button>
         <button
           type="button"
           title="Heading 2"
-          :class="cn(textEditorButtonVariants())"
-          @click="insertLinePrefix('## ')"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.h2 }))"
+          @mousedown.prevent="toggleBlock('h2')"
         >
           <Heading2 class="h-3.5 w-3.5" />
         </button>
+        <button
+          type="button"
+          title="Heading 3"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.h3 }))"
+          @mousedown.prevent="toggleBlock('h3')"
+        >
+          <Heading3 class="h-3.5 w-3.5" />
+        </button>
 
-        <span class="h-4 w-px bg-border mx-1" />
+        <span class="w-px h-4 bg-border/80 mx-1" />
 
+        <!-- Inline formats -->
+        <button
+          type="button"
+          title="Bold (Ctrl+B)"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.bold }))"
+          @mousedown.prevent="executeCommand('bold')"
+        >
+          <Bold class="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          title="Italic (Ctrl+I)"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.italic }))"
+          @mousedown.prevent="executeCommand('italic')"
+        >
+          <Italic class="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          title="Underline (Ctrl+U)"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.underline }))"
+          @mousedown.prevent="executeCommand('underline')"
+        >
+          <Underline class="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          title="Strikethrough"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.strikeThrough }))"
+          @mousedown.prevent="executeCommand('strikeThrough')"
+        >
+          <Strikethrough class="h-3.5 w-3.5" />
+        </button>
+
+        <span class="w-px h-4 bg-border/80 mx-1" />
+
+        <!-- Alignment -->
+        <button
+          type="button"
+          title="Align Left"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.alignLeft }))"
+          @mousedown.prevent="executeCommand('justifyLeft')"
+        >
+          <AlignLeft class="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          title="Align Center"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.alignCenter }))"
+          @mousedown.prevent="executeCommand('justifyCenter')"
+        >
+          <AlignCenter class="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          title="Align Right"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.alignRight }))"
+          @mousedown.prevent="executeCommand('justifyRight')"
+        >
+          <AlignRight class="h-3.5 w-3.5" />
+        </button>
+
+        <span class="w-px h-4 bg-border/80 mx-1" />
+
+        <!-- Lists -->
         <button
           type="button"
           title="Bullet List"
-          :class="cn(textEditorButtonVariants())"
-          @click="insertLinePrefix('- ')"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.ul }))"
+          @mousedown.prevent="executeCommand('insertUnorderedList')"
         >
           <List class="h-3.5 w-3.5" />
         </button>
         <button
           type="button"
           title="Numbered List"
-          :class="cn(textEditorButtonVariants())"
-          @click="insertLinePrefix('1. ')"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.ol }))"
+          @mousedown.prevent="executeCommand('insertOrderedList')"
         >
           <ListOrdered class="h-3.5 w-3.5" />
         </button>
+
+        <span class="w-px h-4 bg-border/80 mx-1" />
+
+        <!-- Inserts -->
         <button
           type="button"
-          title="Quote"
-          :class="cn(textEditorButtonVariants())"
-          @click="insertLinePrefix('> ')"
+          title="Blockquote"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants({ active: activeFormats.blockquote }))"
+          @mousedown.prevent="toggleBlock('blockquote')"
         >
           <Quote class="h-3.5 w-3.5" />
         </button>
         <button
           type="button"
-          title="Insert Link"
+          title="Code Block"
+          :disabled="props.disabled"
           :class="cn(textEditorButtonVariants())"
-          @click="insertFormat('[Link text](', 'https://)')"
+          @mousedown.prevent="toggleBlock('pre')"
+        >
+          <Code class="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          title="Insert Link (Ctrl+K)"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants())"
+          @mousedown.prevent="handleLink"
         >
           <LinkIcon class="h-3.5 w-3.5" />
         </button>
-      </div>
-
-      <!-- Mode Toggle: Write / Preview -->
-      <div class="flex items-center gap-1 border-l border-border pl-1.5 ml-1">
         <button
           type="button"
-          :class="cn(textEditorButtonVariants({ active: mode === 'write' }))"
-          title="Edit Mode"
-          @click="mode = 'write'"
+          title="Horizontal Divider"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants())"
+          @mousedown.prevent="executeCommand('insertHorizontalRule')"
         >
-          <Edit3 class="h-3.5 w-3.5" />
+          <Minus class="h-3.5 w-3.5" />
         </button>
         <button
           type="button"
-          :class="cn(textEditorButtonVariants({ active: mode === 'preview' }))"
-          title="Preview Mode"
-          @click="mode = 'preview'"
+          title="Clear Formatting"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants())"
+          @mousedown.prevent="executeCommand('removeFormat')"
         >
-          <Eye class="h-3.5 w-3.5" />
+          <RemoveFormatting class="h-3.5 w-3.5" />
+        </button>
+      </div>
+
+      <!-- Right Tools -->
+      <div class="flex items-center gap-1.5 ml-auto">
+        <button
+          type="button"
+          title="Clear Document"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants(), 'hover:text-destructive')"
+          @click="handleClear"
+        >
+          <Trash2 class="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
+          title="Copy Clean HTML"
+          :disabled="props.disabled"
+          :class="cn(textEditorButtonVariants())"
+          @click="handleCopy"
+        >
+          <Check v-if="copied" class="h-3.5 w-3.5 text-emerald-500" />
+          <Copy v-else class="h-3.5 w-3.5" />
         </button>
       </div>
     </div>
 
-    <!-- Content Area: Edit vs Preview -->
-    <div class="relative">
-      <textarea
-        v-show="mode === 'write'"
-        ref="textareaRef"
-        v-model="content"
-        :placeholder="placeholder"
-        :rows="rows"
-        :class="cn(textEditorContentVariants())"
-      />
-
-      <div
-        v-show="mode === 'preview'"
-        class="min-h-[140px] p-3 text-xs sm:text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto leading-relaxed"
-        v-html="parsedPreview"
-      />
-    </div>
-
-    <!-- Footer Counter -->
+    <!-- Real WYSIWYG Editable Surface (Write & View on the same surface!) -->
     <div
-      v-if="showWordCount"
-      class="flex items-center justify-between px-3 py-1.5 border-t border-border/60 bg-muted/20 text-[10px] text-muted-foreground font-mono"
-    >
-      <span>Markdown formatting supported</span>
+      ref="editorRef"
+      :contenteditable="!props.disabled"
+      :data-placeholder="props.placeholder"
+      :class="cn(textEditorContentVariants())"
+      :style="{ minHeight: typeof props.minHeight === 'number' ? `${props.minHeight}px` : props.minHeight }"
+      @input="handleInput"
+      @keydown="handleKeyDown"
+      @keyup="updateActiveFormats"
+      @mouseup="updateActiveFormats"
+    />
+
+    <!-- Footer Statistics -->
+    <div v-if="props.showWordCount" :class="cn(textEditorFooterVariants())">
+      <span class="flex items-center gap-1.5">
+        <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        WYSIWYG Rich Text Mode (Live In-Place Editing)
+      </span>
       <div class="flex items-center gap-3">
-        <span>{{ wordCount }} words</span>
+        <span>{{ wordCount }} {{ wordCount === 1 ? 'word' : 'words' }}</span>
+        <span>&bull;</span>
         <span>{{ charCount }} chars</span>
       </div>
     </div>

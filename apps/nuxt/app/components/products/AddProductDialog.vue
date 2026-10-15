@@ -3,6 +3,7 @@ import { ref } from "vue";
 import {
   Button,
   Input,
+  InputNumber,
   TextEditor,
   Switch,
   Dialog,
@@ -25,7 +26,7 @@ const isSaving = ref(false);
 const form = ref({
   name: "",
   sku: "",
-  price: "",
+  price: 199,
   stock: 25,
   category: "Electronics",
   description: "",
@@ -39,8 +40,8 @@ const handleSave = () => {
     addProduct({
       name: form.value.name,
       sku: form.value.sku,
-      price: form.value.price,
-      stock: form.value.stock,
+      price: form.value.price !== null && form.value.price !== undefined ? `$${Number(form.value.price).toFixed(2)}` : "$0.00",
+      stock: form.value.stock ?? 0,
       category: form.value.category,
       description: form.value.description,
       inStock: form.value.inStock,
@@ -50,7 +51,7 @@ const handleSave = () => {
     form.value = {
       name: "",
       sku: "",
-      price: "",
+      price: 199,
       stock: 25,
       category: "Electronics",
       description: "",
@@ -85,11 +86,23 @@ const handleSave = () => {
         <div class="grid grid-cols-2 gap-3">
           <div class="space-y-1.5">
             <label class="text-xs font-semibold text-muted-foreground">Price (USD)</label>
-            <Input v-model="form.price" placeholder="199.00" type="number" />
+            <InputNumber
+              v-model="form.price"
+              placeholder="199.00"
+              :min="0"
+              :step="1"
+              :precision="2"
+              prefix="$"
+            />
           </div>
           <div class="space-y-1.5">
             <label class="text-xs font-semibold text-muted-foreground">Initial Stock</label>
-            <Input v-model="form.stock" placeholder="25" type="number" />
+            <InputNumber
+              v-model="form.stock"
+              placeholder="25"
+              :min="0"
+              :step="1"
+            />
           </div>
         </div>
 

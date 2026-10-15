@@ -93,6 +93,8 @@ const CUI_COMPONENTS = [
   "Rating",
   "EmptyState",
   "ColorPicker",
+  "InputNumber",
+  "NumberInput",
 ];
 
 export interface CUINuxtOptions {

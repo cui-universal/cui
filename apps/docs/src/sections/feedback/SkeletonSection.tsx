@@ -13,11 +13,16 @@ export function SkeletonSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-8 max-w-md mx-auto flex items-center space-x-4 shadow-sm">
-        <Skeleton className="h-12 w-12 rounded-full" />
-        <div className="space-y-2 flex-1">
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex items-center justify-center bg-secondary/15">
+          <div className="flex items-center space-x-4 w-full max-w-md p-4 rounded-2xl border border-border/60 bg-card">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2 flex-1">
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+          </div>
         </div>
       </div>
 

@@ -27,8 +27,9 @@ export function SelectSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-8 space-y-6 shadow-sm">
-        <div className="flex flex-col items-center justify-center gap-3 p-10 bg-secondary/15 rounded-2xl">
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex flex-col items-center justify-center bg-secondary/15 gap-3">
           <div className="w-64">
             <Select value={selectValue} onValueChange={setSelectValue}>
               <SelectTrigger id="demo-select-trigger" size={selectSize} variant={selectVariant}>
@@ -52,11 +53,12 @@ export function SelectSection() {
             </Select>
           </div>
           <p className="text-[11px] text-muted-foreground">
-            Selected: <span className="font-mono text-foreground">{selectValue || "none"}</span>
+            Selected: <span className="font-mono text-foreground font-semibold">{selectValue || "none"}</span>
           </p>
         </div>
 
-        <div className="p-4 border-t border-border bg-secondary/30 rounded-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
             <label htmlFor="ctl-selectVariant" className="font-semibold text-muted-foreground block mb-1">Variant</label>
             <PlaygroundSelect

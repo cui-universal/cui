@@ -10,7 +10,7 @@ import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
 export function BreadcrumbSection() {
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-5xl">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight">Breadcrumb</h1>
         <p className="text-muted-foreground text-sm mt-1">
@@ -18,24 +18,27 @@ export function BreadcrumbSection() {
         </p>
       </div>
 
-      <div className="p-8 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm space-y-6 shadow-sm">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#home">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#catalog">E-Commerce</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#products">Products</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink active>Studio Headphones</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[160px] flex items-center justify-center bg-secondary/15">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#home">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#catalog">E-Commerce</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#products">Products</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink active>Studio Headphones</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </div>
       </div>
 
       <CodeBlock

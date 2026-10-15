@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { provide, ref, watch } from "vue";
+import { provide, ref, watch, computed } from "vue";
+import type { TabsVariants } from "@cui-universal/theme";
 
 interface Props {
   modelValue?: string;
   defaultValue?: string;
   orientation?: "horizontal" | "vertical";
+  size?: TabsVariants["size"];
+  radius?: TabsVariants["radius"];
   class?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   defaultValue: "",
   orientation: "horizontal",
+  size: "sm",
+  radius: "md",
 });
 
 const emit = defineEmits<{
@@ -34,7 +39,9 @@ const setActiveTab = (val: string) => {
 provide("cui-tabs", {
   activeTab,
   setActiveTab,
-  orientation: props.orientation,
+  orientation: computed(() => props.orientation),
+  size: computed(() => props.size),
+  radius: computed(() => props.radius),
 });
 </script>
 

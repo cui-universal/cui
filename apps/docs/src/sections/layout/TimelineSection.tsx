@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Timeline } from "@cui-universal/react";
+import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
 export function TimelineSection() {
+  const [orientation, setOrientation] = useState<"vertical" | "horizontal">("vertical");
+  const [size, setSize] = useState<"sm" | "md" | "lg">("md");
+
   const events = [
     {
       title: "Order Placed & Payment Verified",
@@ -32,16 +36,51 @@ export function TimelineSection() {
   ];
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-5xl">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight">Timeline</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          Chronological event logs and delivery tracking with customizable status indicators.
+          Chronological event logs and delivery tracking with customizable status indicators, responsive orientation, and clean connectors.
         </p>
       </div>
 
-      <div className="p-8 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm space-y-6 shadow-sm">
-        <Timeline items={events} />
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[220px] flex items-center justify-center bg-secondary/15">
+          <div className="w-full max-w-2xl overflow-x-auto py-2">
+            <Timeline items={events} orientation={orientation} size={size} />
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label htmlFor="ctl-tlOrientation" className="font-semibold text-muted-foreground block mb-1">Orientation</label>
+            <PlaygroundSelect
+              id="ctl-tlOrientation"
+              value={orientation}
+              onValueChange={(m) => setOrientation(m as any)}
+              options={[
+                { value: "vertical", label: "vertical" },
+                { value: "horizontal", label: "horizontal" },
+              ]}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="ctl-tlSize" className="font-semibold text-muted-foreground block mb-1">Size</label>
+            <PlaygroundSelect
+              id="ctl-tlSize"
+              value={size}
+              onValueChange={(s) => setSize(s as any)}
+              options={[
+                { value: "sm", label: "sm" },
+                { value: "md", label: "md (Default)" },
+                { value: "lg", label: "lg" },
+              ]}
+            />
+          </div>
+        </div>
       </div>
 
       <CodeBlock
@@ -51,6 +90,8 @@ export function TimelineSection() {
 export function TimelineDemo() {
   return (
     <Timeline
+      orientation="${orientation}"
+      size="${size}"
       items={[
         { title: "Order Placed", time: "10:24 AM", status: "complete" },
         { title: "Dispatched", time: "02:15 PM", status: "complete" },
@@ -72,25 +113,41 @@ const events = [
 </script>
 
 <template>
-  <Timeline :items="events" />
+  <Timeline
+    orientation="${orientation}"
+    size="${size}"
+    :items="events"
+  />
 </template>`}
       />
 
       <ComponentDocDetails
         componentName="Timeline"
-        anatomy={["Timeline", "TimelineItem", "TimelinePoint", "TimelineContent", "TimelineTitle", "TimelineTime"]}
+        anatomy={["Timeline", "TimelineItem", "TimelinePoint", "TimelineConnector", "TimelineContent", "TimelineTitle", "TimelineTime"]}
         props={[
           {
             name: "items",
-            type: "Array<{ title: string; time?: string; description?: string; status?: 'complete' | 'current' | 'upcoming'; icon?: ReactNode }>",
+            type: "Array<{ title: string; time?: string; description?: string; status?: 'complete' | 'current' | 'upcoming' | 'error' | 'warning'; icon?: ReactNode }>",
             default: "[]",
             description: "Array of chronological events to display in sequence.",
+          },
+          {
+            name: "orientation",
+            type: "'vertical' | 'horizontal'",
+            default: "'vertical'",
+            description: "Layout direction of the timeline steps.",
+          },
+          {
+            name: "size",
+            type: "'sm' | 'md' | 'lg'",
+            default: "'md'",
+            description: "Dimensions of point indicators, typography, and connector spacing.",
           },
         ]}
         accessibility={{
           aria: [
-            "Continuous left-hand guide rule connects nodes visually.",
-            "Complete points show high-contrast checkmarks.",
+            "Item-level connectors automatically avoid trailing dangling lines at the end of the timeline.",
+            "Complete points show high-contrast checkmarks with accessible aria hints.",
           ],
         }}
       />

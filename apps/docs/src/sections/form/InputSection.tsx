@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "@cui-universal/react";
+import { Input, Checkbox } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -9,6 +9,7 @@ export function InputSection() {
   const [inputSize, setInputSize] = useState<"xs" | "sm" | "md" | "lg" | "xl" | "2xl">("sm");
   const [inputPlaceholder, setInputPlaceholder] = useState("Enter your email address...");
   const [inputVal, setInputVal] = useState("");
+  const [inputDisabled, setInputDisabled] = useState(false);
 
   return (
     <div className="space-y-8 max-w-5xl">
@@ -19,18 +20,23 @@ export function InputSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-8 space-y-6 shadow-sm">
-        <div className="max-w-md mx-auto space-y-4">
-          <Input
-            variant={inputVariant}
-            size={inputSize}
-            placeholder={inputPlaceholder}
-            value={inputVal}
-            onChange={(e) => setInputVal(e.target.value)}
-          />
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex items-center justify-center bg-secondary/15">
+          <div className="w-full max-w-md">
+            <Input
+              variant={inputVariant}
+              size={inputSize}
+              placeholder={inputPlaceholder}
+              value={inputVal}
+              disabled={inputDisabled}
+              onChange={(e) => setInputVal(e.target.value)}
+            />
+          </div>
         </div>
 
-        <div className="p-4 border-t border-border bg-secondary/30 rounded-2xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
           <div>
             <label htmlFor="ctl-inputVariant" className="font-semibold text-muted-foreground block mb-1">Variant</label>
             <PlaygroundSelect
@@ -47,23 +53,37 @@ export function InputSection() {
               value={inputSize}
               onValueChange={(v) => setInputSize(v as any)}
               options={[
-                { value: "xs", label: "xs (Extra Small)" },
-                { value: "sm", label: "sm (Small - Default)" },
-                { value: "md", label: "md (Medium)" },
-                { value: "lg", label: "lg (Large)" },
-                { value: "xl", label: "xl (Extra Large)" },
-                { value: "2xl", label: "2xl (2X Large)" },
+                { value: "xs", label: "xs" },
+                { value: "sm", label: "sm (Default)" },
+                { value: "md", label: "md" },
+                { value: "lg", label: "lg" },
+                { value: "xl", label: "xl" },
+                { value: "2xl", label: "2xl" },
               ]}
             />
           </div>
+
           <div>
-            <label className="font-semibold text-muted-foreground block mb-1">Placeholder</label>
-            <input
-              type="text"
+            <label htmlFor="ctl-inputPlaceholder" className="font-semibold text-muted-foreground block mb-1">Placeholder</label>
+            <Input
+              id="ctl-inputPlaceholder"
+              size="sm"
               value={inputPlaceholder}
               onChange={(e) => setInputPlaceholder(e.target.value)}
-              className="w-full p-2 rounded-xl border border-border bg-background"
+              placeholder="Placeholder text..."
             />
+          </div>
+
+          <div className="flex items-center gap-2 cursor-pointer pt-4 sm:pt-6">
+            <Checkbox
+              id="ctl-inputDisabled"
+              size="sm"
+              checked={inputDisabled}
+              onCheckedChange={(c) => setInputDisabled(c === true)}
+            />
+            <label htmlFor="ctl-inputDisabled" className="font-medium cursor-pointer select-none text-foreground text-xs">
+              Disabled
+            </label>
           </div>
         </div>
       </div>
@@ -108,7 +128,7 @@ export function InputSection() {
 <Input
   variant="${inputVariant}"
   size="${inputSize}"
-  placeholder="${inputPlaceholder}"
+  placeholder="${inputPlaceholder}"${inputDisabled ? '\n  disabled={true}' : ''}
 />`}
         vueCode={`<script setup lang="ts">
 import { Input } from "@cui-universal/vue";
@@ -122,7 +142,7 @@ const text = ref("");
     v-model="text"
     variant="${inputVariant}"
     size="${inputSize}"
-    placeholder="${inputPlaceholder}"
+    placeholder="${inputPlaceholder}"${inputDisabled ? '\n    :disabled="true"' : ''}
   />
 </template>`}
       />

@@ -7,6 +7,7 @@ import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 export function CheckboxSection() {
   const [checkboxChecked, setCheckboxChecked] = useState(true);
   const [checkboxSize, setCheckboxSize] = useState<"xs" | "sm" | "md" | "lg" | "xl" | "2xl">("sm");
+  const [checkboxDisabled, setCheckboxDisabled] = useState(false);
 
   return (
     <div className="space-y-8 max-w-5xl">
@@ -17,34 +18,53 @@ export function CheckboxSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-8 space-y-6 shadow-sm">
-        <div className="flex items-center justify-center gap-3">
-          <Checkbox
-            id="terms-check"
-            size={checkboxSize}
-            checked={checkboxChecked}
-            onCheckedChange={(checked) => setCheckboxChecked(!!checked)}
-          />
-          <label htmlFor="terms-check" className="text-sm font-medium cursor-pointer">
-            Accept terms and conditions
-          </label>
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex items-center justify-center bg-secondary/15">
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="terms-check"
+              size={checkboxSize}
+              checked={checkboxChecked}
+              disabled={checkboxDisabled}
+              onCheckedChange={(checked) => setCheckboxChecked(!!checked)}
+            />
+            <label htmlFor="terms-check" className="text-sm font-medium cursor-pointer select-none">
+              Accept terms and conditions
+            </label>
+          </div>
         </div>
 
-        <div className="p-4 border-t border-border bg-secondary/30 rounded-2xl max-w-xs mx-auto text-xs">
-          <label htmlFor="ctl-checkboxSize" className="font-semibold text-muted-foreground block mb-1">Size (Default: sm)</label>
-          <PlaygroundSelect
-            id="ctl-checkboxSize"
-            value={checkboxSize}
-            onValueChange={(v) => setCheckboxSize(v as any)}
-            options={[
-              { value: "xs", label: "xs" },
-              { value: "sm", label: "sm (Default)" },
-              { value: "md", label: "md" },
-              { value: "lg", label: "lg" },
-              { value: "xl", label: "xl" },
-              { value: "2xl", label: "2xl" },
-            ]}
-          />
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label htmlFor="ctl-checkboxSize" className="font-semibold text-muted-foreground block mb-1">Size (Default: sm)</label>
+            <PlaygroundSelect
+              id="ctl-checkboxSize"
+              value={checkboxSize}
+              onValueChange={(v) => setCheckboxSize(v as any)}
+              options={[
+                { value: "xs", label: "xs" },
+                { value: "sm", label: "sm (Default)" },
+                { value: "md", label: "md" },
+                { value: "lg", label: "lg" },
+                { value: "xl", label: "xl" },
+                { value: "2xl", label: "2xl" },
+              ]}
+            />
+          </div>
+
+          <div className="flex items-center gap-2 cursor-pointer pt-4 sm:pt-6">
+            <Checkbox
+              id="ctl-checkboxDisabled"
+              size="sm"
+              checked={checkboxDisabled}
+              onCheckedChange={(c) => setCheckboxDisabled(c === true)}
+            />
+            <label htmlFor="ctl-checkboxDisabled" className="font-medium cursor-pointer select-none text-foreground text-xs">
+              Disabled
+            </label>
+          </div>
         </div>
       </div>
 
@@ -75,7 +95,8 @@ export default function CheckboxDemo() {
     <div className="flex items-center gap-2">
       <Checkbox
         id="terms"
-        checked={checked}
+        size="${checkboxSize}"
+        checked={checked}${checkboxDisabled ? '\n        disabled={true}' : ''}
         onCheckedChange={(c) => setChecked(!!c)}
       />
       <label htmlFor="terms">Accept terms</label>
@@ -91,7 +112,11 @@ const isChecked = ref(true);
 
 <template>
   <div class="flex items-center gap-2">
-    <Checkbox id="terms" v-model:checked="isChecked" />
+    <Checkbox
+      id="terms"
+      v-model:checked="isChecked"
+      size="${checkboxSize}"${checkboxDisabled ? '\n      :disabled="true"' : ''}
+    />
     <label for="terms">Accept terms</label>
   </div>
 </template>`}
@@ -130,12 +155,6 @@ const isChecked = ref(true);
             type: "boolean",
             default: "false",
             description: "When true, prevents user interaction and applies muted opacity.",
-          },
-          {
-            name: "required",
-            type: "boolean",
-            default: "false",
-            description: "Marks the checkbox as required for native form submissions.",
           },
         ]}
         accessibility={{

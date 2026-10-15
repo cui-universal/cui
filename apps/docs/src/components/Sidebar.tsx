@@ -39,10 +39,14 @@ export function Sidebar() {
               const Icon = item.icon;
               const isActive = currentSection === item.id;
               return (
-                <button
+                <a
                   key={item.id}
                   id={`nav-${item.id}`}
-                  onClick={() => setCurrentSection(item.id)}
+                  href={item.id === "intro" ? "/" : `/${item.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentSection(item.id);
+                  }}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                     isActive
                       ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20 font-semibold"
@@ -64,7 +68,7 @@ export function Sidebar() {
                       {item.badge}
                     </span>
                   )}
-                </button>
+                </a>
               );
             })}
           </div>

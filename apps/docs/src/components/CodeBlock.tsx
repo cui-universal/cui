@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Check, Copy, Code2, Terminal } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@cui-universal/react";
 import { useDocs } from "../context/DocsContext";
 import type { PackageManager } from "../types";
 
@@ -160,50 +161,43 @@ export function CodeBlock({ id, reactCode, vueCode, code, filename, commands }: 
           {hasCommands ? (
             <div className="flex items-center gap-2">
               <Terminal className="h-3.5 w-3.5 text-primary shrink-0" />
-              <div className="flex items-center p-0.5 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/70 border border-zinc-300/50 dark:border-zinc-700/50 text-[11px] font-sans font-medium">
-                {PM_LIST.map((pm) => (
-                  <button
-                    key={pm}
-                    type="button"
-                    onClick={() => setPackageManager(pm)}
-                    className={`px-2.5 py-1 rounded-md transition-all font-mono text-[11px] ${
-                      packageManager === pm
-                        ? "bg-white dark:bg-zinc-900 text-foreground shadow-xs font-bold"
-                        : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
-                    }`}
-                  >
-                    {pm}
-                  </button>
-                ))}
-              </div>
+              <Tabs
+                value={packageManager}
+                onValueChange={(val) => setPackageManager(val as any)}
+                size="xs"
+                radius="full"
+              >
+                <TabsList className="bg-zinc-200/70 dark:bg-zinc-800/70 border border-zinc-300/50 dark:border-zinc-700/50 h-6 p-0.5 gap-0.5">
+                  {PM_LIST.map((pm) => (
+                    <TabsTrigger
+                      key={pm}
+                      value={pm}
+                      className="px-2 font-mono text-[10px] font-semibold"
+                    >
+                      {pm}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
             </div>
           ) : isDual ? (
-            <div className="flex items-center p-0.5 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/70 border border-zinc-300/50 dark:border-zinc-700/50 text-[11px] font-sans font-medium">
-              <button
-                type="button"
-                onClick={() => handleTabClick("react")}
-                className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5 ${
-                  activeTab === "react"
-                    ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold"
-                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
-                }`}
-              >
-                <span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.7)]" />
-                <span>React (TSX)</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleTabClick("vue")}
-                className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5 ${
-                  activeTab === "vue"
-                    ? "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 shadow-xs font-semibold"
-                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
-                }`}
-              >
-                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
-                <span>Vue 3 (SFC)</span>
-              </button>
-            </div>
+            <Tabs
+              value={activeTab}
+              onValueChange={(val) => handleTabClick(val as any)}
+              size="xs"
+              radius="full"
+            >
+              <TabsList className="bg-zinc-200/70 dark:bg-zinc-800/70 border border-zinc-300/50 dark:border-zinc-700/50 h-6 p-0.5 gap-0.5">
+                <TabsTrigger value="react" className="px-2 font-mono text-[10px] font-semibold gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.7)]" />
+                  <span>React (TSX)</span>
+                </TabsTrigger>
+                <TabsTrigger value="vue" className="px-2 font-mono text-[10px] font-semibold gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
+                  <span>Vue 3 (SFC)</span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
           ) : (
             <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-200/60 dark:bg-zinc-800/60 border border-zinc-300/40 dark:border-zinc-700/40 text-[11px] font-sans font-medium text-zinc-700 dark:text-zinc-300">
               {hasReact && <span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.7)]" />}

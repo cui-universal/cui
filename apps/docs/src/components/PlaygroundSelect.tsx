@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@cui-universal/react";
 
 interface PlaygroundSelectProps {
   id?: string;
   value: string;
   onValueChange: (val: string) => void;
   options: { value: string; label: string }[];
+  className?: string;
 }
 
 export function PlaygroundSelect({
@@ -19,19 +13,30 @@ export function PlaygroundSelect({
   value,
   onValueChange,
   options,
+  className = "",
 }: PlaygroundSelectProps) {
   return (
-    <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger id={id} size="sm" className="w-full text-xs h-8">
-        <SelectValue placeholder="Select..." />
-      </SelectTrigger>
-      <SelectContent>
-        {options.map((opt) => (
-          <SelectItem key={opt.value} value={opt.value} className="text-xs">
-            {opt.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div id={id} className={`flex flex-wrap gap-1 ${className}`}>
+      {options.map((opt) => {
+        const isSelected = value === opt.value;
+        const displayText = opt.label.includes(" (") ? opt.value : opt.label;
+
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => onValueChange(opt.value)}
+            className={`text-xs px-2.5 py-1 rounded-md border font-medium transition-colors cursor-pointer ${
+              isSelected
+                ? "border-primary bg-primary/10 text-primary font-bold shadow-xs"
+                : "border-border/80 text-muted-foreground hover:bg-muted hover:text-foreground"
+            }`}
+            title={opt.label !== displayText ? opt.label : undefined}
+          >
+            {displayText}
+          </button>
+        );
+      })}
+    </div>
   );
 }

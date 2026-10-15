@@ -21,14 +21,114 @@ interface DocsContextValue {
 
 const DocsContext = createContext<DocsContextValue | null>(null);
 
+const VALID_SECTIONS = new Set<string>([
+  "intro",
+  "installation",
+  "theming",
+  "button",
+  "input",
+  "textarea",
+  "checkbox",
+  "switch",
+  "badge",
+  "card",
+  "tabs",
+  "accordion",
+  "separator",
+  "alert",
+  "progress",
+  "skeleton",
+  "tooltip",
+  "dialog",
+  "avatar",
+  "select",
+  "popover",
+  "dropdown",
+  "radio",
+  "table",
+  "kbd",
+  "steps",
+  "datepicker",
+  "texteditor",
+  "breadcrumb",
+  "pagination",
+  "timeline",
+  "empty-state",
+  "rating",
+  "color-picker",
+  "colorpicker",
+  "input-number",
+  "inputnumber",
+]);
+
+function parseSectionFromUrl(): Section {
+  if (typeof window === "undefined") return "intro";
+
+  const pathname = window.location.pathname
+    .replace(/^\/components\//, "")
+    .replace(/^\//, "")
+    .trim()
+    .toLowerCase();
+
+  if (pathname && VALID_SECTIONS.has(pathname)) {
+    if (pathname === "colorpicker") return "color-picker";
+    if (pathname === "inputnumber") return "input-number";
+    return pathname as Section;
+  }
+
+  const hash = window.location.hash
+    .replace(/^#\/?/, "")
+    .replace(/^components\//, "")
+    .trim()
+    .toLowerCase();
+
+  if (hash && VALID_SECTIONS.has(hash)) {
+    if (hash === "colorpicker") return "color-picker";
+    if (hash === "inputnumber") return "input-number";
+    return hash as Section;
+  }
+
+  return "intro";
+}
+
 export function DocsProvider({ children }: { children: ReactNode }) {
   const [isDark, setIsDark] = useState(true);
   const [activeTheme, setActiveTheme] = useState(THEME_COLORS[0]);
   const [framework, setFramework] = useState<Framework>("react");
   const [packageManager, setPackageManager] = useState<PackageManager>("pnpm");
-  const [currentSection, setCurrentSection] = useState<Section>("intro");
+  const [currentSection, setCurrentSectionState] = useState<Section>(() => parseSectionFromUrl());
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const setCurrentSection = (section: Section, updateHistory = true) => {
+    setCurrentSectionState(section);
+    if (updateHistory && typeof window !== "undefined") {
+      const targetPath = section === "intro" ? "/" : `/${section}`;
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ section }, "", targetPath);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const section = parseSectionFromUrl();
+      setCurrentSectionState(section);
+    };
+
+    window.addEventListener("popstate", handleUrlChange);
+    window.addEventListener("hashchange", handleUrlChange);
+    return () => {
+      window.removeEventListener("popstate", handleUrlChange);
+      window.removeEventListener("hashchange", handleUrlChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [currentSection]);
 
   useEffect(() => {
     if (isDark) {

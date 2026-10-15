@@ -165,11 +165,11 @@ importers:
   apps/nuxt:
     dependencies:
       '@cui-universal/theme':
-        specifier: ^0.1.0
-        version: 0.1.0(tailwindcss@3.4.19(yaml@2.9.1))
+        specifier: workspace:*
+        version: link:../../packages/theme
       '@cui-universal/vue':
-        specifier: ^0.1.0
-        version: 0.1.0(tailwindcss@3.4.19(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))
+        specifier: workspace:*
+        version: link:../../packages/vue
       lucide-vue-next:
         specifier: ^0.473.0
         version: 0.473.0(vue@3.5.43(typescript@5.9.3))
@@ -447,14 +447,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       postcss-selector-parser: ^7.0.0
-
-  '@cui-universal/theme@0.1.0':
-    resolution: {integrity: sha512-VCUq94NwxH9AluJ+z5PV5e6OWy7jQ2dl4nkUcTDz0KFRm+RCJgZ9lJ7Z+mZS1R/3a7oymRkSoJqqtOz9qb1x2A==}
-
-  '@cui-universal/vue@0.1.0':
-    resolution: {integrity: sha512-4tMTYxMt76KzPVyv4dVUibMFFMP1a9/kuxCQ7edrnlQQc9rM7yloAz8U01R5ODvAZpXirCWLdcb7LVrAR6dp6A==}
-    peerDependencies:
-      vue: ^3.3.0
 
   '@dxup/nuxt@0.5.10':
     resolution: {integrity: sha512-54Vehb7LmR7qYpC6KFwjDTSm6CB1CayBu+JXdHrPLrIjjr5xAgb43jvgOU+mnB+tsRh414fSsEy0QjBMKILQ8g==}
@@ -4942,22 +4934,6 @@ snapshots:
   '@csstools/selector-specificity@5.0.0(postcss-selector-parser@7.1.6)':
     dependencies:
       postcss-selector-parser: 7.1.6
-
-  '@cui-universal/theme@0.1.0(tailwindcss@3.4.19(yaml@2.9.1))':
-    dependencies:
-      clsx: 2.1.1
-      tailwind-merge: 3.7.0
-      tailwind-variants: 0.3.1(tailwindcss@3.4.19(yaml@2.9.1))
-    transitivePeerDependencies:
-      - tailwindcss
-
-  '@cui-universal/vue@0.1.0(tailwindcss@3.4.19(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))':
-    dependencies:
-      '@cui-universal/theme': 0.1.0(tailwindcss@3.4.19(yaml@2.9.1))
-      lucide-vue-next: 0.473.0(vue@3.5.43(typescript@5.9.3))
-      vue: 3.5.43(typescript@5.9.3)
-    transitivePeerDependencies:
-      - tailwindcss
 
   '@dxup/nuxt@0.5.10(@nuxt/schema@3.21.11)(confbox@0.3.1)(dotenv@17.4.2)(esbuild@0.28.2)(giget@3.3.1)(jiti@2.7.0)(mlly@1.8.2)(oxc-parser@0.143.0)(rollup@4.64.5)(vite@6.4.4(@types/node@22.20.5)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))':
     dependencies:

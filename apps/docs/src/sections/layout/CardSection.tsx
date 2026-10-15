@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -9,11 +9,14 @@ import {
   Button,
   Badge,
   Progress,
+  Checkbox,
 } from "@cui-universal/react";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
 export function CardSection() {
+  const [interactive, setInteractive] = useState(true);
+
   return (
     <div className="space-y-8 max-w-5xl">
       <div>
@@ -23,31 +26,51 @@ export function CardSection() {
         </p>
       </div>
 
-      <div className="max-w-md mx-auto">
-        <Card interactive>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle>Cloud Storage</CardTitle>
-              <Badge variant="success">Active</Badge>
-            </div>
-            <CardDescription>78.2 GB of 100 GB used</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <Progress value={78} />
-            <p className="text-[11px] text-muted-foreground">Renewal in 14 days</p>
-          </CardContent>
-          <CardFooter className="justify-between border-t border-border pt-4">
-            <span className="text-xs text-muted-foreground">Pro Plan</span>
-            <Button size="sm">Upgrade</Button>
-          </CardFooter>
-        </Card>
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[220px] flex items-center justify-center bg-secondary/15">
+          <div className="w-full max-w-sm">
+            <Card interactive={interactive}>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>Cloud Storage</CardTitle>
+                  <Badge variant="success">Active</Badge>
+                </div>
+                <CardDescription>78.2 GB of 100 GB used</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Progress value={78} />
+                <p className="text-[11px] text-muted-foreground">Renewal in 14 days</p>
+              </CardContent>
+              <CardFooter className="justify-between border-t border-border pt-4">
+                <span className="text-xs text-muted-foreground">Pro Plan</span>
+                <Button size="sm">Upgrade</Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Checkbox
+              id="ctl-cardInteractive"
+              size="sm"
+              checked={interactive}
+              onCheckedChange={(c) => setInteractive(c === true)}
+            />
+            <label htmlFor="ctl-cardInteractive" className="font-medium cursor-pointer select-none text-foreground text-xs">
+              Interactive (Hover elevation and lift transform)
+            </label>
+          </div>
+        </div>
       </div>
 
       <CodeBlock
         id="code-card"
         reactCode={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, Button } from "@cui-universal/react";
 
-<Card interactive>
+<Card interactive={${interactive}}>
   <CardHeader>
     <CardTitle>Title</CardTitle>
     <CardDescription>Description</CardDescription>
@@ -60,7 +83,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, 
 </script>
 
 <template>
-  <Card :interactive="true">
+  <Card :interactive="${interactive}">
     <CardHeader>
       <CardTitle>Title</CardTitle>
       <CardDescription>Description</CardDescription>

@@ -37,7 +37,9 @@ export type Section =
   | "timeline"
   | "empty-state"
   | "rating"
-  | "color-picker";
+  | "color-picker"
+  | "input-number"
+  | "inputnumber";
 
 export interface ThemeColor {
   name: string;

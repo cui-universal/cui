@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Steps, Button, Separator } from "@cui-universal/react";
+import { Steps, Button, Checkbox } from "@cui-universal/react";
+import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
 
 export function StepsSection() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [clickable, setClickable] = useState(true);
 
   const stepsData = [
     { title: "Account", description: "Profile setup" },
@@ -14,7 +16,7 @@ export function StepsSection() {
   ];
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-5xl">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight">Steps (Stepper)</h1>
         <p className="text-muted-foreground text-sm mt-1">
@@ -22,35 +24,66 @@ export function StepsSection() {
         </p>
       </div>
 
-      <div className="p-8 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm space-y-6 shadow-sm">
-        <Steps
-          steps={stepsData}
-          current={currentStep}
-          clickable
-          onStepChange={setCurrentStep}
-        />
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[200px] flex flex-col items-center justify-center bg-secondary/15 gap-6">
+          <div className="w-full max-w-xl">
+            <Steps
+              steps={stepsData}
+              current={currentStep}
+              clickable={clickable}
+              onStepChange={setCurrentStep}
+            />
+          </div>
 
-        <Separator />
+          <div className="flex items-center justify-between w-full max-w-xl border-t border-border/60 pt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={currentStep === 0}
+              onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
+            >
+              Previous
+            </Button>
+            <span className="text-xs text-muted-foreground font-mono">
+              Step {currentStep + 1} of {stepsData.length}
+            </span>
+            <Button
+              size="sm"
+              disabled={currentStep === stepsData.length - 1}
+              onClick={() => setCurrentStep((s) => Math.min(stepsData.length - 1, s + 1))}
+            >
+              Next Step
+            </Button>
+          </div>
+        </div>
 
-        <div className="flex items-center justify-between">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={currentStep === 0}
-            onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
-          >
-            Previous
-          </Button>
-          <span className="text-xs text-muted-foreground font-mono">
-            Step {currentStep + 1} of {stepsData.length}
-          </span>
-          <Button
-            size="sm"
-            disabled={currentStep === stepsData.length - 1}
-            onClick={() => setCurrentStep((s) => Math.min(stepsData.length - 1, s + 1))}
-          >
-            Next Step
-          </Button>
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label htmlFor="ctl-stepJump" className="font-semibold text-muted-foreground block mb-1">Active Step</label>
+            <PlaygroundSelect
+              id="ctl-stepJump"
+              value={String(currentStep)}
+              onValueChange={(s) => setCurrentStep(Number(s))}
+              options={stepsData.map((step, idx) => ({
+                value: String(idx),
+                label: `Step ${idx + 1}: ${step.title}`,
+              }))}
+            />
+          </div>
+
+          <div className="flex items-center gap-2 cursor-pointer pt-4 sm:pt-6">
+            <Checkbox
+              id="ctl-stepClickable"
+              size="sm"
+              checked={clickable}
+              onCheckedChange={(c) => setClickable(c === true)}
+            />
+            <label htmlFor="ctl-stepClickable" className="font-medium cursor-pointer select-none text-foreground text-xs">
+              Clickable (Allow jumping to any step)
+            </label>
+          </div>
         </div>
       </div>
 
@@ -59,12 +92,12 @@ export function StepsSection() {
         reactCode={`import { Steps } from "@cui-universal/react";
 
 export function StepperDemo() {
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(${currentStep});
 
   return (
     <Steps
       current={current}
-      clickable
+      clickable={${clickable}}
       onStepChange={setCurrent}
       steps={[
         { title: "Account", description: "Profile setup" },
@@ -79,7 +112,7 @@ export function StepperDemo() {
 import { ref } from "vue";
 import { Steps } from "@cui-universal/vue";
 
-const current = ref(1);
+const current = ref(${currentStep});
 const steps = [
   { title: "Account", description: "Profile setup" },
   { title: "Company", description: "Business details" },
@@ -92,7 +125,7 @@ const steps = [
   <Steps
     v-model="current"
     :steps="steps"
-    clickable
+    :clickable="${clickable}"
   />
 </template>`}
       />

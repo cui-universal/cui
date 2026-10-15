@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Sliders } from "lucide-react";
 import { RadioGroup, RadioGroupItem, Badge } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
@@ -11,7 +10,7 @@ export function RadioSection() {
   const [radioVariant, setRadioVariant] = useState<"default" | "error" | "success">("default");
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-5xl">
       <div>
         <h1 className="text-3xl font-extrabold tracking-tight">Radio Group</h1>
         <p className="text-muted-foreground text-sm mt-1">
@@ -19,89 +18,85 @@ export function RadioSection() {
         </p>
       </div>
 
-      {/* Interactive Playground Control Bar */}
-      <div className="p-4 rounded-2xl border border-border/80 bg-card/80 backdrop-blur-md shadow-sm space-y-4">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-          <Sliders className="h-3.5 w-3.5 text-primary" />
-          <span>Playground Controls</span>
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[220px] flex flex-col items-center justify-center bg-secondary/15 gap-4">
+          <div className="w-full max-w-md space-y-3">
+            <RadioGroup
+              value={radioPlan}
+              onValueChange={setRadioPlan}
+              className="space-y-3"
+            >
+              {[
+                { id: "hobby", label: "Starter Hobby", price: "$0/mo", desc: "For personal experiments and side-projects." },
+                { id: "pro", label: "Professional", price: "$29/mo", desc: "For high-scale production apps and teams.", popular: true },
+                { id: "enterprise", label: "Enterprise", price: "$99/mo", desc: "Dedicated infrastructure, SLA & audit logs." },
+              ].map((plan) => (
+                <label
+                  key={plan.id}
+                  className={`flex items-start gap-3.5 p-3.5 rounded-xl border transition-all cursor-pointer ${
+                    radioPlan === plan.id
+                      ? "border-primary bg-primary/5 shadow-sm shadow-primary/10"
+                      : "border-border/70 hover:border-border hover:bg-secondary/30"
+                  }`}
+                >
+                  <RadioGroupItem
+                    value={plan.id}
+                    id={plan.id}
+                    size={radioSize}
+                    variant={radioVariant}
+                    className="mt-0.5"
+                  />
+                  <div className="flex-1 space-y-0.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-xs text-foreground flex items-center gap-2">
+                        {plan.label}
+                        {plan.popular && <Badge size="xs" variant="default">Popular</Badge>}
+                      </span>
+                      <span className="font-mono text-xs font-bold text-foreground">{plan.price}</span>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground leading-snug">{plan.desc}</p>
+                  </div>
+                </label>
+              ))}
+            </RadioGroup>
+          </div>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
           <div>
-            <label className="text-xs font-medium text-muted-foreground block mb-1.5">Size</label>
+            <label htmlFor="ctl-radioSize" className="font-semibold text-muted-foreground block mb-1">Size</label>
             <PlaygroundSelect
-              id="radio-size"
+              id="ctl-radioSize"
               value={radioSize}
               onValueChange={(val) => setRadioSize(val as any)}
               options={[
-                { value: "sm", label: "Small (sm)" },
-                { value: "md", label: "Medium (md)" },
-                { value: "lg", label: "Large (lg)" },
+                { value: "sm", label: "sm" },
+                { value: "md", label: "md (Default)" },
+                { value: "lg", label: "lg" },
               ]}
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground block mb-1.5">Variant</label>
+            <label htmlFor="ctl-radioVariant" className="font-semibold text-muted-foreground block mb-1">Variant</label>
             <PlaygroundSelect
-              id="radio-variant"
+              id="ctl-radioVariant"
               value={radioVariant}
               onValueChange={(val) => setRadioVariant(val as any)}
               options={[
-                { value: "default", label: "Default" },
-                { value: "error", label: "Error" },
-                { value: "success", label: "Success" },
+                { value: "default", label: "default" },
+                { value: "error", label: "error" },
+                { value: "success", label: "success" },
               ]}
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground block mb-1.5">Selected Plan</label>
-            <span className="inline-flex items-center h-8 px-3 rounded-lg bg-secondary text-xs font-semibold uppercase tracking-wider text-primary">
+            <label className="font-semibold text-muted-foreground block mb-1">Selected Plan</label>
+            <span className="inline-flex items-center h-8 px-3 rounded-lg bg-card border border-border text-xs font-semibold uppercase tracking-wider text-primary">
               {radioPlan}
             </span>
           </div>
-        </div>
-      </div>
-
-      {/* Live Preview Card */}
-      <div className="p-8 rounded-2xl border border-border/80 bg-card/60 backdrop-blur-sm flex flex-col items-center justify-center min-h-[220px]">
-        <div className="w-full max-w-md space-y-3">
-          <RadioGroup
-            value={radioPlan}
-            onValueChange={setRadioPlan}
-            className="space-y-3"
-          >
-            {[
-              { id: "hobby", label: "Starter Hobby", price: "$0/mo", desc: "For personal experiments and side-projects." },
-              { id: "pro", label: "Professional", price: "$29/mo", desc: "For high-scale production apps and teams.", popular: true },
-              { id: "enterprise", label: "Enterprise", price: "$99/mo", desc: "Dedicated infrastructure, SLA & audit logs." },
-            ].map((plan) => (
-              <label
-                key={plan.id}
-                className={`flex items-start gap-3.5 p-3.5 rounded-xl border transition-all cursor-pointer ${
-                  radioPlan === plan.id
-                    ? "border-primary bg-primary/5 shadow-sm shadow-primary/10"
-                    : "border-border/70 hover:border-border hover:bg-secondary/30"
-                }`}
-              >
-                <RadioGroupItem
-                  value={plan.id}
-                  id={plan.id}
-                  size={radioSize}
-                  variant={radioVariant}
-                  className="mt-0.5"
-                />
-                <div className="flex-1 space-y-0.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-xs text-foreground flex items-center gap-2">
-                      {plan.label}
-                      {plan.popular && <Badge size="xs" variant="default">Popular</Badge>}
-                    </span>
-                    <span className="font-mono text-xs font-bold text-foreground">{plan.price}</span>
-                  </div>
-                  <p className="text-[11px] text-muted-foreground leading-snug">{plan.desc}</p>
-                </div>
-              </label>
-            ))}
-          </RadioGroup>
         </div>
       </div>
 
@@ -136,11 +131,11 @@ const plan = ref("${radioPlan}");
 
 <template>
   <RadioGroup v-model="plan" class="space-y-2">
-    <div class="flex items-center space-x-2">
+    <div className="flex items-center space-x-2">
       <RadioGroupItem value="hobby" id="r1" size="${radioSize}" variant="${radioVariant}" />
       <label for="r1" class="text-sm font-medium">Starter Hobby</label>
     </div>
-    <div class="flex items-center space-x-2">
+    <div className="flex items-center space-x-2">
       <RadioGroupItem value="pro" id="r2" size="${radioSize}" variant="${radioVariant}" />
       <label for="r2" class="text-sm font-medium">Professional</label>
     </div>

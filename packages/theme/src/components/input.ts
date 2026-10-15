@@ -13,7 +13,7 @@ export const inputVariants = tv({
       md: "h-9 px-3 py-1 text-sm",
       lg: "h-10 px-3.5 text-sm",
       xl: "h-11 px-4 text-base",
-      "2xl": "h-12 px-4.5 text-lg",
+      "2xl": "h-12 px-5 text-lg",
     },
   },
   defaultVariants: {

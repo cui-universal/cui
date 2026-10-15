@@ -35,10 +35,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build packages
-        run: pnpm build
+        run: pnpm -r --filter "./packages/*" run build
 
       - name: Publish @cui-universal/theme, @cui-universal/react, and @cui-universal/vue
-        run: pnpm -r publish --access public --no-git-checks
+        run: pnpm -r --filter "./packages/*" publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

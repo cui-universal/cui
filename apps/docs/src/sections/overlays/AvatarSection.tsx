@@ -16,29 +16,33 @@ export function AvatarSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-8 space-y-6 shadow-sm">
-        <div className="flex items-center justify-center p-4">
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex items-center justify-center bg-secondary/15">
           <Avatar size={avatarSize}>
             <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" />
             <AvatarFallback>CU</AvatarFallback>
           </Avatar>
         </div>
 
-        <div className="p-4 border-t border-border bg-secondary/30 rounded-2xl max-w-xs mx-auto text-xs">
-          <label htmlFor="ctl-avatarSize" className="font-semibold text-muted-foreground block mb-1">Size (Default: sm)</label>
-          <PlaygroundSelect
-            id="ctl-avatarSize"
-            value={avatarSize}
-            onValueChange={(v) => setAvatarSize(v as any)}
-            options={[
-              { value: "xs", label: "xs" },
-              { value: "sm", label: "sm (Default)" },
-              { value: "md", label: "md" },
-              { value: "lg", label: "lg" },
-              { value: "xl", label: "xl" },
-              { value: "2xl", label: "2xl" },
-            ]}
-          />
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label htmlFor="ctl-avatarSize" className="font-semibold text-muted-foreground block mb-1">Size (Default: sm)</label>
+            <PlaygroundSelect
+              id="ctl-avatarSize"
+              value={avatarSize}
+              onValueChange={(v) => setAvatarSize(v as any)}
+              options={[
+                { value: "xs", label: "xs" },
+                { value: "sm", label: "sm (Default)" },
+                { value: "md", label: "md" },
+                { value: "lg", label: "lg" },
+                { value: "xl", label: "xl" },
+                { value: "2xl", label: "2xl" },
+              ]}
+            />
+          </div>
         </div>
       </div>
 
@@ -126,4 +130,3 @@ import { Avatar, AvatarImage, AvatarFallback } from "@cui-universal/vue";
     </div>
   );
 }
-

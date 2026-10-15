@@ -13,7 +13,7 @@ export const textareaVariants = tv({
       md: "min-h-[90px] px-3 py-2 text-sm",
       lg: "min-h-[110px] px-3.5 py-2.5 text-sm",
       xl: "min-h-[130px] px-4 py-3 text-base",
-      "2xl": "min-h-[150px] px-4.5 py-3.5 text-lg",
+      "2xl": "min-h-[150px] px-5 py-3.5 text-lg",
     },
   },
   defaultVariants: {

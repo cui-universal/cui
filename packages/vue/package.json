@@ -1,6 +1,6 @@
 {
   "name": "@cui-universal/vue",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "description": "Cross-framework CUI components for Vue 3 and Nuxt",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

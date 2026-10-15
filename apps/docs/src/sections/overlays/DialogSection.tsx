@@ -25,42 +25,50 @@ export function DialogSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-12 flex flex-col items-center justify-center text-center space-y-4 shadow-sm">
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button size="lg" id="open-dialog-btn">
-              Open Modal Dialog
-            </Button>
-          </DialogTrigger>
-
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Profile Credentials</DialogTitle>
-              <DialogDescription>
-                Make changes to your profile credentials here.
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="space-y-3 py-3 text-left">
-              <div>
-                <label className="text-xs font-semibold text-muted-foreground block mb-1">Full Name</label>
-                <Input defaultValue="Sarah Connor" />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-muted-foreground block mb-1">Email</label>
-                <Input defaultValue="sarah@resistance.org" />
-              </div>
-            </div>
-
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setDialogOpen(false)}>
-                Cancel
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex items-center justify-center bg-secondary/15">
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button size="md" id="open-dialog-btn">
+                Open Modal Dialog
               </Button>
-              <Button onClick={() => setDialogOpen(false)}>Save Changes</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-        <p className="text-xs text-muted-foreground">Click button above to trigger animated modal</p>
+            </DialogTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Profile Credentials</DialogTitle>
+                <DialogDescription>
+                  Make changes to your profile credentials here.
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-3 py-3 text-left">
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground block mb-1">Full Name</label>
+                  <Input defaultValue="Sarah Connor" />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground block mb-1">Email</label>
+                  <Input defaultValue="sarah@resistance.org" />
+                </div>
+              </div>
+
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={() => setDialogOpen(false)}>Save Changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+
+        {/* Controls / Info */}
+        <div className="p-5 border-t border-border bg-secondary/30 flex items-center justify-between text-xs text-muted-foreground">
+          <span>Click button above to trigger animated modal with focus lock</span>
+          <span className="font-mono">Status: {dialogOpen ? "Open" : "Closed"}</span>
+        </div>
       </div>
 
       <CodeBlock

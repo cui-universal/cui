@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Textarea } from "@cui-universal/react";
+import { Textarea, Input, Checkbox } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -9,6 +9,7 @@ export function TextareaSection() {
   const [textareaSize, setTextareaSize] = useState<"xs" | "sm" | "md" | "lg" | "xl" | "2xl">("sm");
   const [textareaPlaceholder, setTextareaPlaceholder] = useState("Type your message here...");
   const [textareaVal, setTextareaVal] = useState("");
+  const [textareaDisabled, setTextareaDisabled] = useState(false);
 
   return (
     <div className="space-y-8 max-w-5xl">
@@ -19,18 +20,23 @@ export function TextareaSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-8 space-y-6 shadow-sm">
-        <div className="max-w-md mx-auto">
-          <Textarea
-            variant={textareaVariant}
-            size={textareaSize}
-            placeholder={textareaPlaceholder}
-            value={textareaVal}
-            onChange={(e) => setTextareaVal(e.target.value)}
-          />
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex items-center justify-center bg-secondary/15">
+          <div className="w-full max-w-md">
+            <Textarea
+              variant={textareaVariant}
+              size={textareaSize}
+              placeholder={textareaPlaceholder}
+              value={textareaVal}
+              disabled={textareaDisabled}
+              onChange={(e) => setTextareaVal(e.target.value)}
+            />
+          </div>
         </div>
 
-        <div className="p-4 border-t border-border bg-secondary/30 rounded-2xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
           <div>
             <label htmlFor="ctl-textareaVariant" className="font-semibold text-muted-foreground block mb-1">Variant</label>
             <PlaygroundSelect
@@ -57,13 +63,25 @@ export function TextareaSection() {
             />
           </div>
           <div>
-            <label className="font-semibold text-muted-foreground block mb-1">Placeholder</label>
-            <input
-              type="text"
+            <label htmlFor="ctl-textareaPlaceholder" className="font-semibold text-muted-foreground block mb-1">Placeholder</label>
+            <Input
+              id="ctl-textareaPlaceholder"
+              size="sm"
               value={textareaPlaceholder}
               onChange={(e) => setTextareaPlaceholder(e.target.value)}
-              className="w-full p-2 rounded-xl border border-border bg-background"
+              placeholder="Placeholder text..."
             />
+          </div>
+          <div className="flex items-center gap-2 cursor-pointer pt-4 sm:pt-6">
+            <Checkbox
+              id="ctl-textareaDisabled"
+              size="sm"
+              checked={textareaDisabled}
+              onCheckedChange={(c) => setTextareaDisabled(c === true)}
+            />
+            <label htmlFor="ctl-textareaDisabled" className="font-medium cursor-pointer select-none text-foreground text-xs">
+              Disabled
+            </label>
           </div>
         </div>
       </div>
@@ -74,7 +92,8 @@ export function TextareaSection() {
 
 <Textarea
   variant="${textareaVariant}"
-  placeholder="${textareaPlaceholder}"
+  size="${textareaSize}"
+  placeholder="${textareaPlaceholder}"${textareaDisabled ? '\n  disabled={true}' : ''}
 />`}
         vueCode={`<script setup lang="ts">
 import { Textarea } from "@cui-universal/vue";
@@ -87,7 +106,8 @@ const bio = ref("");
   <Textarea
     v-model="bio"
     variant="${textareaVariant}"
-    placeholder="${textareaPlaceholder}"
+    size="${textareaSize}"
+    placeholder="${textareaPlaceholder}"${textareaDisabled ? '\n    :disabled="true"' : ''}
   />
 </template>`}
       />
@@ -119,6 +139,12 @@ const bio = ref("");
             type: "number",
             default: "3",
             description: "Number of visible text lines.",
+          },
+          {
+            name: "disabled",
+            type: "boolean",
+            default: "false",
+            description: "Disables interaction and dims opacity.",
           },
         ]}
         accessibility={{

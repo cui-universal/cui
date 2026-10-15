@@ -18,6 +18,7 @@ interface TabsContextValue {
   activationMode: "automatic" | "manual";
   dir: "ltr" | "rtl";
   size: TabsVariants["size"];
+  radius: TabsVariants["radius"];
 }
 
 const TabsContext = React.createContext<TabsContextValue | null>(null);
@@ -50,7 +51,8 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       orientation = "horizontal",
       activationMode = "automatic",
       dir = "ltr",
-      size,
+      size = "sm",
+      radius = "md",
       ...props
     },
     ref
@@ -64,7 +66,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 
     return (
       <TabsContext.Provider
-        value={{ baseId, value, onValueChange: setValue, orientation, activationMode, dir, size }}
+        value={{ baseId, value, onValueChange: setValue, orientation, activationMode, dir, size, radius }}
       >
         <div ref={ref} dir={dir} data-orientation={orientation} {...props} />
       </TabsContext.Provider>
@@ -73,15 +75,26 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 );
 Tabs.displayName = "Tabs";
 
+interface TabsListContextValue {
+  size?: TabsVariants["size"];
+  radius?: TabsVariants["radius"];
+}
+
+const TabsListContext = React.createContext<TabsListContextValue>({});
+
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Wrap focus from last to first tab with the arrow keys. */
   loop?: boolean;
+  size?: TabsVariants["size"];
+  radius?: TabsVariants["radius"];
 }
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, loop = true, onKeyDown, ...props }, ref) => {
+  ({ className, loop = true, size, radius, onKeyDown, ...props }, ref) => {
     const ctx = useTabsContext("TabsList");
-    const { list } = tabsVariants({ size: ctx.size });
+    const resolvedSize = size ?? ctx.size;
+    const resolvedRadius = radius ?? ctx.radius;
+    const { list } = tabsVariants({ size: resolvedSize, radius: resolvedRadius });
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
       const intent = getNavigationIntent(event, ctx.orientation, ctx.dir);
@@ -92,15 +105,17 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
     };
 
     return (
-      <div
-        ref={ref}
-        role="tablist"
-        aria-orientation={ctx.orientation}
-        data-orientation={ctx.orientation}
-        className={cn(list(), className)}
-        onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
-        {...props}
-      />
+      <TabsListContext.Provider value={{ size: resolvedSize, radius: resolvedRadius }}>
+        <div
+          ref={ref}
+          role="tablist"
+          aria-orientation={ctx.orientation}
+          data-orientation={ctx.orientation}
+          className={cn(list(), className)}
+          onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
+          {...props}
+        />
+      </TabsListContext.Provider>
     );
   }
 );
@@ -108,12 +123,17 @@ TabsList.displayName = "TabsList";
 
 export interface TabsTriggerProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value"> {
   value: string;
+  size?: TabsVariants["size"];
+  radius?: TabsVariants["radius"];
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ className, value, disabled, onMouseDown, onKeyDown, onFocus, ...props }, ref) => {
+  ({ className, value, size, radius, disabled, onMouseDown, onKeyDown, onFocus, ...props }, ref) => {
     const ctx = useTabsContext("TabsTrigger");
-    const { trigger } = tabsVariants({ size: ctx.size });
+    const listCtx = React.useContext(TabsListContext);
+    const resolvedSize = size ?? listCtx.size ?? ctx.size;
+    const resolvedRadius = radius ?? listCtx.radius ?? ctx.radius;
+    const { trigger } = tabsVariants({ size: resolvedSize, radius: resolvedRadius });
     const selected = ctx.value === value;
 
     return (
@@ -134,6 +154,9 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           // Only left click without ctrl selects (ctrl-click is context menu on mac).
           if (!disabled && event.button === 0 && !event.ctrlKey) ctx.onValueChange(value);
           else event.preventDefault();
+        })}
+        onClick={composeEventHandlers(props.onClick, (event) => {
+          if (!disabled && event.button === 0 && !event.ctrlKey) ctx.onValueChange(value);
         })}
         onKeyDown={composeEventHandlers(onKeyDown, (event) => {
           if (event.key === " " || event.key === "Enter") {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge } from "@cui-universal/react";
+import { Badge, Input } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -18,21 +18,30 @@ export function BadgeSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border border-border/80 bg-card p-8 space-y-6 shadow-sm">
-        <div className="flex items-center justify-center p-8 bg-secondary/15 rounded-2xl">
+      {/* Interactive Canvas */}
+      <div className="rounded-3xl border border-border/80 bg-card overflow-hidden shadow-sm">
+        <div className="p-10 min-h-[180px] flex items-center justify-center bg-secondary/15">
           <Badge variant={badgeVariant} size={badgeSize}>
             {badgeText}
           </Badge>
         </div>
 
-        <div className="p-4 border-t border-border bg-secondary/30 rounded-2xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        {/* Controls */}
+        <div className="p-5 border-t border-border bg-secondary/30 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
           <div>
             <label htmlFor="ctl-badgeVariant" className="font-semibold text-muted-foreground block mb-1">Variant</label>
             <PlaygroundSelect
               id="ctl-badgeVariant"
               value={badgeVariant}
               onValueChange={(v) => setBadgeVariant(v as any)}
-              options={[{ value: "default", label: "default" }, { value: "secondary", label: "secondary" }, { value: "outline", label: "outline" }, { value: "success", label: "success" }, { value: "warning", label: "warning" }, { value: "destructive", label: "destructive" }]}
+              options={[
+                { value: "default", label: "default" },
+                { value: "secondary", label: "secondary" },
+                { value: "outline", label: "outline" },
+                { value: "success", label: "success" },
+                { value: "warning", label: "warning" },
+                { value: "destructive", label: "destructive" },
+              ]}
             />
           </div>
 
@@ -42,17 +51,25 @@ export function BadgeSection() {
               id="ctl-badgeSize"
               value={badgeSize}
               onValueChange={(v) => setBadgeSize(v as any)}
-              options={[{ value: "xs", label: "xs" }, { value: "sm", label: "sm (Default)" }, { value: "md", label: "md" }, { value: "lg", label: "lg" }, { value: "xl", label: "xl" }, { value: "2xl", label: "2xl" }]}
+              options={[
+                { value: "xs", label: "xs" },
+                { value: "sm", label: "sm (Default)" },
+                { value: "md", label: "md" },
+                { value: "lg", label: "lg" },
+                { value: "xl", label: "xl" },
+                { value: "2xl", label: "2xl" },
+              ]}
             />
           </div>
 
           <div>
-            <label className="font-semibold text-muted-foreground block mb-1">Badge Text</label>
-            <input
-              type="text"
+            <label htmlFor="ctl-badgeText" className="font-semibold text-muted-foreground block mb-1">Badge Text</label>
+            <Input
+              id="ctl-badgeText"
+              size="sm"
               value={badgeText}
               onChange={(e) => setBadgeText(e.target.value)}
-              className="w-full p-2 rounded-xl border border-border bg-background"
+              placeholder="Badge label..."
             />
           </div>
         </div>

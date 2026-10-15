@@ -15,6 +15,7 @@ export { DatePickerSection } from "./form/DatePickerSection";
 export { TextEditorSection } from "./form/TextEditorSection";
 export { RatingSection } from "./form/RatingSection";
 export { ColorPickerSection } from "./form/ColorPickerSection";
+export { InputNumberSection } from "./form/InputNumberSection";
 
 // Layout & Disclosure
 export { CardSection } from "./layout/CardSection";

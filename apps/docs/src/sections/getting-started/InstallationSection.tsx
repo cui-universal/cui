@@ -9,7 +9,7 @@ import {
   Boxes,
   Zap,
 } from "lucide-react";
-import { Button, Badge, Card, CardHeader, CardTitle, CardDescription, CardContent } from "@cui-universal/react";
+import { Button, Badge, Card, CardHeader, CardTitle, CardDescription, CardContent, Tabs, TabsList, TabsTrigger } from "@cui-universal/react";
 import { useDocs } from "../../context/DocsContext";
 import { CodeBlock } from "../../components/CodeBlock";
 import type { PackageManager } from "../../types";
@@ -37,53 +37,52 @@ export function InstallationSection() {
 
       {/* Framework & Package Manager Selector Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-3 rounded-2xl border border-border/80 bg-card/80 backdrop-blur-md shadow-xs">
-        {/* Framework Tabs */}
-        <div className="flex items-center p-1 rounded-xl bg-secondary/70 border border-border/80 text-xs font-semibold">
-          <button
-            type="button"
-            onClick={() => setFramework("react")}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-lg transition-all duration-150 flex items-center justify-center gap-2 ${
-              framework === "react"
-                ? "bg-background text-foreground shadow-xs ring-1 ring-border/50 font-bold"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
-            <span>Next.js (React)</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setFramework("vue")}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-lg transition-all duration-150 flex items-center justify-center gap-2 ${
-              framework === "vue"
-                ? "bg-background text-foreground shadow-xs ring-1 ring-border/50 font-bold"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-            <span>Nuxt 3 (Vue)</span>
-          </button>
-        </div>
+        {/* Framework Tabs using CUI Tabs */}
+        <Tabs
+          value={framework}
+          onValueChange={(val) => setFramework(val as any)}
+          size="sm"
+          radius="full"
+        >
+          <TabsList className="bg-secondary/70 border border-border/80 p-0.5 shadow-inner">
+            <TabsTrigger
+              value="react"
+              className="px-4 py-1.5 font-semibold text-xs gap-2"
+            >
+              <span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+              <span>Next.js (React)</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="vue"
+              className="px-4 py-1.5 font-semibold text-xs gap-2"
+            >
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+              <span>Nuxt 3 (Vue)</span>
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
 
         {/* Package Manager Selector */}
         <div className="flex items-center justify-end gap-2 text-xs font-medium text-muted-foreground">
           <span className="text-[11px] font-sans">Client:</span>
-          <div className="flex items-center p-0.5 rounded-xl bg-secondary/70 border border-border/80">
-            {PM_LIST.map((pm) => (
-              <button
-                key={pm}
-                type="button"
-                onClick={() => setPackageManager(pm)}
-                className={`px-3 py-1 rounded-lg font-mono text-[11px] transition-all ${
-                  packageManager === pm
-                    ? "bg-background text-foreground shadow-xs font-bold"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {pm}
-              </button>
-            ))}
-          </div>
+          <Tabs
+            value={packageManager}
+            onValueChange={(val) => setPackageManager(val as any)}
+            size="xs"
+            radius="full"
+          >
+            <TabsList className="bg-secondary/70 border border-border/80 h-7 p-0.5 gap-0.5">
+              {PM_LIST.map((pm) => (
+                <TabsTrigger
+                  key={pm}
+                  value={pm}
+                  className="px-2.5 font-mono text-[11px] font-semibold"
+                >
+                  {pm}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
         </div>
       </div>
 
@@ -106,10 +105,10 @@ export function InstallationSection() {
             <CodeBlock
               id="next-install"
               commands={{
-                pnpm: "pnpm add @cui-universal/react @cui-universal/theme",
-                npm: "npm install @cui-universal/react @cui-universal/theme",
-                yarn: "yarn add @cui-universal/react @cui-universal/theme",
-                bun: "bun add @cui-universal/react @cui-universal/theme",
+                pnpm: "pnpm add @cui-universal/react@beta @cui-universal/theme@beta",
+                npm: "npm install @cui-universal/react@beta @cui-universal/theme@beta",
+                yarn: "yarn add @cui-universal/react@beta @cui-universal/theme@beta",
+                bun: "bun add @cui-universal/react@beta @cui-universal/theme@beta",
               }}
             />
           </div>
@@ -203,7 +202,7 @@ export default function RootLayout({
               <div>
                 <h2 className="text-base font-bold text-foreground">Render Your First Component</h2>
                 <p className="text-xs text-muted-foreground">
-                  Import any of the 22 accessible primitives in your Next.js Server or Client components.
+                  Import any of the 32 accessible primitives in your Next.js Server or Client components.
                 </p>
               </div>
             </div>
@@ -259,10 +258,10 @@ export default function HomePage() {
             <CodeBlock
               id="nuxt-install"
               commands={{
-                pnpm: "pnpm add @cui-universal/vue @cui-universal/theme",
-                npm: "npm install @cui-universal/vue @cui-universal/theme",
-                yarn: "yarn add @cui-universal/vue @cui-universal/theme",
-                bun: "bun add @cui-universal/vue @cui-universal/theme",
+                pnpm: "pnpm add @cui-universal/vue@beta @cui-universal/theme@beta",
+                npm: "npm install @cui-universal/vue@beta @cui-universal/theme@beta",
+                yarn: "yarn add @cui-universal/vue@beta @cui-universal/theme@beta",
+                bun: "bun add @cui-universal/vue@beta @cui-universal/theme@beta",
               }}
             />
           </div>

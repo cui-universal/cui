@@ -89,10 +89,14 @@ import Timeline from "./Timeline.vue";
 import Rating from "./Rating.vue";
 import EmptyState from "./EmptyState.vue";
 import ColorPicker from "./ColorPicker.vue";
+import InputNumber, { type InputNumberProps } from "./InputNumber.vue";
 
 export {
   Button,
   Input,
+  InputNumber,
+  InputNumber as NumberInput,
+  type InputNumberProps,
   Badge,
   Card,
   CardHeader,
@@ -274,6 +278,8 @@ export const components: Record<string, any> = {
   Rating,
   EmptyState,
   ColorPicker,
+  InputNumber,
+  NumberInput: InputNumber,
 };
 
 export const CUIPlugin: Plugin = {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@cui-universal/react";
+import { Button, Input, Checkbox } from "@cui-universal/react";
 import { PlaygroundSelect } from "../../components/PlaygroundSelect";
 import { CodeBlock } from "../../components/CodeBlock";
 import { ComponentDocDetails } from "../../components/ComponentDocDetails";
@@ -71,34 +71,39 @@ export function ButtonSection() {
           </div>
 
           <div>
-            <label className="font-semibold text-muted-foreground block mb-1">Button Text</label>
-            <input
-              type="text"
+            <label htmlFor="ctl-btnText" className="font-semibold text-muted-foreground block mb-1">Button Text</label>
+            <Input
+              id="ctl-btnText"
+              size="sm"
               value={btnText}
               onChange={(e) => setBtnText(e.target.value)}
-              className="w-full p-2 rounded-xl border border-border bg-background text-foreground"
+              placeholder="Button label..."
             />
           </div>
 
-          <div className="flex items-center gap-4 pt-4">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
+          <div className="flex items-center gap-5 pt-4 sm:pt-5">
+            <div className="flex items-center gap-2 cursor-pointer">
+              <Checkbox
+                id="ctl-btnLoading"
+                size="sm"
                 checked={btnLoading}
-                onChange={(e) => setBtnLoading(e.target.checked)}
-                className="rounded border-border text-primary"
+                onCheckedChange={(c) => setBtnLoading(c === true)}
               />
-              <span>Loading</span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
+              <label htmlFor="ctl-btnLoading" className="font-medium cursor-pointer select-none text-foreground text-xs">
+                Loading
+              </label>
+            </div>
+            <div className="flex items-center gap-2 cursor-pointer">
+              <Checkbox
+                id="ctl-btnDisabled"
+                size="sm"
                 checked={btnDisabled}
-                onChange={(e) => setBtnDisabled(e.target.checked)}
-                className="rounded border-border text-primary"
+                onCheckedChange={(c) => setBtnDisabled(c === true)}
               />
-              <span>Disabled</span>
-            </label>
+              <label htmlFor="ctl-btnDisabled" className="font-medium cursor-pointer select-none text-foreground text-xs">
+                Disabled
+              </label>
+            </div>
           </div>
         </div>
       </div>

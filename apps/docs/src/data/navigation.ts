@@ -4,6 +4,7 @@ import {
   Palette,
   Play,
   Sliders,
+  Hash,
   FileText,
   CheckSquare,
   RefreshCw,
@@ -57,6 +58,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: "button", label: "Button", icon: Play, count: "7 styles" },
       { id: "input", label: "Input", icon: Sliders },
+      { id: "input-number", label: "InputNumber", icon: Hash, badge: "New" },
       { id: "textarea", label: "Textarea", icon: FileText },
       { id: "checkbox", label: "Checkbox", icon: CheckSquare },
       { id: "switch", label: "Switch", icon: RefreshCw },

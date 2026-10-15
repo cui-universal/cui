@@ -2,6 +2,8 @@ import React from "react";
 import { CheckCircle2, ShieldCheck, Keyboard } from "lucide-react";
 import { PropsTable, type PropItem } from "./PropsTable";
 
+export type AriaItem = string | { attribute?: string; name?: string; description: string };
+
 interface ComponentDocDetailsProps {
   componentName: string;
   reactImport?: string;
@@ -10,7 +12,7 @@ interface ComponentDocDetailsProps {
   props: PropItem[];
   accessibility?: {
     keyboard?: { key: string; description: string }[];
-    aria?: string[];
+    aria?: AriaItem[];
   };
 }
 
@@ -79,12 +81,31 @@ export function ComponentDocDetails({
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                   <span>ARIA Standards &amp; States</span>
                 </div>
-                <ul className="space-y-1 text-xs text-muted-foreground list-disc list-inside">
-                  {accessibility.aria.map((a) => (
-                    <li key={a} className="text-[11px] leading-relaxed">
-                      {a}
-                    </li>
-                  ))}
+                <ul className="space-y-1.5 text-xs text-muted-foreground">
+                  {accessibility.aria.map((item, idx) => {
+                    if (typeof item === "string") {
+                      return (
+                        <li key={idx} className="text-[11px] leading-relaxed flex items-start gap-2">
+                          <span className="text-primary mt-0.5">•</span>
+                          <span>{item}</span>
+                        </li>
+                      );
+                    }
+                    const attr = item.attribute || item.name;
+                    return (
+                      <li key={idx} className="text-[11px] leading-relaxed flex items-start gap-2">
+                        <span className="text-primary mt-0.5">•</span>
+                        <div className="flex-1">
+                          {attr && (
+                            <code className="px-1.5 py-0.5 rounded bg-secondary font-mono text-[10px] text-foreground font-semibold mr-1.5 border border-border/50">
+                              {attr}
+                            </code>
+                          )}
+                          <span>{item.description}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             )}
