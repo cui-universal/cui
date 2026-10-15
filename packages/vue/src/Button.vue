@@ -40,6 +40,7 @@ const classes = computed(() => {
     :as-child="asChild"
     :disabled="disabled || loading"
     :class="classes"
+    v-bind="$attrs"
   >
     <Loader2 v-if="loading" class="h-4 w-4 animate-spin shrink-0" />
     <slot name="leftIcon" v-if="!loading" />

@@ -59,7 +59,7 @@ const handleSave = () => {
 <template>
   <Dialog v-model:open="isOpen">
     <DialogTrigger as-child>
-      <Button size="sm" class="gap-1.5 shadow-sm shadow-primary/20">
+      <Button size="sm" class="gap-1.5 shadow-sm shadow-primary/20" @click="isOpen = true">
         <Icon name="lucide:plus" class="h-3.5 w-3.5" />
         <span>Add Product</span>
       </Button>
@@ -145,7 +145,7 @@ const handleSave = () => {
 
         <DialogFooter class="gap-2 pt-2">
           <DialogClose as-child>
-            <Button variant="outline" size="sm" type="button" @click="resetForm">
+            <Button variant="outline" size="sm" type="button" @click="() => { resetForm(); isOpen = false; }">
               Cancel
             </Button>
           </DialogClose>

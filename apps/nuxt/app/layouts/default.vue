@@ -19,6 +19,7 @@ import {
 import { useCommerce } from "~/composables/useCommerce";
 import { useTheme } from "~/composables/useTheme";
 import AddProductDialog from "~/components/products/AddProductDialog.vue";
+import AddCustomerDialog from "~/components/customers/AddCustomerDialog.vue";
 
 const { searchQuery, storeOnline, toastMessage, isToastVisible, showToast, orders, products } = useCommerce();
 const { isDark, toggleDarkMode, initTheme } = useTheme();
@@ -205,9 +206,10 @@ onMounted(() => {
             </div>
           </div>
 
-          <div class="flex items-center gap-3">
-            <!-- Add Product Dialog Component -->
+          <div class="flex items-center gap-2">
+            <!-- Global Quick Actions: Add Product & Add Customer -->
             <AddProductDialog />
+            <AddCustomerDialog />
 
             <!-- Notifications Dropdown -->
             <DropdownMenu>
