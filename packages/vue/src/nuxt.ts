@@ -102,31 +102,69 @@ export interface CUINuxtOptions {
   injectStyles?: boolean;
 }
 
-export const cuiNuxtModule = {
+export function cuiNuxtModule(this: any, inlineOptions: CUINuxtOptions = {}, nuxt?: any) {
+  const nuxtInstance = nuxt || (this ? this.nuxt : undefined);
+  const configOptions = nuxtInstance?.options?.cui || {};
+  const options: CUINuxtOptions = {
+    prefix: "",
+    injectStyles: true,
+    ...configOptions,
+    ...inlineOptions,
+  };
+
+  if (!nuxtInstance) return;
+
+  // 1. Inject @cui-universal/theme styles
+  if (options.injectStyles !== false) {
+    nuxtInstance.options.css = nuxtInstance.options.css || [];
+    if (!nuxtInstance.options.css.includes("@cui-universal/theme/styles.css")) {
+      nuxtInstance.options.css.unshift("@cui-universal/theme/styles.css");
+    }
+  }
+
+  // 2. Auto-register all CUI components in Nuxt
+  const prefix = options.prefix ?? "";
+  const toKebabCase = (str: string) =>
+    str
+      .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+      .replace(/([A-Z])([A-Z])(?=[a-z])/g, "$1-$2")
+      .toLowerCase();
+
+  nuxtInstance.hook("components:extend", (componentsList: any[]) => {
+    for (const name of CUI_COMPONENTS) {
+      const pascalName = `${prefix}${name}`;
+      const kebabName = toKebabCase(pascalName);
+      componentsList.push({
+        name: pascalName,
+        pascalName,
+        kebabName,
+        chunkName: `components/${kebabName}`,
+        shortPath: `components/${kebabName}`,
+        export: name,
+        filePath: "@cui-universal/vue",
+        global: true,
+        mode: "all",
+      });
+    }
+  });
+}
+
+cuiNuxtModule.getMeta = () => ({
   name: "@cui-universal/vue/nuxt",
   configKey: "cui",
-  setup(options: CUINuxtOptions = {}, nuxt: any) {
-    // 1. Inject @cui-universal/theme styles
-    if (options.injectStyles !== false) {
-      nuxt.options.css = nuxt.options.css || [];
-      if (!nuxt.options.css.includes("@cui-universal/theme/styles.css")) {
-        nuxt.options.css.unshift("@cui-universal/theme/styles.css");
-      }
-    }
-
-    // 2. Auto-register all CUI components in Nuxt
-    const prefix = options.prefix ?? "";
-    nuxt.hook("components:extend", (componentsList: any[]) => {
-      for (const name of CUI_COMPONENTS) {
-        componentsList.push({
-          name: `${prefix}${name}`,
-          export: name,
-          filePath: "@cui-universal/vue",
-          global: true,
-        });
-      }
-    });
+  compatibility: {
+    nuxt: ">=3.0.0",
+  },
+});
+(cuiNuxtModule as any).meta = {
+  name: "@cui-universal/vue/nuxt",
+  configKey: "cui",
+  compatibility: {
+    nuxt: ">=3.0.0",
   },
 };
+(cuiNuxtModule as any).configKey = "cui";
+(cuiNuxtModule as any).default = cuiNuxtModule;
+(cuiNuxtModule as any).cuiNuxtModule = cuiNuxtModule;
 
 export default cuiNuxtModule;

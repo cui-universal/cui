@@ -287,7 +287,7 @@ export function IntroSection() {
                   <Zap className="h-3.5 w-3.5 text-amber-500" />
                   Hardware accelerated
                 </span>
-                <span className="font-mono text-[10px]">CUI v0.1.1</span>
+                <span className="font-mono text-[10px]">CUI v0.1.2</span>
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@ export default defineConfig({
         nuxt: path.resolve(__dirname, "src/nuxt.ts"),
       },
       formats: ["es", "cjs"],
-      fileName: (format, entryName) => `${entryName}.${format === "es" ? "js" : "cjs"}`,
+      fileName: (format, entryName) => `${entryName}.${format === "es" ? "mjs" : "cjs"}`,
     },
     rollupOptions: {
       external: ["vue", "lucide-vue-next", "@cui-universal/theme"],

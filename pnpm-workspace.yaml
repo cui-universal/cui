@@ -6,6 +6,9 @@ allowBuilds:
   esbuild: true
   vue-demi: true
 
+linkWorkspacePackages: true
+preferWorkspacePackages: true
+
 minimumReleaseAgeExclude:
-  - '@cui-universal/theme@0.1.0'
-  - '@cui-universal/vue@0.1.0'
+  - '@cui-universal/theme@0.1.0 || 0.1.1 || 0.1.2'
+  - '@cui-universal/vue@0.1.0 || 0.1.1 || 0.1.2'

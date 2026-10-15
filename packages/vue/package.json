@@ -1,19 +1,19 @@
 {
   "name": "@cui-universal/vue",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Cross-framework CUI components for Vue 3 and Nuxt",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
     "./nuxt": {
       "types": "./dist/nuxt.d.ts",
-      "import": "./dist/nuxt.js",
+      "import": "./dist/nuxt.mjs",
       "require": "./dist/nuxt.cjs"
     }
   },

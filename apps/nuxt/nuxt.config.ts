@@ -16,6 +16,7 @@ export default defineNuxtConfig({
 
   modules: [
     "@nuxtjs/tailwindcss",
+    "@cui-universal/vue/nuxt",
   ],
 
   tailwindcss: {

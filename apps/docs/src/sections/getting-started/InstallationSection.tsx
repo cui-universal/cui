@@ -315,7 +315,7 @@ export default function App() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Welcome to React + CUI</CardTitle>
-            <Badge variant="primary">v0.1.1</Badge>
+            <Badge variant="primary">v0.1.2</Badge>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -609,7 +609,7 @@ import { ArrowRight } from "lucide-vue-next";
       <CardHeader>
         <div class="flex items-center justify-between">
           <CardTitle>Welcome to Vue 3 + CUI</CardTitle>
-          <Badge variant="primary">v0.1.1</Badge>
+          <Badge variant="primary">v0.1.2</Badge>
         </div>
       </CardHeader>
       <CardContent class="space-y-4">

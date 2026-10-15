@@ -165,10 +165,10 @@ importers:
   apps/nuxt:
     dependencies:
       '@cui-universal/theme':
-        specifier: workspace:*
+        specifier: ^0.1.2
         version: link:../../packages/theme
       '@cui-universal/vue':
-        specifier: workspace:*
+        specifier: ^0.1.2
         version: link:../../packages/vue
       lucide-vue-next:
         specifier: ^0.473.0
