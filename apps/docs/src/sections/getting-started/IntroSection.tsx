@@ -37,7 +37,7 @@ export function IntroSection() {
   const [heroActiveTab, setHeroActiveTab] = useState("player");
   const [categoryFilter, setCategoryFilter] = useState("all");
 
-  const pkgName = framework === "react" ? "@cui-universal/react@beta @cui-universal/theme@beta" : "@cui-universal/vue@beta @cui-universal/theme@beta";
+  const pkgName = framework === "react" ? "@cui-universal/react @cui-universal/theme" : "@cui-universal/vue @cui-universal/theme";
   const installCmd =
     packageManager === "npm"
       ? `npm install ${pkgName}`
@@ -74,7 +74,7 @@ export function IntroSection() {
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
               Next-Gen UI for <br />
               <span className="bg-gradient-to-r from-primary via-indigo-500 to-sky-400 bg-clip-text text-transparent">
-                Vue, Nuxt & React
+                React, Next, Vue & Nuxt
               </span>
             </h1>
 
@@ -287,7 +287,7 @@ export function IntroSection() {
                   <Zap className="h-3.5 w-3.5 text-amber-500" />
                   Hardware accelerated
                 </span>
-                <span className="font-mono text-[10px]">CUI v0.1.0-beta.1</span>
+                <span className="font-mono text-[10px]">CUI v0.1.1</span>
               </div>
             </div>
           </div>

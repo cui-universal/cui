@@ -81,3 +81,39 @@ export const cuiTailwindPreset = {
     },
   },
 };
+
+/**
+ * Helper to generate Tailwind CSS content glob patterns for CUI packages.
+ *
+ * @example
+ * ```ts
+ * import { cuiTailwindPreset, cuiContent } from "@cui-universal/theme";
+ *
+ * export default {
+ *   presets: [cuiTailwindPreset],
+ *   content: [
+ *     "./src/**\/*.{js,ts,jsx,tsx}",
+ *     ...cuiContent("react"), // or "vue", or "all"
+ *   ],
+ * };
+ * ```
+ */
+export function cuiContent(framework: "react" | "vue" | "all" = "all"): string[] {
+  if (framework === "react") {
+    return [
+      "./node_modules/@cui-universal/react/dist/**/*.{js,mjs}",
+      "./node_modules/@cui-universal/theme/dist/**/*.{js,mjs}",
+    ];
+  }
+  if (framework === "vue") {
+    return [
+      "./node_modules/@cui-universal/vue/dist/**/*.{js,cjs}",
+      "./node_modules/@cui-universal/theme/dist/**/*.{js,mjs}",
+    ];
+  }
+  return [
+    "./node_modules/@cui-universal/react/dist/**/*.{js,mjs}",
+    "./node_modules/@cui-universal/vue/dist/**/*.{js,cjs}",
+    "./node_modules/@cui-universal/theme/dist/**/*.{js,mjs}",
+  ];
+}

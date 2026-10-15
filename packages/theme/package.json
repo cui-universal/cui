@@ -1,6 +1,6 @@
 {
   "name": "@cui-universal/theme",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.1",
   "description": "Cross-framework design system tokens, Tailwind plugin, and variants for CUI",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -18,9 +18,14 @@
     },
     "./styles.css": "./src/styles.css"
   },
+  "bin": {
+    "cui": "./bin/cui.mjs",
+    "cui-theme": "./bin/cui.mjs"
+  },
   "files": [
     "dist",
-    "src/styles.css"
+    "src/styles.css",
+    "bin"
   ],
   "publishConfig": {
     "access": "public"
