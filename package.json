@@ -6,6 +6,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:packages": "pnpm -r --filter \"./packages/*\" run build",
+    "publish:packages": "pnpm -r --filter \"./packages/*\" publish --access public --no-git-checks",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",

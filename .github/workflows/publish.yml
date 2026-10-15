@@ -31,8 +31,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install dependencies (packages only)
+        run: pnpm --filter "./packages/*..." install --frozen-lockfile
 
       - name: Build packages
         run: pnpm -r --filter "./packages/*" run build
