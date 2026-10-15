@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --port 5173 --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --port 5173 --host"
   },
   "dependencies": {
     "@cui-universal/react": "workspace:*",

@@ -5,10 +5,10 @@ services:
       dockerfile: Dockerfile
     container_name: cui-docs
     ports:
-      - "8080:80"
+      - "5173:5173"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/healthz"]
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:5173', r => process.exit(r.statusCode === 200 ? 0 : 1))"]
       interval: 30s
       timeout: 3s
       retries: 3

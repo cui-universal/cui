@@ -15,16 +15,16 @@ Visit the local server at `http://localhost:5173/`.
 
 ---
 
-## 🐳 Docker Deployment
+## 🐳 Docker (No Nginx — Node.js & Vite)
 
-The application includes production-grade containerization with Alpine Nginx, HTTP gzip compression, caching headers, security headers, and Single Page Application (SPA) fallback routing.
+The application runs directly in a Node.js container using Vite's built-in preview/dev server on port `5173`.
 
-### 1. Build & Run with Docker Compose (Recommended)
+### 1. Run with Docker Compose (Recommended)
 
 From the repository root:
 
 ```bash
-# Build & start container in background on port 8080
+# Build & start container on port 5173
 docker compose up -d --build
 
 # View logs
@@ -34,29 +34,20 @@ docker compose logs -f docs
 docker compose down
 ```
 
-### 2. Build & Run Manually with Docker CLI
+### 2. Run with Docker CLI
 
 ```bash
-# 1. Build the docs dist assets (if not already built)
-pnpm --filter docs build
+# 1. Build the Docker image
+docker build -t cui-docs .
 
-# 2. Build the Docker image (~29MB)
-docker build -f apps/docs/Dockerfile -t cui-docs:latest .
+# 2. Run the container
+docker run -d --name cui-docs -p 5173:5173 --restart unless-stopped cui-docs
 
-# 3. Run the container
-docker run -d --name cui-docs -p 8080:80 --restart unless-stopped cui-docs:latest
-
-# 4. Check health endpoint
-curl -i http://localhost:8080/healthz
+# 3. Check logs
+docker logs -f cui-docs
 ```
 
-### 3. Multi-Stage Docker Build (for CI/CD Pipelines)
-
-If building in an isolated CI/CD runner without host pre-building:
-
-```bash
-docker build -f apps/docs/Dockerfile.multistage -t cui-docs:latest .
-```
+Visit `http://localhost:5173/`.
 
 ---
 
@@ -64,7 +55,7 @@ docker build -f apps/docs/Dockerfile.multistage -t cui-docs:latest .
 
 | Setting | Value / Path | Description |
 | :--- | :--- | :--- |
-| **Base Image** | `nginx:alpine` | Ultra-lightweight (~29MB total image size) |
-| **Port** | `80` (mapped to `8080` in Compose) | HTTP Server |
-| **Nginx Config** | [apps/docs/nginx.conf](file:///home/chansy/dev/cui/apps/docs/nginx.conf) | SPA fallback, gzip compression, caching, security headers |
-| **Health Check** | `/healthz` (returns `200 OK`) | Standard Docker & Kubernetes health probe |
+| **Base Image** | `node:24-slim` | Node.js runtime environment |
+| **Port** | `5173` | Vite Preview / Dev Server |
+| **Server Engine** | `Vite Preview (Node.js)` | Direct Node HTTP server without Nginx |
+| **Command** | `pnpm --filter docs preview` | Serves the built documentation app |
