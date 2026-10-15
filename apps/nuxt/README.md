@@ -1,12 +1,13 @@
-# CUI Universal Nuxt 3 Demo
+# CUI Universal Nuxt 4 Demo
 
-This Nuxt 3 application demonstrates how to consume the published npm packages:
+This Nuxt 4 application demonstrates how to consume the published npm packages:
 - [`@cui-universal/vue`](https://www.npmjs.com/package/@cui-universal/vue)
 - [`@cui-universal/theme`](https://www.npmjs.com/package/@cui-universal/theme)
 
 ## Features
-- **Zero External UI Dependencies**: Completely self-contained, accessible, lightweight components (no Radix UI or headless UI dependencies).
-- **Nuxt 3 SSR + Hydration**: Built with full SSR support and seamless client-side reactivity.
+- **Zero Manual Component Imports**: All CUI components (`Button`, `Card`, `Badge`, `Input`, `Dialog`, `Table`, etc.) are auto-imported via `@cui-universal/vue/nuxt`.
+- **Nuxt 4 Ready**: Built for Nuxt 4 with full SSR and Nitro server support.
+- **`@nuxt/icon` Integration**: Seamlessly combined with `@nuxt/icon` (`<Icon name="lucide:..." />`).
 - **Tailwind CSS Preset**: Powered by `@cui-universal/theme`'s `cuiTailwindPreset` and CSS custom properties.
 - **Light & Dark Mode**: Native class-based dark mode toggle with CSS design tokens.
 
@@ -14,90 +15,80 @@ This Nuxt 3 application demonstrates how to consume the published npm packages:
 
 ### Installation
 ```bash
-# npm
-npm install @cui-universal/vue @cui-universal/theme @nuxtjs/tailwindcss lucide-vue-next
-
 # pnpm
-pnpm add @cui-universal/vue @cui-universal/theme @nuxtjs/tailwindcss lucide-vue-next
+pnpm add @cui-universal/vue @cui-universal/theme
+pnpm add -D @nuxtjs/tailwindcss @nuxt/icon nuxt
 
-# yarn
-yarn add @cui-universal/vue @cui-universal/theme @nuxtjs/tailwindcss lucide-vue-next
+# npm
+npm install @cui-universal/vue @cui-universal/theme
+npm install -D @nuxtjs/tailwindcss @nuxt/icon nuxt
 ```
 
 ### Configuration
-1. In `tailwind.config.ts`:
+1. In `nuxt.config.ts`:
+```ts
+export default defineNuxtConfig({
+  compatibilityDate: "2024-11-01",
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@cui-universal/vue/nuxt",
+    "@nuxt/icon",
+  ],
+  // Optional module settings
+  cui: {
+    prefix: "", // Optional prefix e.g. "Cui" -> <CuiButton />
+    injectStyles: true, // Injects @cui-universal/theme/styles.css automatically
+  },
+});
+```
+
+2. In `tailwind.config.ts`:
 ```ts
 import type { Config } from "tailwindcss";
 import { cuiTailwindPreset } from "@cui-universal/theme";
 
-export default {
+export default <Config>{
   presets: [cuiTailwindPreset],
   darkMode: "class",
   content: [
-    "./app.vue",
+    "./app/**/*.{vue,js,ts}",
     "./components/**/*.{vue,js,ts}",
+    "./pages/**/*.{vue,js,ts}",
     "./node_modules/@cui-universal/vue/**/*.{js,ts,vue,mjs}",
   ],
-} satisfies Config;
+};
 ```
 
-2. In `assets/css/tailwind.css`:
-```css
-@import "@cui-universal/theme/styles.css";
+### Component Usage (No Imports Required!)
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-3. In `nuxt.config.ts`:
-```ts
-export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
-  modules: ["@nuxtjs/tailwindcss"],
-});
-```
-
-### Component Usage
 ```vue
-<script setup>
-import {
-  CuiButton,
-  CuiBadge,
-  CuiCard,
-  CuiCardHeader,
-  CuiCardTitle,
-  CuiCardDescription,
-  CuiCardContent,
-  CuiSwitch,
-  CuiCheckbox,
-  CuiDialog,
-  CuiDropdownMenu,
-  CuiAccordion,
-  CuiProgress,
-} from "@cui-universal/vue";
-</script>
-
+<!-- app/pages/index.vue -->
 <template>
-  <CuiCard>
-    <CuiCardHeader>
-      <CuiCardTitle>Welcome to Nuxt 3 with CUI</CuiCardTitle>
-      <CuiCardDescription>Clean, universal components.</CuiCardDescription>
-    </CuiCardHeader>
-    <CuiCardContent>
-      <CuiButton variant="primary">Click Me</CuiButton>
-    </CuiCardContent>
-  </CuiCard>
+  <div class="space-y-4">
+    <!-- CUI components are auto-imported automatically -->
+    <Card>
+      <CardHeader>
+        <CardTitle>Nuxt 4 + CUI Demo</CardTitle>
+        <CardDescription>Zero import boilerplate required!</CardDescription>
+      </CardHeader>
+      <CardContent class="space-y-3">
+        <Input placeholder="Enter username..." />
+        <Button class="gap-2">
+          <!-- Seamless @nuxt/icon integration -->
+          <Icon name="lucide:sparkles" class="h-4 w-4" />
+          <span>Launch Project</span>
+        </Button>
+      </CardContent>
+    </Card>
+  </div>
 </template>
 ```
 
 ### Run Locally
 ```bash
-# Within the monorepo:
-pnpm --filter cui-nuxt-demo dev
-
-# Or directly in apps/nuxt:
-cd apps/nuxt
+# In apps/nuxt:
 pnpm dev
+
+# Or from workspace root:
+pnpm --filter cui-nuxt-demo dev
 ```
-Open [http://localhost:3001](http://localhost:3001) in your browser.

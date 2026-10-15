@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge, Progress } from "@cui-universal/vue";
-
 const salesGoalProgress = 78;
 const currentMonthRevenue = "$98,450.00";
 const targetRevenue = "$125,000.00";

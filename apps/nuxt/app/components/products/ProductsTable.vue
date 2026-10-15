@@ -1,21 +1,4 @@
 <script setup lang="ts">
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-  Checkbox,
-  Badge,
-  Button,
-  Switch,
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@cui-universal/vue";
 import { MoreVertical, Edit2, Plus, Copy, Trash2, PackageCheck, AlertTriangle } from "lucide-vue-next";
 import { useCommerce } from "~/composables/useCommerce";
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Badge, Button, Card, CardHeader, CardTitle, CardDescription, CardContent } from "@cui-universal/vue";
-import { DollarSign, ShoppingBag, Users, TrendingUp, RefreshCw } from "lucide-vue-next";
 import MetricCard from "~/components/dashboard/MetricCard.vue";
 import RevenueChart from "~/components/dashboard/RevenueChart.vue";
 import TopSellingList from "~/components/dashboard/TopSellingList.vue";
@@ -30,13 +28,13 @@ useHead({
           <span>Realtime Sync</span>
         </Badge>
         <Button variant="ghost" size="sm" @click="showToast('Data refreshed!')" class="h-8 gap-1.5 text-xs text-muted-foreground">
-          <RefreshCw class="h-3 w-3" />
+          <Icon name="lucide:refresh-cw" class="h-3 w-3" />
           <span>Sync</span>
         </Button>
       </div>
     </div>
 
-    <!-- 4 KPI Metrics Grid -->
+    <!-- 4 KPI Metrics Grid using @nuxt/icon and auto-imported CUI components -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
       <MetricCard
         title="Total Revenue"
@@ -44,7 +42,7 @@ useHead({
         change="+14.2%"
         subtext="vs last month"
         trend="up"
-        :icon="DollarSign"
+        icon-name="lucide:dollar-sign"
         icon-bg-class="bg-primary/10 text-primary"
       />
       <MetricCard
@@ -53,7 +51,7 @@ useHead({
         change="+8.5%"
         subtext="vs last month"
         trend="up"
-        :icon="ShoppingBag"
+        icon-name="lucide:shopping-bag"
         icon-bg-class="bg-sky-500/10 text-sky-500"
       />
       <MetricCard
@@ -62,7 +60,7 @@ useHead({
         change="+22.1%"
         subtext="vs last month"
         trend="up"
-        :icon="Users"
+        icon-name="lucide:users"
         icon-bg-class="bg-indigo-500/10 text-indigo-500"
       />
       <MetricCard
@@ -71,7 +69,7 @@ useHead({
         change="+0.8%"
         subtext="avg. 120s checkout"
         trend="up"
-        :icon="TrendingUp"
+        icon-name="lucide:trending-up"
         icon-bg-class="bg-amber-500/10 text-amber-500"
       />
     </div>
@@ -84,21 +82,6 @@ useHead({
 
     <!-- Recent Orders Table Section -->
     <Card>
-      <!-- <CardHeader>
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <CardTitle>Recent Orders</CardTitle>
-            <CardDescription>Latest customer purchases across web and mobile channels</CardDescription>
-          </div>
-          <div class="flex items-center gap-2">
-            <NuxtLink to="/orders">
-              <Button variant="outline" size="sm" class="text-xs">
-                View All Orders
-              </Button>
-            </NuxtLink>
-          </div>
-        </div>
-      </CardHeader> -->
       <CardContent class="p-0">
         <OrdersTable />
       </CardContent>

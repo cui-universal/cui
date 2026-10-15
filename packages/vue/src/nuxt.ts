@@ -1,5 +1,5 @@
 /**
- * Official Nuxt 3 module for @cui-universal/vue
+ * Official Nuxt 4 & Nuxt 3 module for @cui-universal/vue
  * Automatically injects theme styles and auto-registers all CUI components in Nuxt.
  */
 
@@ -153,14 +153,14 @@ cuiNuxtModule.getMeta = () => ({
   name: "@cui-universal/vue/nuxt",
   configKey: "cui",
   compatibility: {
-    nuxt: ">=3.0.0",
+    nuxt: ">=3.0.0 || >=4.0.0",
   },
 });
 (cuiNuxtModule as any).meta = {
   name: "@cui-universal/vue/nuxt",
   configKey: "cui",
   compatibility: {
-    nuxt: ">=3.0.0",
+    nuxt: ">=3.0.0 || >=4.0.0",
   },
 };
 (cuiNuxtModule as any).configKey = "cui";

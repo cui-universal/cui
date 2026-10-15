@@ -47,7 +47,7 @@ export function InstallationSection() {
   const [selectedFramework, setSelectedFramework] = useState<FrameworkOption>(
     globalFramework === "vue" ? "nuxt" : "next"
   );
-  const [configTab, setConfigTab] = useState<"tailwind" | "cui" | "postcss">("tailwind");
+  const [configTab, setConfigTab] = useState<"tailwind" | "postcss" | "css" | "nuxt" | "cui">("tailwind");
 
   // Keep global framework in sync with selectedFramework
   const handleSelectFramework = (fw: FrameworkOption) => {
@@ -89,7 +89,7 @@ export function InstallationSection() {
           Installing CUI Universal
         </h1>
         <p className="text-muted-foreground text-sm mt-2 max-w-2xl leading-relaxed">
-          Zero third-party headless UI dependencies. Follow the step-by-step instructions below to install and configure unified Tailwind tokens and accessible primitives across <strong>React</strong>, <strong>Next.js</strong>, <strong>Vue 3</strong>, and <strong>Nuxt 3</strong>.
+          Zero third-party headless UI dependencies. Follow the step-by-step instructions below to install and configure unified Tailwind tokens and accessible primitives across <strong>React</strong>, <strong>Next.js</strong>, <strong>Vue 3</strong>, and <strong>Nuxt 4</strong>.
         </p>
       </div>
 
@@ -130,7 +130,7 @@ export function InstallationSection() {
                 className="px-3.5 py-1.5 font-semibold text-xs gap-2"
               >
                 <span className="h-2 w-2 rounded-full bg-teal-400 shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
-                <span>Nuxt 3</span>
+                <span>Nuxt 4</span>
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -193,40 +193,64 @@ export function InstallationSection() {
       {/* REACT (VITE) GUIDE */}
       {selectedFramework === "react" && (
         <div className="space-y-8 animate-in fade-in-50 duration-300">
-          {/* Step 1: Install */}
+          {/* Step 1: Install CUI & Tailwind */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 font-bold text-xs border border-sky-500/20 shadow-xs">
                 1
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Install React Packages</h2>
+                <h2 className="text-base font-bold text-foreground">Install CUI &amp; Tailwind CSS</h2>
                 <p className="text-xs text-muted-foreground">
-                  Install the CUI React component primitives and universal design theme preset.
+                  Install CUI React primitives, universal theme tokens, and Tailwind CSS with PostCSS.
                 </p>
               </div>
             </div>
             <CodeBlock
               id="react-install"
               commands={{
-                pnpm: "pnpm add @cui-universal/react @cui-universal/theme lucide-react",
-                npm: "npm install @cui-universal/react @cui-universal/theme lucide-react",
-                yarn: "yarn add @cui-universal/react @cui-universal/theme lucide-react",
-                bun: "bun add @cui-universal/react @cui-universal/theme lucide-react",
+                pnpm: "pnpm add @cui-universal/react @cui-universal/theme lucide-react\npnpm add -D tailwindcss postcss autoprefixer",
+                npm: "npm install @cui-universal/react @cui-universal/theme lucide-react\nnpm install -D tailwindcss postcss autoprefixer",
+                yarn: "yarn add @cui-universal/react @cui-universal/theme lucide-react\nyarn add -D tailwindcss postcss autoprefixer",
+                bun: "bun add @cui-universal/react @cui-universal/theme lucide-react\nbun add -D tailwindcss postcss autoprefixer",
               }}
             />
           </div>
 
-          {/* Step 2: Tailwind Config */}
+          {/* Step 2: Initialize Tailwind & PostCSS */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 font-bold text-xs border border-sky-500/20 shadow-xs">
                 2
               </span>
               <div>
+                <h2 className="text-base font-bold text-foreground">Initialize Tailwind &amp; PostCSS</h2>
+                <p className="text-xs text-muted-foreground">
+                  Generate standard <code className="font-mono text-primary font-semibold">tailwind.config.ts</code> and <code className="font-mono text-primary font-semibold">postcss.config.js</code>.
+                </p>
+              </div>
+            </div>
+            <CodeBlock
+              id="react-init-tailwind"
+              commands={{
+                pnpm: "npx tailwindcss init -p --ts",
+                npm: "npx tailwindcss init -p --ts",
+                yarn: "yarn dlx tailwindcss init -p --ts",
+                bun: "bunx tailwindcss init -p --ts",
+              }}
+            />
+          </div>
+
+          {/* Step 3: Configure Tailwind Config */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 font-bold text-xs border border-sky-500/20 shadow-xs">
+                3
+              </span>
+              <div>
                 <h2 className="text-base font-bold text-foreground">Configure Tailwind CSS</h2>
                 <p className="text-xs text-muted-foreground">
-                  Include <code className="font-mono text-primary font-semibold">cuiTailwindPreset</code> in your presets and use <code className="font-mono text-primary font-semibold">cuiContent("react")</code> to scan component classes.
+                  Add <code className="font-mono text-primary font-semibold">cuiTailwindPreset</code> to presets and scan React component distribution paths.
                 </p>
               </div>
             </div>
@@ -256,48 +280,42 @@ export default config;`}
             />
           </div>
 
-          {/* Step 3: CSS Import */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 font-bold text-xs border border-sky-500/20 shadow-xs">
-                3
-              </span>
-              <div>
-                <h2 className="text-base font-bold text-foreground">Import Theme Stylesheet</h2>
-                <p className="text-xs text-muted-foreground">
-                  Import the CSS variables into your root entry file (<code className="font-mono text-foreground font-semibold">src/main.tsx</code> or <code className="font-mono text-foreground font-semibold">src/index.css</code>).
-                </p>
-              </div>
-            </div>
-            <CodeBlock
-              id="react-css"
-              filename="src/main.tsx"
-              code={`import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-
-// 1. Import base theme variables and utilities
-import "@cui-universal/theme/styles.css";
-import "./index.css";
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);`}
-            />
-          </div>
-
-          {/* Step 4: Component Usage */}
+          {/* Step 4: Import CSS Stylesheet */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 font-bold text-xs border border-sky-500/20 shadow-xs">
                 4
               </span>
               <div>
+                <h2 className="text-base font-bold text-foreground">Setup Global CSS &amp; Theme Variables</h2>
+                <p className="text-xs text-muted-foreground">
+                  Import Tailwind directives and CUI design tokens into your global stylesheet (<code className="font-mono text-foreground font-semibold">src/index.css</code>).
+                </p>
+              </div>
+            </div>
+            <CodeBlock
+              id="react-css"
+              filename="src/index.css"
+              code={`/* 1. Import CUI Universal design tokens and dark mode variables */
+@import "@cui-universal/theme/styles.css";
+
+/* 2. Import standard Tailwind CSS layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;`}
+            />
+          </div>
+
+          {/* Step 5: Component Usage */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 font-bold text-xs border border-sky-500/20 shadow-xs">
+                5
+              </span>
+              <div>
                 <h2 className="text-base font-bold text-foreground">Render Your First Component</h2>
                 <p className="text-xs text-muted-foreground">
-                  Import any of the 32 accessible primitives in your React components.
+                  Import any of the accessible primitives in your React components.
                 </p>
               </div>
             </div>
@@ -345,33 +363,58 @@ export default function App() {
                 1
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Install Next.js Packages</h2>
+                <h2 className="text-base font-bold text-foreground">Install Next.js &amp; Tailwind Packages</h2>
                 <p className="text-xs text-muted-foreground">
-                  Install the core primitives package along with the design tokens.
+                  Install CUI React primitives, design tokens, and Tailwind CSS with PostCSS.
                 </p>
               </div>
             </div>
             <CodeBlock
               id="next-install"
               commands={{
-                pnpm: "pnpm add @cui-universal/react @cui-universal/theme lucide-react",
-                npm: "npm install @cui-universal/react @cui-universal/theme lucide-react",
-                yarn: "yarn add @cui-universal/react @cui-universal/theme lucide-react",
-                bun: "bun add @cui-universal/react @cui-universal/theme lucide-react",
+                pnpm: "pnpm add @cui-universal/react @cui-universal/theme lucide-react\npnpm add -D tailwindcss postcss autoprefixer",
+                npm: "npm install @cui-universal/react @cui-universal/theme lucide-react\nnpm install -D tailwindcss postcss autoprefixer",
+                yarn: "yarn add @cui-universal/react @cui-universal/theme lucide-react\nyarn add -D tailwindcss postcss autoprefixer",
+                bun: "bun add @cui-universal/react @cui-universal/theme lucide-react\nbun add -D tailwindcss postcss autoprefixer",
               }}
             />
           </div>
 
-          {/* Step 2: Tailwind Config */}
+          {/* Step 2: PostCSS Config */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-bold text-xs border border-indigo-500/20 shadow-xs">
                 2
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Configure Tailwind CSS</h2>
+                <h2 className="text-base font-bold text-foreground">Configure PostCSS (<code className="font-mono text-primary font-semibold">postcss.config.mjs</code>)</h2>
                 <p className="text-xs text-muted-foreground">
-                  Add <code className="font-mono text-primary font-semibold">cuiTailwindPreset</code> to your presets and include package paths in <code className="font-mono text-primary font-semibold">content</code>.
+                  Ensure Next.js passes stylesheets through Tailwind CSS and Autoprefixer.
+                </p>
+              </div>
+            </div>
+            <CodeBlock
+              id="next-postcss"
+              filename="postcss.config.mjs"
+              code={`export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};`}
+            />
+          </div>
+
+          {/* Step 3: Tailwind Config */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-bold text-xs border border-indigo-500/20 shadow-xs">
+                3
+              </span>
+              <div>
+                <h2 className="text-base font-bold text-foreground">Configure Tailwind CSS (<code className="font-mono text-primary font-semibold">tailwind.config.ts</code>)</h2>
+                <p className="text-xs text-muted-foreground">
+                  Add <code className="font-mono text-primary font-semibold">cuiTailwindPreset</code> to your presets and scan App Router directories.
                 </p>
               </div>
             </div>
@@ -402,57 +445,42 @@ export default config;`}
             />
           </div>
 
-          {/* Step 3: CSS Import */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-bold text-xs border border-indigo-500/20 shadow-xs">
-                3
-              </span>
-              <div>
-                <h2 className="text-base font-bold text-foreground">Import Theme Stylesheet</h2>
-                <p className="text-xs text-muted-foreground">
-                  Import the CSS variables into your root layout file (<code className="font-mono text-foreground font-semibold">app/layout.tsx</code>).
-                </p>
-              </div>
-            </div>
-            <CodeBlock
-              id="next-css"
-              filename="app/layout.tsx"
-              code={`// 1. Import base theme variables and utilities
-import "@cui-universal/theme/styles.css";
-import "./globals.css";
-
-export const metadata = {
-  title: "My Next.js App",
-  description: "Built with Next.js and CUI",
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body className="min-h-screen bg-background text-foreground antialiased">
-        {children}
-      </body>
-    </html>
-  );
-}`}
-            />
-          </div>
-
-          {/* Step 4: Component Usage */}
+          {/* Step 4: CSS Import */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-bold text-xs border border-indigo-500/20 shadow-xs">
                 4
               </span>
               <div>
+                <h2 className="text-base font-bold text-foreground">Setup Global CSS &amp; Root Layout</h2>
+                <p className="text-xs text-muted-foreground">
+                  Import Tailwind and CUI tokens in <code className="font-mono text-foreground font-semibold">app/globals.css</code>, then import into <code className="font-mono text-foreground font-semibold">app/layout.tsx</code>.
+                </p>
+              </div>
+            </div>
+            <CodeBlock
+              id="next-css"
+              filename="app/globals.css"
+              code={`/* 1. Import CUI Universal design tokens and dark mode variables */
+@import "@cui-universal/theme/styles.css";
+
+/* 2. Import standard Tailwind CSS layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;`}
+            />
+          </div>
+
+          {/* Step 5: Component Usage */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-bold text-xs border border-indigo-500/20 shadow-xs">
+                5
+              </span>
+              <div>
                 <h2 className="text-base font-bold text-foreground">Render Your First Component</h2>
                 <p className="text-xs text-muted-foreground">
-                  Import any of the 32 accessible primitives in your Next.js Server or Client components.
+                  Use CUI primitives in Next.js Server Components or Client Components without hydration issues.
                 </p>
               </div>
             </div>
@@ -499,28 +527,52 @@ export default function HomePage() {
                 1
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Install Vue 3 Packages</h2>
+                <h2 className="text-base font-bold text-foreground">Install Vue 3 &amp; Tailwind CSS</h2>
                 <p className="text-xs text-muted-foreground">
-                  Install the Vue 3 component library and shared design token preset.
+                  Install the Vue 3 component primitives, theme preset, and Tailwind CSS with PostCSS.
                 </p>
               </div>
             </div>
             <CodeBlock
               id="vue-install"
               commands={{
-                pnpm: "pnpm add @cui-universal/vue @cui-universal/theme lucide-vue-next",
-                npm: "npm install @cui-universal/vue @cui-universal/theme lucide-vue-next",
-                yarn: "yarn add @cui-universal/vue @cui-universal/theme lucide-vue-next",
-                bun: "bun add @cui-universal/vue @cui-universal/theme lucide-vue-next",
+                pnpm: "pnpm add @cui-universal/vue @cui-universal/theme lucide-vue-next\npnpm add -D tailwindcss postcss autoprefixer",
+                npm: "npm install @cui-universal/vue @cui-universal/theme lucide-vue-next\nnpm install -D tailwindcss postcss autoprefixer",
+                yarn: "yarn add @cui-universal/vue @cui-universal/theme lucide-vue-next\nyarn add -D tailwindcss postcss autoprefixer",
+                bun: "bun add @cui-universal/vue @cui-universal/theme lucide-vue-next\nbun add -D tailwindcss postcss autoprefixer",
               }}
             />
           </div>
 
-          {/* Step 2: Tailwind Config */}
+          {/* Step 2: Initialize Tailwind & PostCSS */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/20 shadow-xs">
                 2
+              </span>
+              <div>
+                <h2 className="text-base font-bold text-foreground">Initialize Tailwind &amp; PostCSS</h2>
+                <p className="text-xs text-muted-foreground">
+                  Generate standard <code className="font-mono text-primary font-semibold">tailwind.config.ts</code> and <code className="font-mono text-primary font-semibold">postcss.config.js</code>.
+                </p>
+              </div>
+            </div>
+            <CodeBlock
+              id="vue-init-tailwind"
+              commands={{
+                pnpm: "npx tailwindcss init -p --ts",
+                npm: "npx tailwindcss init -p --ts",
+                yarn: "yarn dlx tailwindcss init -p --ts",
+                bun: "bunx tailwindcss init -p --ts",
+              }}
+            />
+          </div>
+
+          {/* Step 3: Configure Tailwind Config */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/20 shadow-xs">
+                3
               </span>
               <div>
                 <h2 className="text-base font-bold text-foreground">Configure Tailwind CSS</h2>
@@ -555,38 +607,37 @@ export default config;`}
             />
           </div>
 
-          {/* Step 3: CSS Import */}
+          {/* Step 4: CSS Import */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/20 shadow-xs">
-                3
+                4
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Import Theme Stylesheet</h2>
+                <h2 className="text-base font-bold text-foreground">Setup Global CSS &amp; Theme Variables</h2>
                 <p className="text-xs text-muted-foreground">
-                  Import the CSS variables into your root entry file (<code className="font-mono text-foreground font-semibold">src/main.ts</code> or <code className="font-mono text-foreground font-semibold">src/style.css</code>).
+                  Import Tailwind directives and CUI tokens in <code className="font-mono text-foreground font-semibold">src/style.css</code>.
                 </p>
               </div>
             </div>
             <CodeBlock
               id="vue-css"
-              filename="src/main.ts"
-              code={`import { createApp } from "vue";
-import App from "./App.vue";
+              filename="src/style.css"
+              code={`/* 1. Import CUI Universal design tokens and dark mode variables */
+@import "@cui-universal/theme/styles.css";
 
-// 1. Import base theme variables and utilities
-import "@cui-universal/theme/styles.css";
-import "./style.css";
-
-createApp(App).mount("#app");`}
+/* 2. Import standard Tailwind CSS layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;`}
             />
           </div>
 
-          {/* Step 4: Component Usage */}
+          {/* Step 5: Component Usage */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold text-xs border border-emerald-500/20 shadow-xs">
-                4
+                5
               </span>
               <div>
                 <h2 className="text-base font-bold text-foreground">Render Your First Component</h2>
@@ -607,7 +658,7 @@ import { ArrowRight } from "lucide-vue-next";
   <main class="p-8 max-w-xl mx-auto space-y-4">
     <Card>
       <CardHeader>
-        <div class="flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <CardTitle>Welcome to Vue 3 + CUI</CardTitle>
           <Badge variant="primary">v0.1.2</Badge>
         </div>
@@ -629,7 +680,7 @@ import { ArrowRight } from "lucide-vue-next";
         </div>
       )}
 
-      {/* NUXT 3 GUIDE */}
+      {/* NUXT 4 GUIDE */}
       {selectedFramework === "nuxt" && (
         <div className="space-y-8 animate-in fade-in-50 duration-300">
           {/* Step 1: Install */}
@@ -639,19 +690,19 @@ import { ArrowRight } from "lucide-vue-next";
                 1
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Install Nuxt 3 Packages</h2>
+                <h2 className="text-base font-bold text-foreground">Install Nuxt 4 &amp; Tailwind Packages</h2>
                 <p className="text-xs text-muted-foreground">
-                  Install the Vue 3 component library and shared design token preset.
+                  Install CUI primitives, design tokens, official Nuxt Tailwind module, and Nuxt Icon.
                 </p>
               </div>
             </div>
             <CodeBlock
               id="nuxt-install"
               commands={{
-                pnpm: "pnpm add @cui-universal/vue @cui-universal/theme lucide-vue-next",
-                npm: "npm install @cui-universal/vue @cui-universal/theme lucide-vue-next",
-                yarn: "yarn add @cui-universal/vue @cui-universal/theme lucide-vue-next",
-                bun: "bun add @cui-universal/vue @cui-universal/theme lucide-vue-next",
+                pnpm: "pnpm add @cui-universal/vue @cui-universal/theme\npnpm add -D @nuxtjs/tailwindcss @nuxt/icon nuxt",
+                npm: "npm install @cui-universal/vue @cui-universal/theme\nnpm install -D @nuxtjs/tailwindcss @nuxt/icon nuxt",
+                yarn: "yarn add @cui-universal/vue @cui-universal/theme\nyarn add -D @nuxtjs/tailwindcss @nuxt/icon nuxt",
+                bun: "bun add @cui-universal/vue @cui-universal/theme\nbun add -D @nuxtjs/tailwindcss @nuxt/icon nuxt",
               }}
             />
           </div>
@@ -663,9 +714,9 @@ import { ArrowRight } from "lucide-vue-next";
                 2
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Configure Nuxt 3 (<code className="font-mono text-primary font-semibold">nuxt.config.ts</code>)</h2>
+                <h2 className="text-base font-bold text-foreground">Configure Nuxt 4 (<code className="font-mono text-primary font-semibold">nuxt.config.ts</code>)</h2>
                 <p className="text-xs text-muted-foreground">
-                  Register the built-in <code className="font-mono text-primary font-semibold">@cui-universal/vue/nuxt</code> module and Tailwind CSS.
+                  Register <code className="font-mono text-primary font-semibold">@cui-universal/vue/nuxt</code>, <code className="font-mono text-primary font-semibold">@nuxtjs/tailwindcss</code>, and <code className="font-mono text-primary font-semibold">@nuxt/icon</code>.
                 </p>
               </div>
             </div>
@@ -674,12 +725,20 @@ import { ArrowRight } from "lucide-vue-next";
               filename="nuxt.config.ts"
               code={`// nuxt.config.ts
 export default defineNuxtConfig({
-  // 1. Auto-injects @cui-universal/theme styles and auto-registers CUI components
+  compatibilityDate: "2024-11-01",
+  future: {
+    compatibilityVersion: 4,
+  },
   modules: [
-    "@cui-universal/vue/nuxt",
     "@nuxtjs/tailwindcss",
+    "@cui-universal/vue/nuxt", // Auto-registers components & injects CUI styles
+    "@nuxt/icon",             // Icon support: <Icon name="lucide:..." />
   ],
-  devtools: { enabled: true },
+  // Optional CUI module settings:
+  cui: {
+    prefix: "",          // Optional prefix e.g. "Cui" -> <CuiButton />
+    injectStyles: true,  // Automatically injects @cui-universal/theme/styles.css
+  },
 });`}
             />
           </div>
@@ -691,9 +750,9 @@ export default defineNuxtConfig({
                 3
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Configure Tailwind CSS</h2>
+                <h2 className="text-base font-bold text-foreground">Configure Tailwind CSS (<code className="font-mono text-primary font-semibold">tailwind.config.ts</code>)</h2>
                 <p className="text-xs text-muted-foreground">
-                  Include <code className="font-mono text-primary font-semibold">cuiTailwindPreset</code> in your Tailwind configuration file.
+                  Include <code className="font-mono text-primary font-semibold">cuiTailwindPreset</code> in your Tailwind configuration and scan Nuxt 4 app paths.
                 </p>
               </div>
             </div>
@@ -708,10 +767,10 @@ export default <Partial<Config>>{
   presets: [cuiTailwindPreset],
   darkMode: ["class"],
   content: [
+    "./app/**/*.{vue,js,ts}",
     "./components/**/*.{vue,js,ts}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
-    "./app.vue",
     // 2. Scan @cui-universal/vue distribution files
     ...cuiContent("vue"),
   ],
@@ -719,25 +778,47 @@ export default <Partial<Config>>{
             />
           </div>
 
-          {/* Step 4: Component Usage */}
+          {/* Step 4: Tailwind CSS Stylesheet */}
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold text-xs border border-teal-500/20 shadow-xs">
                 4
               </span>
               <div>
-                <h2 className="text-base font-bold text-foreground">Render Your First Component</h2>
+                <h2 className="text-base font-bold text-foreground">Setup Tailwind CSS Entry (<code className="font-mono text-primary font-semibold">assets/css/tailwind.css</code>)</h2>
                 <p className="text-xs text-muted-foreground">
-                  Components are auto-imported, or you can explicitly import from <code className="font-mono text-primary font-semibold">@cui-universal/vue</code>.
+                  CUI theme styles are auto-injected by the module; add standard Tailwind layer directives in your stylesheet.
+                </p>
+              </div>
+            </div>
+            <CodeBlock
+              id="nuxt-css-entry"
+              filename="assets/css/tailwind.css"
+              code={`/* Standard Tailwind CSS layer directives for Nuxt */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;`}
+            />
+          </div>
+
+          {/* Step 5: Component Usage */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-teal-500/15 text-teal-600 dark:text-teal-400 font-bold text-xs border border-teal-500/20 shadow-xs">
+                5
+              </span>
+              <div>
+                <h2 className="text-base font-bold text-foreground">Render in Nuxt 4 (Auto-Imported — No Imports Needed!)</h2>
+                <p className="text-xs text-muted-foreground">
+                  All CUI components and <code className="font-mono text-primary font-semibold">&lt;Icon&gt;</code> are auto-imported in templates without any manual import boilerplate.
                 </p>
               </div>
             </div>
             <CodeBlock
               id="nuxt-usage"
-              filename="app.vue"
+              filename="app/pages/index.vue"
               vueCode={`<script setup lang="ts">
-import { Button, Badge, Card, CardHeader, CardTitle, CardContent } from "@cui-universal/vue";
-import { ArrowRight } from "lucide-vue-next";
+// Notice: Zero component imports needed! All CUI primitives are auto-imported by @cui-universal/vue/nuxt
 </script>
 
 <template>
@@ -745,17 +826,19 @@ import { ArrowRight } from "lucide-vue-next";
     <Card>
       <CardHeader>
         <div class="flex items-center justify-between">
-          <CardTitle>Welcome to Nuxt 3 + CUI</CardTitle>
-          <Badge variant="secondary">Zero Radix</Badge>
+          <CardTitle>Welcome to Nuxt 4 + CUI</CardTitle>
+          <Badge variant="secondary">Auto-imported</Badge>
         </div>
+        <CardDescription>
+          Enjoy seamless Nuxt 4 developer experience with auto-imports and Nuxt Icon.
+        </CardDescription>
       </CardHeader>
       <CardContent class="space-y-4">
-        <p className="text-sm text-muted-foreground">
-          Universal primitives inspired by Nuxt UI and shadcn with zero external UI dependencies.
-        </p>
-        <Button variant="primary">
-          Get Started
-          <ArrowRight class="h-4 w-4 ml-2" />
+        <Input placeholder="Enter your email address..." />
+        <Button variant="primary" class="gap-2">
+          <!-- Works seamlessly with @nuxt/icon -->
+          <Icon name="lucide:sparkles" class="h-4 w-4" />
+          <span>Get Started</span>
         </Button>
       </CardContent>
     </Card>
@@ -790,11 +873,17 @@ import { ArrowRight } from "lucide-vue-next";
               <TabsTrigger value="tailwind" className="font-mono text-[11px] font-semibold">
                 tailwind.config.ts
               </TabsTrigger>
-              <TabsTrigger value="cui" className="font-mono text-[11px] font-semibold">
-                cui.config.ts
-              </TabsTrigger>
               <TabsTrigger value="postcss" className="font-mono text-[11px] font-semibold">
                 postcss.config.js
+              </TabsTrigger>
+              <TabsTrigger value="css" className="font-mono text-[11px] font-semibold">
+                globals.css
+              </TabsTrigger>
+              <TabsTrigger value="nuxt" className="font-mono text-[11px] font-semibold">
+                nuxt.config.ts
+              </TabsTrigger>
+              <TabsTrigger value="cui" className="font-mono text-[11px] font-semibold">
+                cui.config.ts
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -829,6 +918,55 @@ export default config;`}
           />
         )}
 
+        {configTab === "postcss" && (
+          <CodeBlock
+            id="ref-postcss-config"
+            filename="postcss.config.js"
+            code={`export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};`}
+          />
+        )}
+
+        {configTab === "css" && (
+          <CodeBlock
+            id="ref-css-entry"
+            filename="globals.css / style.css"
+            code={`/* 1. Import CUI Universal design tokens and dark mode variables */
+@import "@cui-universal/theme/styles.css";
+
+/* 2. Import standard Tailwind CSS layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;`}
+          />
+        )}
+
+        {configTab === "nuxt" && (
+          <CodeBlock
+            id="ref-nuxt-config"
+            filename="nuxt.config.ts"
+            code={`// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: "2024-11-01",
+  future: {
+    compatibilityVersion: 4,
+  },
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@cui-universal/vue/nuxt",
+    "@nuxt/icon",
+  ],
+  tailwindcss: {
+    cssPath: "~/assets/css/tailwind.css",
+  },
+});`}
+          />
+        )}
+
         {configTab === "cui" && (
           <CodeBlock
             id="ref-cui-config"
@@ -846,19 +984,6 @@ export default {
     primary: "indigo",
     // Enable/disable dark mode class synchronization
     darkMode: "class",
-  },
-};`}
-          />
-        )}
-
-        {configTab === "postcss" && (
-          <CodeBlock
-            id="ref-postcss-config"
-            filename="postcss.config.js"
-            code={`export default {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
   },
 };`}
           />
@@ -893,7 +1018,7 @@ export default {
             <span>Full SSR &amp; Hydration Parity</span>
           </div>
           <p className="text-[11px] text-muted-foreground leading-relaxed">
-            Tested and optimized for Next.js App Router and Nuxt 3 Universal Rendering without hydration mismatches.
+            Tested and optimized for Next.js App Router and Nuxt 4 Universal Rendering without hydration mismatches.
           </p>
         </div>
       </div>

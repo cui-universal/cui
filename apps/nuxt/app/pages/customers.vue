@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { Button, Card, CardContent, Badge, Input } from "@cui-universal/vue";
 import { Users, Crown, UserCheck, DollarSign, Search, Download, UserPlus, Trash2 } from "lucide-vue-next";
 import CustomersTable from "~/components/customers/CustomersTable.vue";
 import { useCommerce } from "~/composables/useCommerce";

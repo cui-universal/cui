@@ -1,20 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  Button,
-  Input,
-  InputNumber,
-  TextEditor,
-  Switch,
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "@cui-universal/vue";
 import { Plus } from "lucide-vue-next";
 import { useCommerce } from "~/composables/useCommerce";
 

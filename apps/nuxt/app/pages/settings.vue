@@ -1,16 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-  Badge,
-  Switch,
-} from "@cui-universal/vue";
 import { Check, RotateCcw, Palette, Sparkles, Sun, Moon } from "lucide-vue-next";
 import { useCommerce } from "~/composables/useCommerce";
 import { useTheme } from "~/composables/useTheme";

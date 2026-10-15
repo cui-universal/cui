@@ -54,7 +54,7 @@ const THEME_PRESETS: ThemePreset[] = [
     primaryLight: "158 64% 45%",
     primaryDark: "160 84% 39%",
     ring: "158 64% 45%",
-    description: "Inspired by Vue & Nuxt 3 ecosystem with vivid fresh greens.",
+    description: "Inspired by Vue & Nuxt 4 ecosystem with vivid fresh greens.",
   },
   {
     id: "indigo",
@@ -311,7 +311,7 @@ export function ThemingSection() {
         </div>
       </div>
 
-      {/* Integration Guides: Next.js & Nuxt 3 */}
+      {/* Integration Guides: Next.js & Nuxt 4 */}
       <div className="space-y-6">
         <div>
           <h2 className="text-xl font-bold tracking-tight">Step-by-Step Integration</h2>
@@ -355,19 +355,22 @@ import "@cui-universal/theme/styles.css"; // Imports base CSS tokens & obsidian 
           />
         </div>
 
-        {/* Nuxt 3 Guide */}
+        {/* Nuxt 4 Guide */}
         <div className="space-y-3">
           <h3 className="text-sm font-bold flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            Configuring in Nuxt 3 (Tailwind + Vue)
+            Configuring in Nuxt 4 (Tailwind + Vue)
           </h3>
           <CodeBlock
             id="guide-nuxt"
             reactCode={""}
             vueCode={`// nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss"],
-  css: ["@cui-universal/theme/styles.css"], // Imports CSS tokens & base styles
+  modules: [
+    "@cui-universal/vue/nuxt", // Auto-injects styles.css & registers all components
+    "@nuxtjs/tailwindcss",
+    "@nuxt/icon",
+  ],
 });
 
 // tailwind.config.ts

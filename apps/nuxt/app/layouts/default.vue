@@ -1,21 +1,5 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import {
-  Button,
-  Badge,
-  Input,
-  Switch,
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuLabel,
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-  Kbd,
-} from "@cui-universal/vue";
 
 import {
   LayoutDashboard,
@@ -73,7 +57,7 @@ onMounted(() => {
                   PRO
                 </Badge>
               </div>
-              <p class="text-[10px] text-muted-foreground font-mono">Nuxt 3 Architecture</p>
+              <p class="text-[10px] text-muted-foreground font-mono">Nuxt 4 Architecture</p>
             </div>
           </NuxtLink>
           <div class="md:hidden">

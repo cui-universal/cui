@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { Button, Card, CardContent, DatePicker } from "@cui-universal/vue";
 import { Filter, Truck } from "lucide-vue-next";
 import OrdersTable from "~/components/orders/OrdersTable.vue";
 import { useCommerce } from "~/composables/useCommerce";

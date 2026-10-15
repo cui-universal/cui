@@ -68,7 +68,7 @@ export function Header() {
                     </span>
                   </div>
                   <span className="text-[10px] text-muted-foreground hidden lg:block tracking-wide font-medium">
-                    Universal Vue, Nuxt 3 &amp; React UI
+                    Universal Vue, Nuxt 4 &amp; React UI
                   </span>
                 </div>
               </div>

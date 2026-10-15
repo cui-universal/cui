@@ -1,6 +1,6 @@
 # CUI - Universal Cross-Framework UI Components
 
-A high-performance, accessible, and themeable UI component system designed for **Vue 3, Nuxt 3, React, and Next.js** with 100% aesthetic and functional parity — combining the best developer experience of **Nuxt UI** and **shadcn/ui**.
+A high-performance, accessible, and themeable UI component system designed for **Vue 3, Nuxt 4, React, and Next.js** with 100% aesthetic and functional parity — combining the best developer experience of **Nuxt UI** and **shadcn/ui**.
 
 ---
 
@@ -8,7 +8,7 @@ A high-performance, accessible, and themeable UI component system designed for *
 
 In modern full-stack web development, teams often work across multiple frameworks:
 - **Next.js / React** for customer-facing web applications or dashboards
-- **Nuxt 3 / Vue** for content hubs, internal tools, or high-performance SSR apps
+- **Nuxt 4 / Vue** for content hubs, internal tools, or high-performance SSR apps
 
 Traditionally, you would need two separate design systems (e.g. `shadcn/ui` for React and `nuxt/ui` for Vue) resulting in design drift, mismatched props, and double the maintenance.
 
@@ -26,7 +26,7 @@ Traditionally, you would need two separate design systems (e.g. `shadcn/ui` for 
                  ▼                                     ▼
       ┌─────────────────────┐               ┌─────────────────────┐
       │     @cui-universal/react      │               │      @cui-universal/vue       │
-      │  React 18 / 19      │               │  Vue 3 / Nuxt 3     │
+      │  React 18 / 19      │               │  Vue 3 / Nuxt 4     │
       │  Next.js (App / SSR)│               │  SSR & Auto-imports │
       │  Custom Primitives  │               │  Custom Primitives  │
       └─────────────────────┘               └─────────────────────┘
@@ -40,39 +40,49 @@ Traditionally, you would need two separate design systems (e.g. `shadcn/ui` for 
 | :--- | :--- | :--- | :--- |
 | [`@cui-universal/theme`](./packages/theme) | Universal | Single source of truth for CSS variables, Tailwind preset, and `tailwind-variants` (`tv`) | Tailwind CSS + TV |
 | [`@cui-universal/react`](./packages/react) | React & Next.js | Fully typed React components with `asChild` slot polymorphism | Custom CUI Primitives (Zero External UI Dependencies) |
-| [`@cui-universal/vue`](./packages/vue) | Vue 3 & Nuxt 3 | Fully typed Vue components with SFC templates and auto-imports | Custom CUI Primitives (Zero External UI Dependencies) |
+| [`@cui-universal/vue`](./packages/vue) | Vue 3 & Nuxt 4 | Fully typed Vue components with SFC templates and auto-imports | Custom CUI Primitives (Zero External UI Dependencies) |
 | [`docs`](./apps/docs) | Vite / React | Interactive playground & side-by-side framework comparison showcase | CUI Components |
 
 ---
 
 ## 🚀 Quickstart: React & Next.js
 
-### 1. Install dependencies
+### 1. Install dependencies & Tailwind CSS
 ```bash
-npm install @cui-universal/react @cui-universal/theme
-# or
-pnpm add @cui-universal/react @cui-universal/theme
+# pnpm
+pnpm add @cui-universal/react @cui-universal/theme lucide-react
+pnpm add -D tailwindcss postcss autoprefixer
+
+# npm
+npm install @cui-universal/react @cui-universal/theme lucide-react
+npm install -D tailwindcss postcss autoprefixer
 ```
 
 ### 2. Configure Tailwind CSS
 In `tailwind.config.ts`:
 ```ts
-import { cuiTailwindPreset } from "@cui-universal/theme";
+import type { Config } from "tailwindcss";
+import { cuiTailwindPreset, cuiContent } from "@cui-universal/theme";
 
 export default {
   presets: [cuiTailwindPreset],
+  darkMode: ["class"],
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@cui-universal/react/dist/**/*.{js,mjs}",
+    ...cuiContent("react"),
   ],
-};
+} satisfies Config;
 ```
 
-### 3. Import Styles
-In `app/layout.tsx`:
-```tsx
-import "@cui-universal/theme/styles.css";
+### 3. Setup CSS & Import Tokens
+In your global stylesheet (`app/globals.css` or `src/index.css`):
+```css
+@import "@cui-universal/theme/styles.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 ### 4. Use Components
@@ -86,7 +96,7 @@ export default function Page() {
         <Button variant="default">Open Modal</Button>
       </DialogTrigger>
       <DialogContent>
-        <h2>Hello from Next.js!</h2>
+        <h2>Hello from Next.js & CUI!</h2>
       </DialogContent>
     </Dialog>
   );
@@ -95,54 +105,76 @@ export default function Page() {
 
 ---
 
-## ⚡ Quickstart: Vue 3 & Nuxt 3
+## ⚡ Quickstart: Vue 3 & Nuxt 4
 
-### 1. Install dependencies
+### 1. Install dependencies & Tailwind CSS
+
+**For Nuxt 4:**
 ```bash
-npm install @cui-universal/vue @cui-universal/theme
-# or
+# pnpm
 pnpm add @cui-universal/vue @cui-universal/theme
+pnpm add -D @nuxtjs/tailwindcss @nuxt/icon nuxt
+
+# npm
+npm install @cui-universal/vue @cui-universal/theme
+npm install -D @nuxtjs/tailwindcss @nuxt/icon nuxt
 ```
 
-### 2. Configure Nuxt 3
+**For Vue 3 (Vite):**
+```bash
+# pnpm
+pnpm add @cui-universal/vue @cui-universal/theme lucide-vue-next
+pnpm add -D tailwindcss postcss autoprefixer
+```
+
+### 2. Configure Nuxt 4
 In `nuxt.config.ts`:
 ```ts
 export default defineNuxtConfig({
-  css: ["@cui-universal/theme/styles.css"],
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@cui-universal/vue/nuxt", // Auto-injects styles.css & registers all components
+    "@nuxt/icon",             // Icon support
+  ],
 });
 ```
 
 In `tailwind.config.ts`:
 ```ts
-import { cuiTailwindPreset } from "@cui-universal/theme";
+import type { Config } from "tailwindcss";
+import { cuiTailwindPreset, cuiContent } from "@cui-universal/theme";
 
-export default {
+export default <Partial<Config>>{
   presets: [cuiTailwindPreset],
+  darkMode: ["class"],
   content: [
+    "./app/**/*.{vue,js,ts}",
     "./components/**/*.{vue,js,ts}",
-    "./layouts/**/*.vue",
-    "./pages/**/*.vue",
-    "./node_modules/@cui-universal/vue/dist/**/*.{js,cjs}",
+    ...cuiContent("vue"),
   ],
 };
 ```
 
-### 3. Use Components in Vue / Nuxt
+### 3. Use Components in Nuxt 4 (Auto-Imported — No Imports Required!)
 ```vue
-<script setup lang="ts">
-import { Button, Dialog, DialogTrigger, DialogContent } from "@cui-universal/vue";
-</script>
-
+<!-- app/pages/index.vue -->
 <template>
-  <Dialog>
-    <DialogTrigger as-child>
-      <Button variant="default">Open Modal</Button>
-    </DialogTrigger>
-    <DialogContent>
-      <h2>Hello from Nuxt 3!</h2>
-    </DialogContent>
-  </Dialog>
+  <main class="p-8 max-w-xl mx-auto space-y-4">
+    <Card>
+      <CardHeader>
+        <div class="flex items-center justify-between">
+          <CardTitle>Welcome to Nuxt 4 + CUI</CardTitle>
+          <Badge variant="secondary">Auto-imported</Badge>
+        </div>
+      </CardHeader>
+      <CardContent class="space-y-4">
+        <Button variant="primary" class="gap-2">
+          <Icon name="lucide:sparkles" class="h-4 w-4" />
+          <span>Get Started</span>
+        </Button>
+      </CardContent>
+    </Card>
+  </main>
 </template>
 ```
 

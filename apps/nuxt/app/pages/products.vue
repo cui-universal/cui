@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { Button, Card, CardContent, Badge, Input } from "@cui-universal/vue";
 import { Package, CheckCircle2, AlertTriangle, XCircle, Search, Trash2, CheckSquare } from "lucide-vue-next";
 import AddProductDialog from "~/components/products/AddProductDialog.vue";
 import ProductsTable from "~/components/products/ProductsTable.vue";

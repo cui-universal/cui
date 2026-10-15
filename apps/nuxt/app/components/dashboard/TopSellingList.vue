@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from "@cui-universal/vue";
-import { Box } from "lucide-vue-next";
 import { useCommerce } from "~/composables/useCommerce";
 
 const { products } = useCommerce();
@@ -16,7 +14,7 @@ const { products } = useCommerce();
       <div v-for="item in products.slice(0, 4)" :key="item.id" class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-3 truncate">
           <div class="h-9 w-9 rounded-xl bg-secondary flex items-center justify-center shrink-0 border border-border/80">
-            <Box class="h-4 w-4 text-primary" />
+            <Icon name="lucide:box" class="h-4 w-4 text-primary" />
           </div>
           <div class="truncate">
             <p class="text-xs font-semibold truncate">{{ item.name }}</p>

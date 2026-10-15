@@ -23,9 +23,9 @@ export function AccordionSection() {
           <div className="w-full max-w-md">
             <Accordion key={`${type}-${collapsible}`} type={type as any} collapsible={collapsible} className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger>Is it compatible with Nuxt 3?</AccordionTrigger>
+                <AccordionTrigger>Is it compatible with Nuxt 4 &amp; Nuxt 3?</AccordionTrigger>
                 <AccordionContent>
-                  Yes! CUI Vue components are built directly with custom native Vue primitives and fully support SSR with auto-imports.
+                  Yes! CUI provides the official @cui-universal/vue/nuxt module with full Nuxt 4 and Nuxt 3 support, complete with auto-imports and zero hydration mismatch.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">

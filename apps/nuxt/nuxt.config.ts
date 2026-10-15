@@ -17,6 +17,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@cui-universal/vue/nuxt",
+    "@nuxt/icon",
   ],
 
   tailwindcss: {
@@ -32,13 +33,13 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "CUI Nuxt 3 Demo - Universal UI from Public npm",
+      title: "CUI Nuxt 4 Demo - Universal UI from Public npm",
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
           name: "description",
-          content: "Nuxt 3 application consuming @cui-universal/vue and @cui-universal/theme published on npm",
+          content: "Nuxt 4 application consuming @cui-universal/vue and @cui-universal/theme published on npm",
         },
       ],
       link: [

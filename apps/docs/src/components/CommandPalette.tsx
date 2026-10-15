@@ -127,7 +127,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
         <div className="px-4 py-2 border-t border-border/60 bg-secondary/20 flex items-center justify-between text-[11px] text-muted-foreground">
           <div className="flex items-center gap-1.5">
             <Sparkles className="h-3 w-3 text-primary" />
-            <span>32 Universal Primitives &bull; Vue, Nuxt 3 &amp; React</span>
+            <span>32 Universal Primitives &bull; Vue, Nuxt 4 &amp; React</span>
           </div>
           <div className="flex items-center gap-3">
             <span>Click or press ↵ to jump</span>

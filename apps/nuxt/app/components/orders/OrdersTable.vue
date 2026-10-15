@@ -1,24 +1,4 @@
 <script setup lang="ts">
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-  Checkbox,
-  Badge,
-  Button,
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  Pagination,
-} from "@cui-universal/vue";
 import { MoreVertical, Eye, Truck, Download } from "lucide-vue-next";
 import { useCommerce } from "~/composables/useCommerce";
 
