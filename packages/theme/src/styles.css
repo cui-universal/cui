@@ -58,7 +58,7 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-feature-settings: "rlig" 1, "calt" 1;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Custom high-end scrollbars */

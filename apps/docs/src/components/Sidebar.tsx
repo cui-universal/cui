@@ -102,7 +102,7 @@ export function Sidebar() {
   return (
     <>
       {/* 1. Desktop Persistent Sidebar (Only visible on md and up) */}
-      <aside className="hidden md:block w-64 shrink-0 py-6 md:sticky md:top-16 md:h-[calc(100vh-4rem)] overflow-y-auto pr-2 border-r border-border/60">
+      <aside className="hidden md:block w-64 shrink-0 py-6 md:sticky md:top-16 md:self-start md:h-[calc(100vh-4rem)] overflow-y-auto pr-2 border-r border-border/60">
         {/* Search Input */}
         <div className="relative mb-6">
           <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
